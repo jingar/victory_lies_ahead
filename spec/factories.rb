@@ -4,5 +4,6 @@ FactoryGirl.define do
 		email	"saadarif006@gmail.com"
 		password	"foobar"
 		password_confirmation	"foobar"
+		sport	"wattball"
 	end
 end
