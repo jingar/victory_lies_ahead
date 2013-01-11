@@ -49,12 +49,26 @@ describe "User pages" do
       end
     end
 
-    describe "with valid information" do
+    describe "with valid information - wattball" do
       before do
         fill_in "Name", with: "Saad Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
+	choose('sport_wattball')
+      end
+      it "should create a user" do
+        expect { click_button submit }.to change(User, :count).by(1)
+      end
+    end
+    
+    describe "with valid information - hurdles" do
+      before do
+        fill_in "Name", with: "Saad Arif"
+        fill_in "Email", with: "saadarif006@gmail.com"
+        fill_in "Password", with: "foobar"
+        fill_in "Confirmation", with: "foobar"
+	choose('sport_hurdles')
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
