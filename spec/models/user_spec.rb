@@ -15,7 +15,8 @@ describe User do
  let(:found_user) { User.find_by_email(@user.email) }
   before do
     @user = User.new(name: "Example User", email: "user@example.com", 
-                     password: "foobar", password_confirmation: "foobar")
+                     password: "foobar", password_confirmation: "foobar", 
+		     sport: "hurdles")
   end
 
   subject { @user }
@@ -27,12 +28,18 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:sport) }
 
   it { should be_valid }
 
   describe "when name is not present" do
     before { @user.name = " " }
     it { should_not be_valid }
+  end
+
+  describe "when sport is not present" do
+    before { @user.sport = " " }
+    it {should_not be_valid }
   end
 
   describe "when email is not present" do
