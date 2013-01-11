@@ -18,12 +18,9 @@
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation %>
 			
-			<label for="sport">Choose your sport discipline:</label>
-			<% [ 'wattball', 'hurdles' ].each do |sport| %>
-			<%= f.radio_button :sport, sport %>
-			<%= f.label "sport_#{sport}", sport.humanize %>
-			<% end %>
-
+			<label>Choose your sport discipline:</label>
+			<%= f.select :sport, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']] %>
+			
 			<br /><br />
 
 			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>

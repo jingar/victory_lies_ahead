@@ -55,6 +55,7 @@ describe "User pages" do
         fill_in "Email", with: "saadarif006@gmail.com"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
+	fill_in "Team_name", with: "yankies"
 	choose('sport_wattball')
       end
       it "should create a user" do
