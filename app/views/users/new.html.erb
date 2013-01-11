@@ -20,7 +20,7 @@
 			
 			<label for="sport">Choose your sport discipline:</label>
 			<% [ 'wattball', 'hurdles' ].each do |sport| %>
-			<%= f.radio_button :sport, @sport %>
+			<%= f.radio_button :sport, sport %>
 			<%= f.label "sport_#{sport}", sport.humanize %>
 			<% end %>
 
