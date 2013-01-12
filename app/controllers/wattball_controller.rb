@@ -1,2 +1,0 @@
-class WattballController < ApplicationController
-end
