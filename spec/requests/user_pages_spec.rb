@@ -51,11 +51,13 @@ describe "User pages" do
 
     describe "with valid information - wattball" do
       before do
-        fill_in "Name", with: "Saad Arif"
+        fill_in "First_name", with: "Saad"
+        fill_in "Last_name", with: "Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
+        fill_in "Address", with: "39 Woshington road"
+	fill_in "Telephone", with: "078456899"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-	fill_in "Team_name", with: "yankies"
 	choose('sport_wattball')
       end
       it "should create a user" do
@@ -65,8 +67,11 @@ describe "User pages" do
     
     describe "with valid information - hurdles" do
       before do
-        fill_in "Name", with: "Saad Arif"
+        fill_in "First_name", with: "Saad"
+        fill_in "Last_name", with: "Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
+        fill_in "Address", with: "39 Woshington road"
+	fill_in "Telephone", with: "078456899"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
 	choose('sport_hurdles')
@@ -91,11 +96,15 @@ describe "User pages" do
     end
 
     describe "with invalid information" do
-      let(:new_name) { "New Name" }
+      let(:new_first_name) { "New" }
+      let(:new_last_name) { "Name" }
       let(:new_email) { "new@example.com" }
       before do
-        fill_in "Name", with: new_name
+        fill_in "First_name", with: new_first_name
+        fill_in "Last_name", with: new_last_name
         fill_in "Email", with: new_email
+        fill_in "Address", with: "39 Woshington road"
+	fill_in "Telephone", with: "078456899"
         fill_in "Password", with: user.password
         fill_in "Confirm Password", with: user.password
         click_button "Save changes"
