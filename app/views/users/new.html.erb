@@ -27,9 +27,10 @@
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation %>
 			
-			<label>Choose your sport discipline:</label>
+			<<%= f.label :sport %>
 			<%= f.select :sport, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']], { include_blank: true } %>
 			<br /><br />
+
 
 			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 		<% end %>
