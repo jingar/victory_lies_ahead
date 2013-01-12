@@ -9,7 +9,9 @@ describe "User pages" do
       sign_in FactoryGirl.create(:user)
       FactoryGirl.create(:user, first_name: "Bob", last_name: "jay", email: "bob@example.com",
         address: "blah blah 1", telephone: "121212", sport:"hurdles")
-      FactoryGirl.create(:user, first_name: "Ben", last_name: "hoho",  email: "ben@example.com")
+
+      FactoryGirl.create(:user, first_name: "Ben", last_name: "hoho",  email: "ben@example.com",
+        address: "blah blah 2", telephone: "121212", sport:"wattball")
       visit users_path
     end
 
@@ -47,20 +49,19 @@ describe "User pages" do
     describe "with invalid information" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
-
       end
     end
 
     describe "with valid information - wattball" do
       before do
-        fill_in "First_Name", with: "Saad"
-        fill_in "Last_Name", with: "Arif"
+        fill_in "First name", with: "Saad"
+        fill_in "Last name", with: "Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
         fill_in "Address", with: "39 Woshington road"
         fill_in "Telephone", with: "078456899"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-        choose('sport_wattball')
+        select 'Hurdles', :from => 'sport'
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -69,14 +70,14 @@ describe "User pages" do
     
     describe "with valid information - hurdles" do
       before do
-        fill_in "First Name", with: "Arif"
-        fill_in "last_Name", with: "Saad"
+        fill_in "First name", with: "Arif"
+        fill_in "Last name", with: "Saad"
         fill_in "Email", with: "saadarif005@gmail.com"
         fill_in "Address", with: "39 Washington road"
         fill_in "Telephone", with: "078456889"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-        choose('sport_hurdles')
+        find_field('user_sport').find('option[selected]').text
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -102,8 +103,8 @@ describe "User pages" do
       let(:new_last_name) { "Name" }
       let(:new_email) { "new@example.com" }
       before do
-        fill_in "First Name", with: new_first_name
-        fill_in "Last_Name", with: new_last_name
+        fill_in "First name", with: new_first_name
+        fill_in "Last name", with: new_last_name
         fill_in "Email", with: new_email
         fill_in "Address", with: "39 Woshington road"
         fill_in "Telephone", with: "078456899"
@@ -112,7 +113,7 @@ describe "User pages" do
         click_button "Save changes"
       end
 
-      it { should have_selector('title', text: new_name) }
+      it { should have_selector('title', text: new_first_name, text: new_last_name) }
       it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign out', href: signout_path) }
       specify { user.reload.first_name.should == new_first_name }
