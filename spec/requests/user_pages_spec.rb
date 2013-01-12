@@ -67,11 +67,11 @@ describe "User pages" do
     
     describe "with valid information - hurdles" do
       before do
-        fill_in "First_name", with: "Saad"
-        fill_in "Last_name", with: "Arif"
-        fill_in "Email", with: "saadarif006@gmail.com"
-        fill_in "Address", with: "39 Woshington road"
-	fill_in "Telephone", with: "078456899"
+        fill_in "First_name", with: "Arif"
+        fill_in "Last_name", with: "Saad"
+        fill_in "Email", with: "saadarif005@gmail.com"
+        fill_in "Address", with: "39 Washington road"
+	fill_in "Telephone", with: "078456889"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
 	choose('sport_hurdles')
