@@ -20,8 +20,6 @@
 			
 			<label>Choose your sport discipline:</label>
 			<%= f.select :sport, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']], { include_blank: true }, { :onchange => "unhide()" } %>
-			<%= f.hidden_field :team_name %>
-			
 			<br /><br />
 
 			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
