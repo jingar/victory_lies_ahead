@@ -7,7 +7,8 @@ describe "User pages" do
   describe "index" do
     before do
       sign_in FactoryGirl.create(:user)
-      FactoryGirl.create(:user, first_name: "Bob", last_name: "jay", email: "bob@example.com")
+      FactoryGirl.create(:user, first_name: "Bob", last_name: "jay", email: "bob@example.com",
+        address: "blah blah 1", telephone: "121212", sport:"hurdles")
       FactoryGirl.create(:user, first_name: "Ben", last_name: "hoho",  email: "ben@example.com")
       visit users_path
     end
@@ -52,7 +53,7 @@ describe "User pages" do
 
     describe "with valid information - wattball" do
       before do
-        fill_in "First Name", with: "Saad"
+        fill_in "First_Name", with: "Saad"
         fill_in "Last_Name", with: "Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
         fill_in "Address", with: "39 Woshington road"
