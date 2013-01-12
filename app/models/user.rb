@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   :password_confirmation, :sport
   has_secure_password
   has_many :wattballs
+  has_one :hurdles
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token

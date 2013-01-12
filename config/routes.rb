@@ -1,6 +1,8 @@
 SampleApp::Application.routes.draw do
   resources :users
 
+    resources :hurdles
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup',  to: 'users#new'
