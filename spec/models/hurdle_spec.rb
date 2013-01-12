@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Hurdle do
-    let(:found_athlete) { Hurdle.find_by_email(@althlete.email) }
+    let(:found_athlete) { Hurdle.find_by_first_name(@althlete.first_name) }
     before do
 	@althlete = Hurdle.new(first_name: "Example", last_name: "User", qualification: '00:10:54')
     end

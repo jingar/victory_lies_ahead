@@ -1,0 +1,2 @@
+class HurdlesController < ApplicationController
+end
