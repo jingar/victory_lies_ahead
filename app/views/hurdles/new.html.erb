@@ -1,0 +1,21 @@
+<% provide(:title , 'Hurdle athlete registration') %>
+<h1>Hurdle athlete registration</h1>
+<div class="row">
+	<div class="span6 offset3">
+			<%= form_for(@hurdle) do |f| %>
+
+			<%= render 'shared/error_messages', entity: @hurdle %>
+
+			<%= f.label :first_name %>
+			<%= f.text_field :first_name %>
+
+			<%= f.label :last_name %>
+			<%= f.text_field :last_name %>
+	
+			<%= f.label :qualification %>
+			<%= f.text_field :qualification %>
+
+			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>
