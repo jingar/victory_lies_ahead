@@ -61,7 +61,7 @@ describe "User pages" do
         fill_in "Telephone", with: "078456899"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-        select 'Hurdles', :from => 'sport'
+        select 'Hurdles', :from => 'user[sport]'
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -77,7 +77,7 @@ describe "User pages" do
         fill_in "Telephone", with: "078456889"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-        find_field('user_sport').find('option[selected]').text
+        select 'Wattball', :from => 'user[sport]'
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
