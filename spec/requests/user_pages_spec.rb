@@ -8,7 +8,7 @@ describe "User pages" do
     before do
       sign_in FactoryGirl.create(:user)
       FactoryGirl.create(:user, first_name: "Bob", last_name: "jay", email: "bob@example.com")
-      FactoryGirl.create(:user, first_name: "Ben",last_name: "hoho",  email: "ben@example.com")
+      FactoryGirl.create(:user, first_name: "Ben", last_name: "hoho",  email: "ben@example.com")
       visit users_path
     end
 
@@ -52,8 +52,8 @@ describe "User pages" do
 
     describe "with valid information - wattball" do
       before do
-        fill_in "First_name", with: "Saad"
-        fill_in "Last_name", with: "Arif"
+        fill_in "First Name", with: "Saad"
+        fill_in "Last_Name", with: "Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
         fill_in "Address", with: "39 Woshington road"
         fill_in "Telephone", with: "078456899"
@@ -68,8 +68,8 @@ describe "User pages" do
     
     describe "with valid information - hurdles" do
       before do
-        fill_in "First_name", with: "Arif"
-        fill_in "Last_name", with: "Saad"
+        fill_in "First Name", with: "Arif"
+        fill_in "last_Name", with: "Saad"
         fill_in "Email", with: "saadarif005@gmail.com"
         fill_in "Address", with: "39 Washington road"
         fill_in "Telephone", with: "078456889"
@@ -101,8 +101,8 @@ describe "User pages" do
       let(:new_last_name) { "Name" }
       let(:new_email) { "new@example.com" }
       before do
-        fill_in "First_name", with: new_first_name
-        fill_in "Last_name", with: new_last_name
+        fill_in "First Name", with: new_first_name
+        fill_in "Last_Name", with: new_last_name
         fill_in "Email", with: new_email
         fill_in "Address", with: "39 Woshington road"
         fill_in "Telephone", with: "078456899"
@@ -114,7 +114,8 @@ describe "User pages" do
       it { should have_selector('title', text: new_name) }
       it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign out', href: signout_path) }
-      specify { user.reload.name.should == new_name }
+      specify { user.reload.first_name.should == new_first_name }
+      specify { user.reload.last_name.should == new_last_name }
       specify { user.reload.email.should == new_email }
     end
   end
