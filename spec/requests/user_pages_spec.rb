@@ -7,8 +7,8 @@ describe "User pages" do
   describe "index" do
     before do
       sign_in FactoryGirl.create(:user)
-      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
-      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+      FactoryGirl.create(:user, first_name: "Bob", last_name: "jay", email: "bob@example.com")
+      FactoryGirl.create(:user, first_name: "Ben",last_name: "hoho",  email: "ben@example.com")
       visit users_path
     end
 
@@ -17,7 +17,8 @@ describe "User pages" do
 
     it "should list each user" do
       User.all.each do |user|
-        page.should have_selector('li', text: user.name)
+        page.should have_selector('li', text: user.first_name)
+        page.should have_selector('li', text: user.last_name)
       end
     end
   end
@@ -33,8 +34,8 @@ describe "User pages" do
   	let(:user) { FactoryGirl.create(:user) }
   	before { visit user_path(user) }
 
-  	it { should have_selector('h1', text: user.name) }
-  	it { should have_selector('title', text: user.name) }
+  	it { should have_selector('h1', text: user.first_name),text: user.last_name }
+  	it { should have_selector('title', text: user.first_name) }
     it { should have_link('change', href: 'http://gravatar.com/emails') }
   end
 
@@ -55,10 +56,10 @@ describe "User pages" do
         fill_in "Last_name", with: "Arif"
         fill_in "Email", with: "saadarif006@gmail.com"
         fill_in "Address", with: "39 Woshington road"
-	fill_in "Telephone", with: "078456899"
+        fill_in "Telephone", with: "078456899"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-	choose('sport_wattball')
+        choose('sport_wattball')
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -71,10 +72,10 @@ describe "User pages" do
         fill_in "Last_name", with: "Saad"
         fill_in "Email", with: "saadarif005@gmail.com"
         fill_in "Address", with: "39 Washington road"
-	fill_in "Telephone", with: "078456889"
+        fill_in "Telephone", with: "078456889"
         fill_in "Password", with: "foobar"
         fill_in "Confirmation", with: "foobar"
-	choose('sport_hurdles')
+        choose('sport_hurdles')
       end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -104,7 +105,7 @@ describe "User pages" do
         fill_in "Last_name", with: new_last_name
         fill_in "Email", with: new_email
         fill_in "Address", with: "39 Woshington road"
-	fill_in "Telephone", with: "078456899"
+        fill_in "Telephone", with: "078456899"
         fill_in "Password", with: user.password
         fill_in "Confirm Password", with: user.password
         click_button "Save changes"
