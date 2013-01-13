@@ -6,11 +6,13 @@
 
 			<%= render 'shared/error_messages', entity: @hurdle %>
 
-			<%= f.label :first_name %>
-			<%= f.text_field :first_name %>
+			<% counter = 1 %>
+			<%= render 'shared/name_field', form: f, counter: counter %>
+			<%#= f.label :first_name %>
+			<%#= f.text_field :first_name %>
 
-			<%= f.label :last_name %>
-			<%= f.text_field :last_name %>
+			<%#= f.label :last_name %>
+			<%#= f.text_field :last_name %>
 	
 			<%= f.label :qualification %>
 			<%= f.text_field :qualification %>
