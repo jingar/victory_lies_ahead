@@ -3,6 +3,10 @@ class HurdlesController < ApplicationController
 	@hurdle = Hurdle.new
     end
 
+    def show
+        @hurdle = Hurdle.find(params[:id])
+    end
+
     def index
 	@hurdles = Hurdle.all
     end

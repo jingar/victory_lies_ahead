@@ -3,11 +3,15 @@ class WattballsController < ApplicationController
 	@wattball = Wattball.new
     end
 
-    def index
-	@hwattballs = Wattball.all
+    def show
+        @wattball = Wattball.find(params[:id])
     end
 
-    def create
+    def index
+	@wattballs = Wattball.all
+    end
+
+    def create	
 	@wattball = current_user.wattballs.build(params[:wattball])
 	if @wattball.save
 	    flash[:success] = "Wattball team is now registred!"
