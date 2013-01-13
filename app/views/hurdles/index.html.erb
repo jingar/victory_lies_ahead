@@ -1,0 +1,10 @@
+<% provide(:title, 'All hurdle athletes') %>
+<h1> All hurdle athletes</h1>
+
+<ul class = "athletes">
+    <% @hurdles.each do |hurdle| %>
+        <li> 
+	    <%= link_to hurdle.first_name + " "+ hurdle.last_name, hurdle %>
+	</li>
+    <% end %>
+</ul>

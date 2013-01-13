@@ -3,6 +3,10 @@ class WattballsController < ApplicationController
 	@wattball = Wattball.new
     end
 
+    def index
+	@hwattballs = Wattball.all
+    end
+
     def create
 	@wattball = current_user.wattballs.build(params[:wattball])
 	if @wattball.save
