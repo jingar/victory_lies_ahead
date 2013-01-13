@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   :password_confirmation, :sport
   has_secure_password
   has_many :hurdles
+  has_many :wattballs
   
 
   before_save { |user| user.email = email.downcase }

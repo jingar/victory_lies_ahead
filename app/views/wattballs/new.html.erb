@@ -4,6 +4,7 @@
 	<div class="span6 offset3">
 	    <%= form_for([@wattball]) do |f| %>
 		<%= render 'shared/error_messages', entity: @wattball %>
+		
 		<%= f.label :team_name %>
 		<%= f.text_field :team_name %>
 

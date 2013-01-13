@@ -32,11 +32,11 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Define the primary navigation
     navigation.items do |primary|
-	primary.item :home, 'Home', root_path
-	primary.item :participants, 'Participants', participants_path do |participants|
-	    participants.item :wattball, "Wattball", '/participants/team'
-	    participants.item :hurdle, "Hurdles", '/participants/athlete'
-	end
+      primary.item :home, 'Home', root_path
+      primary.item :participants, 'Participants', participants_path do |participants|
+      participants.item :wattball, "Wattball", '/participants/team'
+      participants.item :hurdle, "Hurdles", '/participants/athlete'
+	   end
 	#primary.item :schedules, 'Schedules', schedules_path do |schedules|
 	#    schedules.item :wattball, "Wattball", schedules_wattball_path
 	#    schdules.item :hurdle, "Hurdles", schedules_hurdle_path
