@@ -11,4 +11,5 @@ class WattballsController < ApplicationController
 	else
 	    render 'new'
 	end
+    end
 end

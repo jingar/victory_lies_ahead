@@ -1,5 +1,15 @@
-<%= form.label :first_name %>
-<%= form.text_field :first_name %>
+<% if counter > 1 %>
+    <%= form.label :member, "Member " + counter.to_s %>
 
-<%= form.label :last_name %>
-<%= form.text_field :last_name %>
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+<% else %>
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+<% end %>

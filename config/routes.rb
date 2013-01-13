@@ -3,6 +3,8 @@ SampleApp::Application.routes.draw do
 
   resources :hurdles
 
+  resources :wattballs
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signup',  to: 'users#new'
