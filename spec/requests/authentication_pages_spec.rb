@@ -60,7 +60,7 @@ describe "Authentication" do
         		end
 
 	        	describe "after signing in" do
-	        		it "shoud render the desired protected page" do
+	        		it "should render the desired protected page" do
 	        			page.should have_selector('title', text: 'Edit user')
 	        		end
 	        	end

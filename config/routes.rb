@@ -1,7 +1,7 @@
 SampleApp::Application.routes.draw do
   resources :users
 
-    resources :hurdles
+  resources :hurdles
 
   resources :sessions, only: [:new, :create, :destroy]
 

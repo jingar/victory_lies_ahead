@@ -98,22 +98,24 @@ describe "User pages" do
       it { should have_link('change', href: 'http://gravatar.com/emails') }
     end
 
-    describe "with invalid information" do
+    describe "with valid information" do
       let(:new_first_name) { "New" }
       let(:new_last_name) { "Name" }
       let(:new_email) { "new@example.com" }
+      let(:new_address) {"123 address example"}
+      let(:new_telephone) {"0143 1245454"}
       before do
         fill_in "First name", with: new_first_name
         fill_in "Last name", with: new_last_name
         fill_in "Email", with: new_email
-        fill_in "Address", with: "39 Woshington road"
-        fill_in "Telephone", with: "078456899"
+        fill_in "Address", with: new_address
+        fill_in "Telephone", with: new_telephone
         fill_in "Password", with: user.password
         fill_in "Confirm Password", with: user.password
         click_button "Save changes"
       end
 
-      it { should have_selector('title', text: new_first_name, text: new_last_name) }
+      it { should have_selector('title', text: new_first_name) }
       it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign out', href: signout_path) }
       specify { user.reload.first_name.should == new_first_name }
