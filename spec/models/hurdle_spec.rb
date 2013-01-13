@@ -14,17 +14,21 @@
 require 'spec_helper'
 
 describe Hurdle do
+  let(:user) { FactoryGirl.create(:user) }
     let(:found_athlete) { Hurdle.find_by_first_name(@althlete.first_name) }
     before do
-      @athlete = Hurdle.new(id: "1", first_name: "Example", last_name: "User", qualification: "13:25:58")
+      @athlete = user.hurdles.build(first_name: "Example", last_name: "User", 
+        qualification: "13:25:58")
     end
 
   subject { @athlete }
 
-  it { should respond_to(:id) }
   it { should respond_to(:first_name) }
   it { should respond_to(:last_name) }
   it { should respond_to(:qualification) }
+  it { should respond_to(:user_id) }
+  it { should respond_to(:user) }
+  its(:user) {should == user}
 
   it { should be_valid }
 
@@ -38,4 +42,11 @@ describe Hurdle do
     it { should_not be_valid }
   end
 
+  describe "accessible attributes" do
+    it "should not allow access to user_id" do
+      expect do
+        Hurdle.new(user_id: user.id)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
+  end
 end
