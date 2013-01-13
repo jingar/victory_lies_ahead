@@ -1,0 +1,23 @@
+<% provide(:title , 'Wattball team registration') %>
+<h1>Wattball team registration</h1>
+<div class="row">
+	<div class="span6 offset3">
+	    <%= form_for(@wattball) do |f| %>
+		<%= render 'shared/error_messages', entity: @wattball %>
+		<%= f.label :team_name %>
+		<%= f.text_field :team_name %>
+
+		<% (1..11).each do |i| %>
+		    <%= render 'shared/name_field', form: f, counter: i %>
+		<% end %>
+
+		<%#= f.label :first_name %>
+		<%#= f.text_field :first_name %>
+
+		<%#= f.label :last_name %>
+		<%#= f.text_field :last_name %>
+	
+		<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+	    <% end %>
+	</div>
+</div>
