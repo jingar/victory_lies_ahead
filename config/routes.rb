@@ -10,10 +10,12 @@ SampleApp::Application.routes.draw do
   match '/help',    to: "static_pages#help"
   match '/about',   to:"static_pages#about"
   match '/contact', to: "static_pages#contact"
+  
   match '/participants', to: "static_pages#participants"
-  match '/schedules', to: "static_pages#schedules"
   match '/participants/athletes', to: "hurdles#index"
   match '/participants/teams', to: "wattballs#index"
+  
+  match '/schedules', to: "static_pages#schedules"
   
   root to: 'static_pages#home'
 
