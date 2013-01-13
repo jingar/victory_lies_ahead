@@ -10,4 +10,10 @@ class StaticPagesController < ApplicationController
 
 	def contact
 	end
+
+	def participants
+	end
+
+	def schedules
+	end
 end
