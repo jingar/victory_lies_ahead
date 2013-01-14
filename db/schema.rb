@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130112233058) do
+ActiveRecord::Schema.define(:version => 20130114173944) do
 
   create_table "hurdles", :force => true do |t|
     t.string   "first_name"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20130112233058) do
   end
 
   add_index "hurdles", ["user_id", "created_at"], :name => "index_hurdles_on_user_id_and_created_at"
+
+  create_table "teams", :force => true do |t|
+    t.string   "team_name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
@@ -41,7 +50,6 @@ ActiveRecord::Schema.define(:version => 20130112233058) do
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
   create_table "wattballs", :force => true do |t|
-    t.string   "team_name"
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at", :null => false
