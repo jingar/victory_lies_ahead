@@ -34,8 +34,8 @@ SimpleNavigation::Configuration.run do |navigation|
     navigation.items do |primary|
       primary.item :home, 'Home', root_path
       primary.item :participants, 'Participants', participants_path do |participants|
-      participants.item :wattball, "Wattball", '/participants/team'
-      participants.item :hurdle, "Hurdles", '/participants/athlete'
+      participants.item :wattball, "Wattball", '/participants/teams'
+      participants.item :hurdle, "Hurdles", '/participants/athletes'
 	   end
 	#primary.item :schedules, 'Schedules', schedules_path do |schedules|
 	#    schedules.item :wattball, "Wattball", schedules_wattball_path
