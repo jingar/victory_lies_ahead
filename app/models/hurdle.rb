@@ -12,10 +12,16 @@
 #
 
 class Hurdle < ActiveRecord::Base
-    attr_accessible :first_name, :last_name, :qualification
+    MALE = { :value => 0, :display_name => "Male" }
+    FEMALE = { :value => 1, :display_name => "Female" } 
+    attr_accessible :first_name, :last_name, :qualification, :gender
     belongs_to :user
 
-	validates :user_id, presence: true
+    validates :user_id, presence: true
     validates :first_name, presence: true
     validates :last_name, presence: true
+    validates :gender, presence: true
+    
+    validates_inclusion_of :gender, :in => [MALE[:value], FEMALE[:value]]
+     
 end
