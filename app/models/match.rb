@@ -1,8 +1,7 @@
 class Match < ActiveRecord::Base
+  belongs_to :umpire
+  has_many :teams, through: :matches_teams
   attr_accessible :when
-  has_and_belongs_to_many :teams
-  has_many :facts
 
   validates :when, presence: true
-  validates :team_id, presence: true
 end
