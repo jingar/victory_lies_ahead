@@ -16,11 +16,11 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :email, :address, :telephone, :password, 
-  :password_confirmation, :sport
+  attr_accessible :first_name, :last_name, :email, :address, :telephone,
+  :password, :password_confirmation, :sport
   has_secure_password
   has_many :hurdles
-  has_many :wattballs
+  has_many :teams
   
 
   before_save { |user| user.email = email.downcase }
