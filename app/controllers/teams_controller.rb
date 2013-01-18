@@ -4,11 +4,11 @@ class TeamsController < ApplicationController
     end
 
     def show
-	@team = Team.find([params[:id])
+	@team = Team.find(params[:id])
     end
 
     def index
-	@teams = Teams.all
+	@teams = Team.all
     end
 
     def create

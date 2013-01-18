@@ -13,7 +13,7 @@ SampleApp::Application.routes.draw do
   
   match '/participants', to: "static_pages#participants"
   match '/participants/athletes', to: "hurdles#index"
-  match '/participants/teams', to: "wattballs#index"
+  match '/participants/teams', to: "teams#index"
   
   match '/schedules', to: "static_pages#schedules"
   
