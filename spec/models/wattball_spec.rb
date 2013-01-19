@@ -3,11 +3,11 @@
 # Table name: wattballs
 #
 #  id         :integer          not null, primary key
-#  team_name  :string(255)
 #  first_name :string(255)
 #  last_name  :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  team_id    :integer
 #
 
 require 'spec_helper'

@@ -5,14 +5,16 @@
 	    <%= form_for([@wattball]) do |f| %>
 		<%= render 'shared/error_messages', entity: @wattball %>
 		
-		<%= f.label :team_name %>
-		<%= f.text_field :team_name %>
+		
+		<%# (1..11).each do |i| %>
+		    <%#= render 'shared/name_field', form: f, counter: i %>
+		<%# end %>
+		<div id = "dynamic_field" >
 
-		<% (1..11).each do |i| %>
-		    <%= render 'shared/name_field', form: f, counter: i %>
-		<% end %>
+		</div>
+		<%= submit_tag "Test me!", :type => 'button', :onclick => 'addInput("dynamic_field")' , class: "btn btn-large btn-primary" %>
 
-		<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+		<%= f.submit "Register", class: "btn btn-large btn-primary" %>
 	    <% end %>
 	</div>
 </div>

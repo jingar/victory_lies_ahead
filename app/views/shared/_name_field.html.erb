@@ -2,10 +2,10 @@
     <%= form.label :member, "Member " + counter.to_s %>
 
     <%= form.label :first_name %>
-    <%= text_field :first_name, "first_name " + counter.to_s %>
+    <%= text_field :first_name, counter.to_s %>
 
-    <%= form.label :last_name %>
-    <%= text_field :last_name, "first_name " + counter.to_s  %>
+ 	 <%= form.label :last_name %>
+    <%= text_field :last_name, counter.to_s %>
 <% else %>
     <%= form.label :first_name %>
     <%= form.text_field :first_name %>

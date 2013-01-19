@@ -27,7 +27,7 @@ class UmpiresController < ApplicationController
     def update
 	@umpire = Umpire.find(params[:id])
 	if @umpire.update_attributes(params[:umpire])
-	    flash(:success] = "Umpire record updated!"
+	    flash[:success] = "Umpire record updated!"
 	    redirect_to @umpire
 	else
 	    render 'edit'
