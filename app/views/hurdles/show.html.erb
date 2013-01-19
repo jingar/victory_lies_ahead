@@ -3,8 +3,20 @@
     <aside class = "span4">
 	<section>	
 	    <h1>
-		<%= @hurdle.first_name %>
+		Name: <%= @hurdle.first_name %>
 		<%= @hurdle.last_name %>
+		<br />
+		<% if (@hurdle.gender <=> 'm') == 0 %>
+		    <% @printGender = 'Male' %>
+		<% else %>
+		    <% @printGender = 'Female' %>
+		<% end %>
+
+		Gender: <%= @printGender %>
+		<% if @hurdle.qualification %>
+		    <br />
+		    Qualification time: <%= @hurdle.qualification %>
+		<% end %>
 	    </h1>
 	</section>
     </aside>
