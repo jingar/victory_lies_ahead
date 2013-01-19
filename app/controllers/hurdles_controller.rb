@@ -15,7 +15,7 @@ class HurdlesController < ApplicationController
 		@hurdle = current_user.hurdles.build(params[:hurdle])
 		if @hurdle.save
 		    flash[:success] = "Hurdle athlete is now registred!"
-		    redirect_to @current_user
+		    redirect_to @hurdle
 		else
 			render 'new'
 		end

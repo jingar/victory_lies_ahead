@@ -20,8 +20,5 @@ class Hurdle < ActiveRecord::Base
     validates :user_id, presence: true
     validates :first_name, presence: true
     validates :last_name, presence: true
-    validates :gender, presence: true
-    
-    validates_inclusion_of :gender, :in => [MALE[:value], FEMALE[:value]]
-     
+    validates :gender, presence: true 
 end
