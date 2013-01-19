@@ -15,5 +15,4 @@ class MatchTeam < ActiveRecord::Base
 
   validates :team_id, presence: true
   validates :match_id, presence: true
-  # attr_accessible :title, :body
 end

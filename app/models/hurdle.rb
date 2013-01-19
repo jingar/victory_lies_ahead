@@ -9,12 +9,9 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  user_id       :integer
-#  gender        :integer
 #
 
 class Hurdle < ActiveRecord::Base
-    MALE = { :value => 0, :display_name => "Male" }
-    FEMALE = { :value => 1, :display_name => "Female" } 
     attr_accessible :first_name, :last_name, :qualification, :gender
     belongs_to :user
 

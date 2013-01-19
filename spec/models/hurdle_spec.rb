@@ -9,7 +9,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  user_id       :integer
-#  gender        :integer
+#  gender        :string(255)
 #
 
 require 'spec_helper'
