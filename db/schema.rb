@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119170130) do
+ActiveRecord::Schema.define(:version => 20130119174835) do
 
   create_table "hurdles", :force => true do |t|
     t.string   "first_name"
@@ -47,13 +47,15 @@ ActiveRecord::Schema.define(:version => 20130119170130) do
   create_table "staffs", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "password"
-    t.string   "password_confirmation"
     t.string   "type"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "user_name"
+    t.string   "password_digest"
+    t.string   "remember_token"
   end
+
+  add_index "staffs", ["remember_token"], :name => "index_staffs_on_remember_token"
 
   create_table "teams", :force => true do |t|
     t.string   "team_name"
