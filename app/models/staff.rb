@@ -23,7 +23,7 @@ class Staff < ActiveRecord::Base
 
     validates :first_name, presence: true, length: {maximum: 50}
     validates :last_name, presence: true, length: Pmaximum: 50 }
-    validates :email, presence: true, uniqueness: { case_sensetive: false }
+    validates :user_name, presence: true, uniqueness: { case_sensetive: false }
     validates :password, presence: true, length: { minimum: 6 }
     validates :password_conformation, presence: true
     validates :type, presence: true
