@@ -37,9 +37,9 @@ describe "User pages" do
   	let(:user) { FactoryGirl.create(:user) }
   	before { visit user_path(user) }
 
-  	it { should have_selector('h1', text: user.first_name),text: user.last_name }
-  	it { should have_selector('title', text: user.first_name) }
-    it { should have_link('change', href: 'http://gravatar.com/emails') }
+  	
+    it { should have_selector('h1', text: user.first_name),text: user.last_name }
+    it { should have_selector('title', text: user.first_name) }
   end
 
   describe "sign up" do
