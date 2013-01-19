@@ -8,11 +8,11 @@ class WattballsController < ApplicationController
     end
 
     def index
-	@wattballs = Wattball.all
+	   @wattballs = Wattball.all
     end
 
     def create	
-	@wattball = current_user.teams.wattballs.build(params[:wattball])
+	   @wattball = current_user.teams.wattballs.build(params[:wattball])
 	if @wattball.save
 	    flash[:success] = "Wattball player is now registred!"
 	    redirect_to @wattball
