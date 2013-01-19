@@ -9,6 +9,10 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  user_id       :integer
+<<<<<<< HEAD
+=======
+#  gender        :string(255)
+>>>>>>> d7b29788053d6854a65e539c2cf4e82262e3cb46
 #
 
 class Hurdle < ActiveRecord::Base

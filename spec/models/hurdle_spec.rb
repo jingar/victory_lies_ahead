@@ -19,7 +19,7 @@ describe Hurdle do
     let(:found_athlete) { Hurdle.find_by_first_name(@althlete.first_name) }
     before do
       @athlete = user.hurdles.build(first_name: "Example", last_name: "User", 
-        qualification: "13:25:58")
+        qualification: "13:25:58", gender: "male")
     end
 
   subject { @athlete }
@@ -27,6 +27,7 @@ describe Hurdle do
   it { should respond_to(:first_name) }
   it { should respond_to(:last_name) }
   it { should respond_to(:qualification) }
+  it { should respond_to(:gender) }
   it { should respond_to(:user_id) }
   it { should respond_to(:user) }
   its(:user) {should == user}
