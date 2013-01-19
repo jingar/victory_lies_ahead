@@ -19,7 +19,7 @@ describe Staff do
     let(:found_staff) { Staff.find_by_first_name(@staff.first_name) }
     before do
 	@staff = Staff.new(first_name: "John", last_name: "Smith", 
-	password: "foobar", password_confirmation: "foobar")
+	user_name: "smithjohn", password: "foobar", password_confirmation: "foobar")
     end
 
     subject { @staff }
@@ -31,9 +31,15 @@ describe Staff do
     it { should respond_to(:password_confirmation) }
     it { should respond_to(:remember_token) }
     it { should respond_to(:authenticate) }
+    it { should respond_to(:user_name) }
 
     it { should be_valid }
 
+    describe "when user name is not present" do
+	before { @staff.user_name = " " }
+	it { should_not be_valid }
+    end
+    
     describe "when first name is not present" do
 	before { @staff.first_name = " " }
 	it { should_not be_valid }
