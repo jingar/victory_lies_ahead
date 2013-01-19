@@ -5,10 +5,11 @@
 #  id            :integer          not null, primary key
 #  first_name    :string(255)
 #  last_name     :string(255)
-#  qualification :datetime 
+#  qualification :time
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  user_id       :integer
+#  gender        :integer
 #
 
 require 'spec_helper'
