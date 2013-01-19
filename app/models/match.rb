@@ -10,9 +10,10 @@
 #
 
 class Match < ActiveRecord::Base
-  belongs_to :umpire
-  has_many :teams, through: :matches_teams
-  attr_accessible :when
+	attr_accessible :when
+	belongs_to :umpire
+  	has_many :teams, through: :matches_teams
+  
 
-  validates :when, presence: true
+  	validates :when, presence: true
 end

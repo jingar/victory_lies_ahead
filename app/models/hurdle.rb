@@ -13,8 +13,7 @@
 #
 
 class Hurdle < ActiveRecord::Base
-    MALE = { :value => 0, :display_name => "Male" }
-    FEMALE = { :value => 1, :display_name => "Female" } 
+   
     attr_accessible :first_name, :last_name, :qualification, :gender
     belongs_to :user
 
