@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119123618) do
+ActiveRecord::Schema.define(:version => 20130119165223) do
 
   create_table "hurdles", :force => true do |t|
     t.string   "first_name"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20130119123618) do
 
   add_index "matches_teams", ["match_id"], :name => "index_matches_teams_on_match_id"
   add_index "matches_teams", ["team_id"], :name => "index_matches_teams_on_team_id"
+
+  create_table "staffs", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "password"
+    t.string   "password_confirmation"
+    t.string   "type"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "teams", :force => true do |t|
     t.string   "team_name"
