@@ -1,5 +1,5 @@
 class StaffController < ApplicationController
-    bofore_filter :sign_in_staff
+    before_filter :sign_in_staff
     before_filter :head_organiser, only: [:new, :delete, :index]
 
     def show
