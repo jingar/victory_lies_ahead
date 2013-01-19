@@ -5,6 +5,9 @@ gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 gem "simple-navigation"
+gem 'activeadmin'
+gem "meta_search",    '>= 1.1.0.pre'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
