@@ -33,4 +33,8 @@ module SessionsHelper
 	def store_location
 		session[:return_to] = request.url
 	end
+
+	def create_session(model,column)
+		model.find_by_email(params[:session][:column].downcase)
+	end
 end
