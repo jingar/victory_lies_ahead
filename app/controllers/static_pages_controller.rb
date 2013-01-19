@@ -16,4 +16,7 @@ class StaticPagesController < ApplicationController
 
 	def schedules
 	end
+
+	def staff
+	end
 end
