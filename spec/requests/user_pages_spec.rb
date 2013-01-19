@@ -15,13 +15,13 @@ describe "User pages" do
       visit users_path
     end
 
-    it { should have_selector('title', text: 'All users') }
-    it { should have_selector('h1', text: 'All users') }
+    it { should have_selector('title'), text: 'All users' }
+    it { should have_selector('h1'), text: 'All users' }
 
     it "should list each user" do
       User.all.each do |user|
-        page.should have_selector('li', text: user.first_name)
-        page.should have_selector('li', text: user.last_name)
+        page.should have_selector('li'), text: user.first_name
+        page.should have_selector('li'), text: user.last_name
       end
     end
   end
@@ -38,8 +38,8 @@ describe "User pages" do
   	before { visit user_path(user) }
 
   	
-    it { should have_selector('h1', text: user.first_name),text: user.last_name }
-    it { should have_selector('title', text: user.first_name) }
+    it { should have_selector('h1'), text: user.first_name, text: user.last_name }
+    it { should have_selector('title'), text: user.first_name }
   end
 
   describe "sign up" do
@@ -93,9 +93,9 @@ describe "User pages" do
     end
 
     describe "page" do
-      it { should have_selector('h1', text: "Update your profile") }
-      it { should have_selector('title', text: "Edit user") }
-      it { should have_link('change', href: 'http://gravatar.com/emails') }
+      it { should have_selector('h1'), text: "Update your profile" }
+      it { should have_selector('title'), text: "Edit user" }
+      it { should have_link('change'), href: 'http://gravatar.com/emails' }
     end
 
     describe "with valid information" do
@@ -115,9 +115,9 @@ describe "User pages" do
         click_button "Save changes"
       end
 
-      it { should have_selector('title', text: new_first_name) }
+      it { should have_selector('title'), text: new_first_name }
       it { should have_selector('div.alert.alert-success') }
-      it { should have_link('Sign out', href: signout_path) }
+      it { should have_link('Sign out'), href: signout_path }
       specify { user.reload.first_name.should == new_first_name }
       specify { user.reload.last_name.should == new_last_name }
       specify { user.reload.email.should == new_email }
@@ -133,7 +133,7 @@ describe "User pages" do
 
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_selector('title'), text: 'Sign in' }
         end
 
         describe "submitting to the update action" do
