@@ -19,7 +19,8 @@ describe Staff do
     let(:found_staff) { Staff.find_by_first_name(@staff.first_name) }
     before do
 	@staff = Staff.new(first_name: "John", last_name: "Smith", 
-	user_name: "smithjohn", password: "foobar", password_confirmation: "foobar")
+	user_name: "smithjohn", password: "foobar", password_confirmation: "foobar",
+    type: "admin")
     end
 
     subject { @staff }
@@ -32,6 +33,7 @@ describe Staff do
     it { should respond_to(:remember_token) }
     it { should respond_to(:authenticate) }
     it { should respond_to(:user_name) }
+    it { should respond_to(:type) }
 
     it { should be_valid }
 
