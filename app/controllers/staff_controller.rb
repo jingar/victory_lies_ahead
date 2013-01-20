@@ -46,7 +46,7 @@ class StaffController < ApplicationController
 
     private
 	def signed_in_staff
-	    unless signed_in?
+	    unless signed_in?(Staff)
 		store_location
 		redirect_to '/staffsignin', notice: "Please sign in."
 	    end
