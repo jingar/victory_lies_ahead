@@ -15,7 +15,7 @@
 			<%#= f.text_field :last_name %>
 	
 			<%= f.label :gender %>
-			<%= f.select :gender, [['Female', 'f'],['Male', 'm']] %>
+			<%= f.select :gender, [['Female', 'f'],['Male', 'm']], { include_blank: true } %>
 			
 			<%= f.label :qualification %>
 			<%= f.text_field :qualification %>
