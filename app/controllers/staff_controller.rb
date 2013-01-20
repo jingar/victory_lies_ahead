@@ -3,11 +3,11 @@ class StaffController < ApplicationController
     before_filter :head_organiser, only: [:new, :delete, :index]
 
     def show
-		@staff = Staff.find(params[:id])
+	@staff = Staff.find(params[:id])
     end
 
     def new
-		@staff = Staff.new
+	@staff = Staff.new
     end
 
     def create
