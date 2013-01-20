@@ -6,13 +6,14 @@ SampleApp::Application.routes.draw do
   resources :staff_sessions, only: [:new, :create, :destroy]
 
   match '/signup',  to: 'users#new'
-  match '/signin', to: 'sessions#new'
-  match '/staffsignin', to: 'staff_sessions#new'
+  match '/signin',  to: 'sessions#new'
+  match '/staffsignin',	to: 'staff_sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
   match '/help',    to: "static_pages#help"
   match '/about',   to:"static_pages#about"
   match '/contact', to: "static_pages#contact"
+  match '/staff', to: "staff#show"
   
   match '/participants', to: "static_pages#participants"
   match '/participants/athletes', to: "hurdles#index"
