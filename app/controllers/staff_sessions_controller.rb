@@ -8,7 +8,7 @@ class StaffSessionsController < ApplicationController
 			sign_in staff
 			redirect_back_or staff
 		else
-			flash.now[:error] = 'Invalid email/password combination'
+			flash.now[:error] = 'Invalid user name/password combination'
 			render 'new'
 		end
 	end
