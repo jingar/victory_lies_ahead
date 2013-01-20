@@ -18,6 +18,7 @@ class Staff < ActiveRecord::Base
     :password, :password_confirmation, :position
     has_secure_password
 
+
     before_save { |staff| staff.user_name = user_name.downcase }
     before_save :create_remember_token
 
