@@ -236,6 +236,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   guard-rspec (= 1.2.1)
   guard-spork (= 1.2.0)
+  inherited_resources
   jquery-rails (= 2.0.2)
   libnotify (= 0.5.9)
   meta_search (>= 1.1.0.pre)
