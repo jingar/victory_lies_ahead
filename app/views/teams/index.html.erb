@@ -1,0 +1,10 @@
+<% provide(:title, 'All wattball teams') %>
+<h1> All Wattball Teams</h1>
+
+<ul class = "teams">
+    <% @teams.each do |team| %>
+        <li> 
+	    <%= link_to team.team_name %>
+	</li>
+    <% end %>
+</ul>

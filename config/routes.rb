@@ -3,6 +3,7 @@ SampleApp::Application.routes.draw do
   resources :staff
   resources :hurdles
   resources :wattballs
+  resources :teams
   resources :sessions, only: [:new, :create, :destroy]
   resources :staff_sessions, only: [:new, :create, :destroy]
 
