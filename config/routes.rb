@@ -1,17 +1,16 @@
 SampleApp::Application.routes.draw do
+
   resources :users
-  resources :staff
   resources :hurdles
   resources :wattballs
   resources :teams
   resources :sessions, only: [:new, :create, :destroy]
-  resources :staff_sessions, only: [:new, :create, :destroy]
+  
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
-  match '/staffsignin',	to: 'staff_sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
+  
   match '/help',    to: "static_pages#help"
   match '/about',   to:"static_pages#about"
   match '/contact', to: "static_pages#contact"
@@ -23,8 +22,13 @@ SampleApp::Application.routes.draw do
   match '/schedules', to: "static_pages#schedules"
   
   root to: 'static_pages#home'
-
-  
+  namespace :admin do
+    resources :staff
+    resources :staff_sessions, only: [:new, :create, :destroy]
+    match '/staffsignin', to: 'staff_sessions#new'
+    match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
+    match '', to: 'dashboard#index'
+  end
 
 
   # The priority is based upon order of creation:

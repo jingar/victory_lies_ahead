@@ -1,4 +1,4 @@
-class StaffSessionsController < ApplicationController
+class Admin::StaffSessionsController < ApplicationController
 	def new
 	end
 
@@ -6,7 +6,7 @@ class StaffSessionsController < ApplicationController
 		staff = Staff.find_by_user_name(params[:staff_session][:user_name].downcase)
 		if staff && staff.authenticate(params[:staff_session][:password])
 			sign_in staff
-			redirect_back_or staff
+			redirect_to '/admin'
 		else
 			flash.now[:error] = 'Invalid user name/password combination'
 			render 'new'
@@ -14,7 +14,7 @@ class StaffSessionsController < ApplicationController
 	end
 
 	def destroy
-    	staff_sign_out
-    	redirect_to root_url
+    	sign_out
+    	redirect_to '/admin/staffsignin'
   	end
 end
