@@ -16,4 +16,8 @@ class ApplicationController < ActionController::Base
 			redirect_to('/admin/staffsignin')
 		end
 	end
+
+	def skip_header
+		@header = true;
+	end
 end
