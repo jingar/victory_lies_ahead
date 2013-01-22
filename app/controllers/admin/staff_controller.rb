@@ -1,6 +1,6 @@
-class StaffController < ApplicationController
+class Admin::StaffController < ApplicationController
     before_filter :signed_in_staff
-    before_filter :head_organiser, only: [:new, :delete, :index]
+    before_filter :correct_user, only: [:new, :delete, :index]
 
     def show
 		@staff = Staff.find(params[:id])
@@ -41,19 +41,6 @@ class StaffController < ApplicationController
 
     def delete
 		Staff.find_by_user_name(params[:user_name]).destroy
-		redirect_to root_path
+		redirect_to '/admin/staffsignin'
     end
-
-    private
-	def signed_in_staff
-	    unless signed_in?(Staff)
-		store_location
-		redirect_to '/staffsignin', notice: "Please sign in."
-	    end
-	end
-
-	def correct_staff
-	    @staff = Staff.find(params[:id])
-	    redirect_to(root_path) unless current_user?(@staff)
-	end
 end

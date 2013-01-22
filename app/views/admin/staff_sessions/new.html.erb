@@ -1,9 +1,9 @@
-<% provide(:title, "Staff Sign in") %>
-<h1>Sign in </h1>
+<% provide(:title, "Sign in- Admin") %>
+<h1>Sign in - Admin</h1>
 
 <div class = "row">
 	<div class = "span6 offset3">
-		<%= form_for(:session, url: sessions_path) do |f| %>
+		<%= form_for(:staff_session, url: admin_staff_sessions_path) do |f| %>
 			
 			<%= f.label :user_name %>
 			<%= f.text_field :user_name %>
