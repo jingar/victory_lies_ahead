@@ -38,20 +38,15 @@ class UsersController < ApplicationController
 			render 'edit'
 		end
 	end
-
-
-		def signed_in_user
-			unless signed_in?(User)
-				store_location
-				redirect_to signin_url, notice: "Please sign in."
-			end
+	private
+	def signed_in_user
+		unless signed_in?(User)
+			store_location
+			redirect_to signin_url, notice: "Please sign in."
 		end
-
-		def correct_user
-			@user = User.find(params[:id])
-			if !current_user?(@user,User)
-				flash[:error] = "Wrong user"
-				redirect_to(root_path)
-			end
-		end
+	end
+	def correct_user
+		@user = User.find(params[:id])
+		redirect_to(root_path) unless current_user?(@user)
+	end
 end

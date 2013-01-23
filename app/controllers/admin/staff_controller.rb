@@ -1,6 +1,6 @@
 class Admin::StaffController < ApplicationController
     before_filter :signed_in_staff
-    #before_filter :correct_user, only: [:new, :delete, :index]
+    before_filter :correct_user, only: [:new, :delete, :index]
 
     def show
 		@staff = Staff.find(params[:id])
@@ -43,4 +43,23 @@ class Admin::StaffController < ApplicationController
 		Staff.find_by_user_name(params[:user_name]).destroy
 		redirect_to '/admin/staffsignin'
     end
+
+   private 
+	def signed_in_staff
+		    unless signed_in_staff?
+			store_location_staff
+			redirect_to_staff '/admin/staffsignin', notice: "Please sign in."
+		    end
+		end
+
+	def correct_user
+		@staff = Staff.find(params[:id])
+		if !current_user_staff?(@staff)
+			flash[:error] = "Wrong user"
+			redirect_to('/admin/staffsignin')
+		end
+	end
+
+
+
 end
