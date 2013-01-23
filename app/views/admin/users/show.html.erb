@@ -1,0 +1,12 @@
+<% provide(:title, "Show user") %>
+
+<p>
+  <strong>First Name:</strong>
+  <%= @user.first_name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_user_path(@user) %> |
+  <%= link_to "Delete", admin_user_path(@user), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_users_path %>
+</p>

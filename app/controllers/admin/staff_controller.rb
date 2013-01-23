@@ -1,6 +1,6 @@
 class Admin::StaffController < ApplicationController
     before_filter :signed_in_staff
-    before_filter :correct_user, only: [:new, :delete, :index]
+    #before_filter :correct_user, only: [:new, :delete, :index]
 
     def show
 		@staff = Staff.find(params[:id])

@@ -20,6 +20,7 @@ end
 
 group :development do
 	gem 'annotate', '2.5.0'
+  gem "nifty-generators"
 end
 
 # Gems used only for assets and not required
@@ -42,3 +43,5 @@ end
 group :production do
   gem 'pg', '0.12.2'
 end
+
+gem "mocha", :group => :test

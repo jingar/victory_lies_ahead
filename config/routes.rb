@@ -1,5 +1,6 @@
 SampleApp::Application.routes.draw do
 
+
   resources :users
   resources :hurdles
   resources :wattballs
@@ -22,9 +23,11 @@ SampleApp::Application.routes.draw do
   match '/schedules', to: "static_pages#schedules"
   
   root to: 'static_pages#home'
+  
   namespace :admin do
     resources :staff
     resources :staff_sessions, only: [:new, :create, :destroy]
+    resources :users
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'
