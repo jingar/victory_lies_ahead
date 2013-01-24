@@ -17,4 +17,5 @@ class Team < ActiveRecord::Base
 
     validates :team_name, presence: true
     validates :user_id, presence: true
+    validates_uniqueness_of :team_name
 end
