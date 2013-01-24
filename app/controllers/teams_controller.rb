@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
     def new
 		@team = Team.new
-		1.times { @team.wattballs.build }
+		11.times { @team.wattballs.build }
 		
     end
 
@@ -14,7 +14,7 @@ class TeamsController < ApplicationController
     end
 
     def create
-		@team = current_user.teams.build(params[:team])
+		@team = current_user.teams.build(params[:team], :without_protection => true)
 		if @team.save
 		    flash[:success] = "Wattball team is now registred!"
 		    redirect_to @team
