@@ -5,6 +5,7 @@ SampleApp::Application.routes.draw do
   resources :hurdles
   resources :wattballs
   resources :teams
+  resources :matches
   resources :sessions, only: [:new, :create, :destroy]
   
 
@@ -21,6 +22,7 @@ SampleApp::Application.routes.draw do
   match '/participants/teams', to: "teams#index"
   
   match '/schedules', to: "static_pages#schedules"
+  match '/schedules/wattball', to: "matches#index"
   
   root to: 'static_pages#home'
   

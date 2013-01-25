@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>When:</b>
+  <%= @match.when %>
+</p>
+
+<p>
+  <b>Opponent:</b>
+  <%= @match.opponent %>
+</p>
+
+<p>
+  <b>Pitch:</b>
+  <%= @match.pitch %>
+</p>
+
+<p>
+  <b>Umpire:</b>
+  <%= @match.umpire %>
+</p>
+
+
+<%= link_to 'Edit', edit_match_path(@match) %> |
+<%= link_to 'Back', matches_path %>

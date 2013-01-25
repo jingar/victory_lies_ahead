@@ -10,7 +10,7 @@
 #
 
 class Match < ActiveRecord::Base
-	attr_accessible :when
+	attr_accessible :when, :pitch, :opponent, :umpire
 	belongs_to :umpire
   	has_many :teams, through: :matches_teams
   
