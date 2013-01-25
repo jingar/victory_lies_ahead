@@ -6,6 +6,12 @@
 		Team Name: <%= @team.team_name %>
 		<br />
 	    </h1>
+  
+  <% @team.wattballs.each do |player| %>
+      <li> 
+        <%= link_to player.first_name + " "+ player.last_name, player %>
+      </li>
+  <% end %>
 	</section>
     </aside>
 </div>
