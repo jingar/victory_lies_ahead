@@ -1,4 +1,5 @@
 class Admin::StaffSessionsController < ApplicationController
+	before_filter :skip_header
 	def new
 	end
 
