@@ -10,7 +10,7 @@ class Admin::DashboardController < ApplicationController
 	def signed_in_staff
 		    unless signed_in_staff?
 			store_location_staff
-			redirect_to_staff '/admin/staffsignin', notice: "Please sign in."
+			redirect_to '/admin/staffsignin', notice: "Please sign in."
 		    end
 		end
 
