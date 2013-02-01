@@ -17,8 +17,8 @@ def sign_in(user)
 end
 
 def sign_in_staff(staff)
-  visit staffsignin_path
-  fill_in "Username",    with: staff.user_name
+  visit admin_staffsignin_path
+  fill_in "User name",    with: staff.user_name
   fill_in "Password", with: staff.password
   click_button "Sign in"
   # Sign in when not using Capybara as well.
