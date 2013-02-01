@@ -3,10 +3,10 @@
 # Table name: heats
 #
 #  id         :integer          not null, primary key
-#  when       :datetime
 #  gender     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  time       :datetime
 #
 
 require 'spec_helper'
@@ -14,18 +14,18 @@ require 'spec_helper'
 describe Heat do
   let(:found_heat) { Heat.find_by_when(@heat.when) }
     before do
-      @heat = Heat.new(when: "01/04/2013 14:00:00", gender: "m")
+      @heat = Heat.new(time: "01/04/2013 14:00:00", gender: "m")
     end
 
   subject { @heat }
 
-  it { should respond_to(:when) }
+  it { should respond_to(:time) }
   it { should respond_to(:gender) }
 
   it { should be_valid }
 
-  describe "when is not present" do
-    before { @heat.when = " " }
+  describe "when time is not present" do
+    before { @heat.time = " " }
     it { should_not be_valid }
   end
 
