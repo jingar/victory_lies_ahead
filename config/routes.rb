@@ -22,7 +22,8 @@ SampleApp::Application.routes.draw do
   match '/participants/teams', to: "teams#index"
   
   match '/schedules', to: "static_pages#schedules"
-  match '/schedules/wattball', to: "matches#index"
+  match '/schedules/matches', to: "matches#index"
+  match '/schedules/heats', to: "heats#index"
   
   root to: 'static_pages#home'
   

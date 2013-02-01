@@ -1,8 +1,9 @@
-<h1>Admin::Dashboard#index</h1>
-<p>Find me in app/views/admin/dashboard/index.html.erb</p>
-<li><%= link_to 'Manage Users', admin_users_path %></li>
-<li><%= link_to 'Manage Teams',' #' %></li>
+<h1>Staff Dashboard</h1>
+<ul>
+  <li><%= link_to 'Manage Users', admin_users_path %></li>
+  <li><%= link_to 'Manage Teams',' #' %></li>
+</ul>
 
-
+<br /> <br />
 <%= link_to "Sign out", admin_staffsignout_path, method: "delete" %>
 

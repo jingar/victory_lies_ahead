@@ -31,12 +31,16 @@ SimpleNavigation::Configuration.run do |navigation|
   # navigation.auto_highlight = false
 
   # Define the primary navigation
-    navigation.items do |primary|
-      primary.item :home, 'Home', root_path
-      primary.item :participants, 'Participants', participants_path do |participants|
-      participants.item :wattball, "Wattball", '/participants/teams'
-      participants.item :hurdle, "Hurdles", '/participants/athletes'
-	   end
+navigation.items do |primary|
+  primary.item :home, 'Home', root_path
+  primary.item :participants, 'Participants', participants_path do |participant|
+    participant.item :wattball, "Wattball", '/participants/teams'
+    participant.item :hurdle, "Hurdles", '/participants/athletes'
+  end
+  primary.item :schedules, 'Schedules', schedules_path do |schedule|
+    schedule.item :wattball, "Wattball", '/schedules/matches'
+    schedule.item :hurdles, "Hurdles", '/schedules/heats'
+  end
 	#primary.item :schedules, 'Schedules', schedules_path do |schedules|
 	#    schedules.item :wattball, "Wattball", schedules_wattball_path
 	#    schdules.item :hurdle, "Hurdles", schedules_hurdle_path
