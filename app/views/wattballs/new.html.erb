@@ -4,17 +4,10 @@
 	<div class="span6 offset3">
 	    <%= form_for([@wattball]) do |f| %>
 		<%= render 'shared/error_messages', entity: @wattball %>
-		
-		
-		<%# (1..11).each do |i| %>
-		    <%#= render 'shared/name_field', form: f, counter: i %>
-		<%# end %>
 		<div id = "dynamic_field" >
-
 		</div>
-		<%= submit_tag "Test me!", :type => 'button', :onclick => 'addInput("dynamic_field")' , class: "btn btn-large btn-primary" %>
-
-		<%= f.submit "Register", class: "btn btn-large btn-primary" %>
+		<%= submit_tag "New Player", :type => 'button', :onclick => 'addInput("dynamic_field")' , class: "btn btn-large btn-primary" %>
+		<%= f.submit "Register Players", class: "btn btn-large btn-primary" %>
 	    <% end %>
 	</div>
 </div>
