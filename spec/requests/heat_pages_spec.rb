@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Heat pages" do
 
-  subject { heat }
+  subject { page }
 
   describe "index" do
     before do
@@ -15,9 +15,8 @@ describe "Heat pages" do
     it { should have_selector('h1'), text: 'Hurdle Heats' }
 
     it "should list each heat" do
-      Heat.all.each do |user|
+      Heat.all.each do |heat|
         page.should have_selector('li'), text: heat.time
-        page.should have_selector('li'), text: heat.gender
       end
     end
   end
@@ -31,7 +30,7 @@ describe "Heat pages" do
 
   describe "with valid information - wattball" do
     before do
-      fill_in "When", with: "05/04/2013 12:00:00"
+      fill_in "Time", with: "05/04/2013 12:00:00"
       fill_in "Gender", with: "m"
     end
     it "should create a heat" do
