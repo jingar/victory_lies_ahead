@@ -17,7 +17,7 @@ def sign_in(user)
 end
 
 def sign_in_staff(staff)
-  visit staff_signin_path
+  visit staffsignin_path
   fill_in "Username",    with: staff.user_name
   fill_in "Password", with: staff.password
   click_button "Sign in"
