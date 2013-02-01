@@ -6,6 +6,7 @@ SampleApp::Application.routes.draw do
   resources :wattballs
   resources :teams
   resources :matches
+  resources :heats
   resources :sessions, only: [:new, :create, :destroy]
   
 

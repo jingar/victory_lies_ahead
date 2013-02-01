@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../../spec_helper'
+require 'spec_helper'
 
-describe Admin::UsersController do
+describe HeatsController do
   fixtures :all
   render_views
 
@@ -10,7 +10,7 @@ describe Admin::UsersController do
   end
 
   it "show action should render show template" do
-    get :show, :id => Admin::User.first
+    get :show, id: Heat.first
     response.should render_template(:show)
   end
 
@@ -19,39 +19,39 @@ describe Admin::UsersController do
     response.should render_template(:new)
   end
 
-  it "create action should render new template when model is invalid" do
-    Admin::User.any_instance.stubs(:valid?).returns(false)
+  it "create action should render new template when model us invalid" do
+    Heat.any_instace.stubs(:valid?).returns(false)
     post :create
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
-    Admin::User.any_instance.stubs(:valid?).returns(true)
+    Heat.any_instace.stubs(:valid?).returns(true)
     post :create
-    response.should redirect_to(admin_user_url(assigns[:user]))
+    response.should redirect_to(heats_url(assigns[:heat]))
   end
 
   it "edit action should render edit template" do
-    get :edit, :id => Admin::User.first
+    get :edit, id: Heat.first
     response.should render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
-    Admin::User.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Admin::User.first
+    Heat.any_instanc.stubs(:valid?).returns(false)
+    put :update, id: Heat.first
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
-    Admin::User.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Admin::User.first
-    response.should redirect_to(admin_user_url(assigns[:user]))
+    Heat.any_instance.stubs(:valid?).returns(true)
+    put :update, id: Heat.first
+    responce.should redirect_to(heats_url(assigns[:heat]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
-    user = Admin::User.first
-    delete :destroy, :id => user
-    response.should redirect_to(admin_users_url)
-    Admin::User.exists?(user.id).should be_false
+    heat = Heat.first
+    delete :destroy, id: heat
+    response.should redirect_to(heats_url)
+    Heat.exists?(heat.id).should be_false
   end
 end
