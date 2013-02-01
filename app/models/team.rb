@@ -10,7 +10,7 @@
 #
 
 class Team < ActiveRecord::Base
-    attr_accessible :team_name , :wattball_attributes
+    attr_accessible :team_name , :wattball_attributes, :user_id, :id, :created_at, :updated_at
     belongs_to :user
     has_many :wattballs
     has_many :matches, through: :matches_teams 
