@@ -19,7 +19,7 @@ class TeamsController < ApplicationController
 
   	def update
 		@team = Team.find(params[:id])
-		if @team.update_attributes(params[:team])
+		if @team.update_attributes(params[:team], :without_protection => true)
 			flash[:success] = "Team updated"
 			redirect_to @team
 		else
@@ -28,7 +28,7 @@ class TeamsController < ApplicationController
 	end
 
     def create	
-		@team = current_user.teams.build(params[:team])
+		@team = current_user.teams.build(params[:team], :without_protection => true)
 		if @team.save
 		    flash[:success] = "Wattball team is now registred!"
 		    redirect_to @team
