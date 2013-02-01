@@ -6,7 +6,7 @@ class Admin::StaffSessionsController < ApplicationController
 	def create 
 		staff = Staff.find_by_user_name(params[:staff_session][:user_name].downcase)
 		if staff && staff.authenticate(params[:staff_session][:password])
-			sign_in staff
+			sign_in_staff staff
 			redirect_to '/admin'
 		else
 			flash.now[:error] = 'Invalid user name/password combination'
