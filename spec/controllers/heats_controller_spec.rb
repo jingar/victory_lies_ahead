@@ -20,13 +20,13 @@ describe HeatsController do
   end
 
   it "create action should render new template when model us invalid" do
-    Heat.any_instace.stubs(:valid?).returns(false)
+    Heat.any_instance.stubs(:valid?).returns(false)
     post :create
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
-    Heat.any_instace.stubs(:valid?).returns(true)
+    Heat.any_instance.stubs(:valid?).returns(true)
     post :create
     response.should redirect_to(heats_url(assigns[:heat]))
   end
@@ -37,7 +37,7 @@ describe HeatsController do
   end
 
   it "update action should render edit template when model is invalid" do
-    Heat.any_instanc.stubs(:valid?).returns(false)
+    Heat.any_instance.stubs(:valid?).returns(false)
     put :update, id: Heat.first
     response.should render_template(:edit)
   end
