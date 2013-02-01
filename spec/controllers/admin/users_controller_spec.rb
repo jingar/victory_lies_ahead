@@ -4,13 +4,17 @@ describe Admin::UsersController do
   fixtures :all
   render_views
 
+  before do
+    sign_in_staff FactoryGirl.create(:staff)
+  end
+
   it "index action should render index template" do
     get :index
     response.should render_template(:index)
   end
 
   it "show action should render show template" do
-    get :show, :id => Admin::Users.first
+    get :show, :id => User.first
     response.should render_template(:show)
   end
 
