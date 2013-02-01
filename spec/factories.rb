@@ -9,4 +9,12 @@ FactoryGirl.define do
 		password_confirmation	"foobar"
 		sport	"wattball"
 	end
+	factory :staff do
+		first_name "Saad"
+		last_name "Arif"
+		user_name "saad_arif"
+		password "123456"
+		password_confirmation "123456"
+		position "Admin"
+	end
 end
