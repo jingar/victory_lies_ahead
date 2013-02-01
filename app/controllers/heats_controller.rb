@@ -31,4 +31,10 @@ class HeatsController < ApplicationController
       render 'edit'
     end
   end
+
+  def destroy
+    @heat = Heat.find(params[:id])
+    @heat.destroy
+    redirect_to heats_url, :notice => "Successfully deleted a heat."
+  end
 end
