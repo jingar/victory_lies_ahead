@@ -10,7 +10,7 @@ class HeatsController < ApplicationController
   def create
     @heat = Heat.new(params[:heat])
     if @heat.save
-      redirect_to @heats
+      redirect_to @heat
     else
       render 'new'
     end

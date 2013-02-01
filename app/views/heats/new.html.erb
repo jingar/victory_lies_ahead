@@ -1,0 +1,18 @@
+<% provide(:title , 'New Hurdle Heat') %>
+<h1>New Hurdle Heat</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@heat) do |f| %>
+
+    <%= render 'shared/error_messages', entity: @heat %>
+
+    <%= f.label :time %>
+    <%= f.text_field :time %>
+
+    <%= f.label :gender %>
+    <%= f.text_field :gender %>
+    <br /><br />
+    <%= f.submit "create new heat", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

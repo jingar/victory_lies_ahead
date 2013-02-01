@@ -16,4 +16,5 @@ class Heat < ActiveRecord::Base
 
   validates :gender, presence: true, length: { maximum: 1 }
   validates :time, presence: true
+  validates_uniqueness_of :time
 end

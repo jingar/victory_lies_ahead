@@ -12,7 +12,7 @@
 require 'spec_helper'
 
 describe Heat do
-  let(:found_heat) { Heat.find_by_when(@heat.when) }
+  let(:found_heat) { Heat.find_by_time(@heat.time) }
     before do
       @heat = Heat.new(time: "01/04/2013 14:00:00", gender: "m")
     end
