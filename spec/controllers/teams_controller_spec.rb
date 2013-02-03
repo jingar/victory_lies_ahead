@@ -29,7 +29,7 @@ describe TeamsController do
 
   it "create action should redirect when model is valid" do
     Team.any_instance.stubs(:valid?).returns(true)
-    post :create
+    post :create 
     response.should redirect_to(teams_url(assigns[:team]))
   end
 
@@ -40,7 +40,7 @@ describe TeamsController do
 
   it "update action should render edit template when model is invalid" do
     Team.any_instance.stubs(:valid?).returns(false)
-    put :update, id: team.id
+    put :update
     response.should render_template(:edit)
   end
 

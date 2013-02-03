@@ -11,7 +11,7 @@
 #
 
 class Wattball < ActiveRecord::Base
-    attr_protected :first_name, :last_name
+    attr_accessible :first_name, :last_name
     belongs_to :team
 
     validates :first_name, presence: true

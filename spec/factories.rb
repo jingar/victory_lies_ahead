@@ -1,13 +1,13 @@
 FactoryGirl.define do
-  factory :user do
-    first_name "Saad"
-    last_name "Arif"
-    email "saadarif@gmail.com"
-    address "125 baker street"
-    telephone "12121212112"
-    password "foobar"
-    password_confirmation "foobar"
-    sport "wattball"
+  factory :user do |u|
+    u.first_name "Saad"
+    u.last_name "Arif"
+    u.email "saadarif@gmail.com"
+    u.address "125 baker street"
+    u.telephone "12121212112"
+    u.password "foobar"
+    u.password_confirmation "foobar"
+    u.sport "wattball"
   end
 
   factory :staff do
@@ -24,8 +24,8 @@ FactoryGirl.define do
     gender "m"
   end
 
-  factory :team do
-    team_name "Zenit"
+  factory :team do |t|
+    t.team_name "Zenit"
     user
   end
 
