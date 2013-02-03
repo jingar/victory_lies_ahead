@@ -60,7 +60,7 @@ describe Admin::UsersController do
 
   it "update action should render edit template when model is invalid" do
     User.any_instance.stubs(:valid?).returns(false)
-    put :update, id: FactoryGirl.create(:user)
+    put :update, id: 
     response.should render_template(:edit)
   end
 
