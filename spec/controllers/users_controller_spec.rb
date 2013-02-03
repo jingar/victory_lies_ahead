@@ -4,7 +4,7 @@ describe Admin::UsersController do
   fixtures :all
   render_views
 
-  before do
+  before(:each) do
     sign_in_staff FactoryGirl.create(:staff)
   end
   let(:user) { FactoryGirl.create(:user) }
@@ -58,16 +58,16 @@ describe Admin::UsersController do
     response.should render_template(:edit)
   end
 
-  #it "update action should render edit template when model is invalid" do
-    #User.any_instance.stubs(:valid?).returns(false)
-    #FactoryGirl.create(:user, first_name: "Bob", last_name: "jay", email: "",
-        #address: "blah blah 1", telephone: "121212", sport:"hurdles")
-    #put :update, id: user
-    #response.should render_template(:edit)
-  #end
+  it "update action should render edit template when model is invalid" do
+     @user = FactoryGirl.create(:user, first_name: "Test", last_name: "Best", email: "Tbest@example.com",
+        address: "blah blah 1", telephone: "121212", sport:"hurdles")
+    User.any_instance.stubs(:valid?).returns(false)
+    put :update, id: @user, user: FactoryGirl.attributes_for(:user)
+    response.should render_template(:edit)
+  end
 
   it "update action should redirect when model is valid" do
-    ::User.any_instance.stubs(:valid?).returns(true)
+    User.any_instance.stubs(:valid?).returns(true)
     put :update, id: user
     response.should redirect_to(admin_user_url(assigns[:user]))
   end

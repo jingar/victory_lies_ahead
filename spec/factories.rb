@@ -10,6 +10,10 @@ FactoryGirl.define do
     sport "wattball"
   end
 
+  factory :invalid_user, parent: :user do |f|
+    f.first_name nil
+  end
+
   factory :staff do
     first_name "Saad"
     last_name "Arif"
