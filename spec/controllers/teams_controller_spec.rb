@@ -4,7 +4,10 @@ describe TeamsController do
   fixtures :all
   render_views
 
-  let(:team) {FactoryGirl.create(:team)}
+  user = FactoryGirl.create(:user)
+  team = FactoryGirl.create(:team, user_id: user.id)
+
+  #let(:team) {FactoryGirl.create(:team)}
 
   it "index action should render index template" do
     get :index
@@ -29,8 +32,8 @@ describe TeamsController do
 
   it "create action should redirect when model is valid" do
     Team.any_instance.stubs(:valid?).returns(true)
-    post :create 
-    response.should redirect_to(teams_url(assigns[:team]))
+    post :create, team: FactoryGirl.attributes_for(:team)
+    response.should redirect_to(teams_url)
   end
 
   it "edit action should render edit template" do
@@ -39,8 +42,12 @@ describe TeamsController do
   end
 
   it "update action should render edit template when model is invalid" do
+    #Team.any_instance.stubs(:valid?).returns(false)
+    #put :update, 
+    #response.should render_template(:edit)
+    @team = FactoryGirl.create(:team, team_name: "Bubbah")
     Team.any_instance.stubs(:valid?).returns(false)
-    put :update
+    put :update, id: @team, user: FactoryGirl.attributes_for(:invalid_team)
     response.should render_template(:edit)
   end
 

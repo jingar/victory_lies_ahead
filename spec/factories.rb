@@ -30,12 +30,14 @@ FactoryGirl.define do
 
   factory :team do |t|
     t.team_name "Zenit"
-    user
+  end
+
+  factory :invalid_team do |t|
+    t.team_name nil
   end
 
   factory :player do
     first_name "Scott"
     last_name "Logic"
-    team
   end
 end

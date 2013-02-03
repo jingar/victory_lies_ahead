@@ -62,7 +62,7 @@ describe Admin::UsersController do
      @user = FactoryGirl.create(:user, first_name: "Test", last_name: "Best", email: "Tbest@example.com",
         address: "blah blah 1", telephone: "121212", sport:"hurdles")
     User.any_instance.stubs(:valid?).returns(false)
-    put :update, id: @user, user: FactoryGirl.attributes_for(:user)
+    put :update, id: @user, user: FactoryGirl.attributes_for(:invalid_user)
     response.should render_template(:edit)
   end
 
