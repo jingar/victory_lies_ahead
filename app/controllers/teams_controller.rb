@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   def new
     @team = Team.new
-    11.times { @team.wattballs.build }		
+    2.times { @team.wattballs.build }		
   end
 
   def show
@@ -27,13 +27,18 @@ class TeamsController < ApplicationController
   end
 
   def create	
-    @team = current_user.teams.first.build
-    @team.team_name = params[:team][:team_name]
+    @team = current_user.teams.build(params[:team])
+    #@team.team_name = params[:team][:team_name]
     if @team.save
       flash[:success] = "Wattball team is now registred!"
       redirect_to @team
     else
       render 'new'
     end
+  end
+
+  def delete
+    Team.find(params[:id]).destroy
+    redirect_to action: 'index'
   end
 end

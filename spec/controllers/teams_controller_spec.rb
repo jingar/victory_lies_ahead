@@ -4,7 +4,7 @@ describe TeamsController do
   fixtures :all
   render_views
 
-  let(:team) { FactoryGirl.create(:team) }
+  let(:team) {FactoryGirl.create(:team)}
 
   it "index action should render index template" do
     get :index
@@ -12,7 +12,7 @@ describe TeamsController do
   end
 
   it "show action should render show template" do
-    get :show, id: team#Team.first
+    get :show, id: team
     response.should render_template(:show)
   end
 
@@ -34,23 +34,23 @@ describe TeamsController do
   end
 
   it "edit action should render edit template" do
-    get :edit, id: team#Team.first
+    get :edit, id: team
     response.should render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
     Team.any_instance.stubs(:valid?).returns(false)
-    put :update, id: team#Team.first
+    put :update, id: team
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     Team.any_instance.stubs(:valid?).returns(true)
-    put :update, id: team#Team.first
-    responce.should redirect_to(heats_url(assigns[:heat]))
+    put :update, id: team
+    response.should redirect_to(team)
   end
 
-  it "destroy action should destroy model and redirect to index action" do
+  it "delete action should destroy model and redirect to index action" do
     delete :destroy, id: team
     response.should redirect_to(teams_url)
     Team.exists?(team.id).should be_false
