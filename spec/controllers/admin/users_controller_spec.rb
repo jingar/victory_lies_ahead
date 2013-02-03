@@ -6,15 +6,18 @@ describe Admin::UsersController do
 
   before do
     sign_in_staff FactoryGirl.create(:staff)
-  end
 
+  end
+  
+  let(:user) { FactoryGirl.create(:user) }
+  
   it "index action should render index template" do
     get :index
     response.should render_template(:index)
   end
 
   it "show action should render show template" do
-    get :show, :id => User.first
+    get :show, id: user.id
     response.should render_template(:show)
   end
 
@@ -24,38 +27,38 @@ describe Admin::UsersController do
   end
 
   it "create action should render new template when model is invalid" do
-    Admin::Users.any_instance.stubs(:valid?).returns(false)
+    User.any_instance.stubs(:valid?).returns(false)
     post :create
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
-    Admin::Users.any_instance.stubs(:valid?).returns(true)
+    User.any_instance.stubs(:valid?).returns(true)
     post :create
     response.should redirect_to(admin_user_url(assigns[:user]))
   end
 
   it "edit action should render edit template" do
-    get :edit, :id => Admin::Users.first
+    get :edit, id: user.id
     response.should render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
-    Admin::Users.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Admin::Users.first
+    User.any_instance.stubs(:valid?).returns(false)
+    put :update, id: user.id
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
-    Admin::Users.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Admin::Users.first
+    User.any_instance.stubs(:valid?).returns(true)
+    put :update, id: user.id
     response.should redirect_to(admin_user_url(assigns[:user]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
-    user = Admin::Users.first
-    delete :destroy, :id => user
+    user_t = user.first
+    delete :destroy, :id => user_t
     response.should redirect_to(admin_users_url)
-    Admin::Users.exists?(user.id).should be_false
+    user_t.exists?(user_t.id).should be_false
   end
 end

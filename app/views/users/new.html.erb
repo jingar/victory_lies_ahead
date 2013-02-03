@@ -24,14 +24,14 @@
     <%= f.label :password %>
     <%= f.password_field :password %>
 
-    <%= f.label :password_confirmation, "confirmation" %>
+    <%= f.label :password_confirmation, "Confirmation" %>
     <%= f.password_field :password_confirmation %>
 			
     <%= f.label :sport %>
-    <%= f.select :sport, [['wattball', 'wattball'], ['hurdles', 'hurdles']], { include_blank: true } %>
+    <%= f.select :sport, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']], { include_blank: true } %>
     <br /><br />
 
-    <%= f.submit "create my account", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20130201204819) do
 
   create_table "matches", :force => true do |t|
     t.datetime "when"
+    t.string   "opponent"
+    t.integer  "pitch"
     t.integer  "umpire_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
