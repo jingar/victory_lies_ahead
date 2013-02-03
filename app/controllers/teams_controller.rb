@@ -37,7 +37,7 @@ class TeamsController < ApplicationController
     end
   end
 
-  def delete
+  def destroy
     Team.find(params[:id]).destroy
     redirect_to action: 'index'
   end
