@@ -27,7 +27,7 @@ class TeamsController < ApplicationController
   end
 
   def create	
-    @team = current_user.teams.build
+    @team = current_user.teams.first.build
     @team.team_name = params[:team][:team_name]
     if @team.save
       flash[:success] = "Wattball team is now registred!"
