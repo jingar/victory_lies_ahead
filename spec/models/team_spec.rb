@@ -13,7 +13,7 @@ require 'spec_helper'
 
 describe Team do
   let(:user) { FactoryGirl.create(:user) }
-    let(:found_team) { Team.find_by_first_name(@team.first_name) }
+    let(:found_team) { Team.find_by_team_name(@team.team_name) }
     before do
       @team = user.teams.build(team_name: "FC Zenit")
     end
