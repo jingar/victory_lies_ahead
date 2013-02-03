@@ -12,7 +12,7 @@ describe TeamsController do
   end
 
   it "show action should render show template" do
-    get :show, id: team
+    get :show, id: team.id
     response.should render_template(:show)
   end
 
@@ -34,24 +34,24 @@ describe TeamsController do
   end
 
   it "edit action should render edit template" do
-    get :edit, id: team
+    get :edit, id: team.id
     response.should render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
     Team.any_instance.stubs(:valid?).returns(false)
-    put :update, id: team
+    put :update, id: team.id
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     Team.any_instance.stubs(:valid?).returns(true)
-    put :update, id: team
+    put :update, id: team.id
     response.should redirect_to(team)
   end
 
   it "delete action should destroy model and redirect to index action" do
-    delete :destroy, id: team
+    delete :destroy, id: team.id
     response.should redirect_to(teams_url)
     Team.exists?(team.id).should be_false
   end
