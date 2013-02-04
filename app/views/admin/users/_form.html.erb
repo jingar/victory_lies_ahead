@@ -1,29 +1,29 @@
 <%= form_for ([:admin, @user]) do |f| %>
 	<%= render 'shared/error_messages', entity: @user %>
 	<p>
-			<%= f.label :first_name %>
-			<%= f.text_field :first_name %>
+		<%= f.label :first_name %>
+		<%= f.text_field :first_name %>
 
-			<%= f.label :last_name %>
-			<%= f.text_field :last_name %>
+		<%= f.label :last_name %>
+		<%= f.text_field :last_name %>
 
-			<%= f.label :email %>
-			<%= f.text_field :email %>
+		<%= f.label :email %>
+		<%= f.text_field :email %>
 
-			<%= f.label :address %>
-			<%= f.text_field :address %>
+		<%= f.label :address %>
+		<%= f.text_field :address %>
 
-			<%= f.label :telephone %>
-			<%= f.text_field :telephone %>
+		<%= f.label :telephone %>
+		<%= f.text_field :telephone %>
 
-			<%= f.label :password %>
-			<%= f.password_field :password %>
+		<%= f.label :password %>
+		<%= f.password_field :password %>
 
-			<%= f.label :password_confirmation, "Confirmation" %>
-			<%= f.password_field :password_confirmation %>
-			
-			<%= f.label :sport %>
-			<%= f.select :sport, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']], { include_blank: true } %>
+		<%= f.label :password_confirmation, "Confirmation" %>
+		<%= f.password_field :password_confirmation %>
+		
+		<%= f.label :sport %>
+		<%= f.select :sport, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']], { include_blank: true } %>
 	</p>
 	<p><%= f.submit %></p>
 <% end %>

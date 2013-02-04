@@ -1,0 +1,20 @@
+<% provide(:title, "New Hurdle") %>
+
+  <strong>First Name:</strong>
+  <%= @hurdle.first_name %> <br>
+
+  <strong>Last Name:</strong>
+  <%= @hurdle.last_name %> <br>
+  
+  <strong>Qualification:</strong>
+  <%= @hurdle.qualification %> <br>
+
+  <strong>Name:</strong>
+  <%= @hurdle.gender %> <br>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_admin_hurdle_path(@hurdle) %> |
+  <%= link_to "Destroy", admin_user_path(@hurdle), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_hurdle_path %>
+</p>

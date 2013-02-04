@@ -1,0 +1,17 @@
+<%= form_for ([:admin, @hurdle]) do |f| %>
+  <%= render 'shared/error_messages', entity: @hurdle %>
+  <p>
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name %>
+
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name %>
+
+    <%= f.label :qualification %><br />
+    <%= f.text_field :qualification %>
+
+    <%= f.label :gender %><br />
+    <%= f.text_field :gender %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

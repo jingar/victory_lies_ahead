@@ -1,0 +1,16 @@
+<% provide(:title, "Hurldes") %>e>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% for hurdle in @hurdles %>
+    <tr>
+      <td><%= hurdle.first_name %></td>
+      <td><%= link_to "Show", [:admin,hurdle] %></td>
+      <td><%= link_to "Edit", edit_admin_hurdle_path(hurdle) %></td>
+      <td><%= link_to "Destroy", [:admin,hurdle], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Hurldles", new_admin_hurdle_path %></p>
+<p><%= link_to "Back to Dashboard", admin_path %></p>
