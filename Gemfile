@@ -38,10 +38,11 @@ group :test do
   gem 'factory_girl_rails', '4.1.0'
   gem 'rb-inotify', '0.8.8'
   gem 'libnotify', '0.5.9'
+  gem "mocha", "~> 0.12.8", :require => false
 end
 
 group :production do
   gem 'pg', '0.12.2'
 end
 
-gem "mocha", :group => :test
+

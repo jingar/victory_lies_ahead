@@ -1,14 +1,19 @@
 FactoryGirl.define do
-  factory :user do
-    first_name "Saad"
-    last_name "Arif"
-    email "saadarif006@gmail.com"
-    address "125 baker street"
-    telephone "12121212112"
-    password "foobar"
-    password_confirmation "foobar"
-    sport "wattball"
+  factory :user do |u|
+    u.first_name "Saad"
+    u.last_name "Arif"
+    u.email "saadarif@gmail.com"
+    u.address "125 baker street"
+    u.telephone "12121212112"
+    u.password "foobar"
+    u.password_confirmation "foobar"
+    u.sport "wattball"
   end
+
+  factory :invalid_user, parent: :user do |f|
+    f.first_name nil
+  end
+
   factory :staff do
     first_name "Saad"
     last_name "Arif"
@@ -17,8 +22,22 @@ FactoryGirl.define do
     password_confirmation "123456"
     position "Admin"
   end
+
   factory :heat do
     time "01/04/2013 12:00:00"
     gender "m"
+  end
+
+  factory :team do |t|
+    t.team_name "Zenit"
+  end
+
+  factory :invalid_team do |t|
+    t.team_name nil
+  end
+
+  factory :player do
+    first_name "Scott"
+    last_name "Logic"
   end
 end
