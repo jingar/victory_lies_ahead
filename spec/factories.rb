@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :user do |u|
     u.first_name "Saad"
     u.last_name "Arif"
-    u.email "saadarif@gmail.com"
+    u.email Faker::Internet.email#"saadarif@gmail.com"
     u.address "125 baker street"
     u.telephone "12121212112"
     u.password "foobar"
@@ -29,15 +29,17 @@ FactoryGirl.define do
   end
 
   factory :team do |t|
-    t.team_name "Zenit"
+    user
+    t.team_name Faker::Name.first_name
   end
 
-  factory :invalid_team do |t|
+  factory :invalid_team, parent: :team do |t|
     t.team_name nil
   end
 
   factory :player do
-    first_name "Scott"
-    last_name "Logic"
+    team
+    first_name Faker::Name.first_name
+    last_name Faker::Name.last_name
   end
 end
