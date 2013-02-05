@@ -19,7 +19,7 @@ class HeatsController < ApplicationController
   end
 
   def show
-    @heat = Heat.find(params[:id])
+    @heat = Heat.includes(:hurdles).find(params[:id])
   end
 
   def edit

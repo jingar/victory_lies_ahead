@@ -5,6 +5,12 @@
       <h1>
         <%= @heat.time %>
         <%= @heat.gender %>
+        Hurdle Racers:
+        <ul>
+          <% @heat.hurdles.each do |hurdle| %>
+            <li><%= hurdle.name %></li>
+          <% end %>
+        </ul>
       </h1>
     </section>
   </aside>
