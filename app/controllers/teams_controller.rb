@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   def new
     @team = Team.new
-    2.times { @team.wattballs.build }		
+    11.times { @team.wattballs.build }		
   end
 
   def show
