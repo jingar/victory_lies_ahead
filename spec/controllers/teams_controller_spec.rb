@@ -4,10 +4,8 @@ describe TeamsController do
   fixtures :all
   render_views
 
-  user = FactoryGirl.create(:user)
-  team = FactoryGirl.create(:team, user_id: user.id)
-
-  #let(:team) {FactoryGirl.create(:team)}
+  #user = FactoryGirl.create(:user)
+  team = FactoryGirl.create(:team)#, user_id: user.id)
 
   it "index action should render index template" do
     get :index
@@ -26,7 +24,7 @@ describe TeamsController do
 
   it "create action should render new template when model us invalid" do
     Team.any_instance.stubs(:valid?).returns(false)
-    post :create
+    post :create 
     response.should render_template(:new)
   end
 
@@ -42,12 +40,9 @@ describe TeamsController do
   end
 
   it "update action should render edit template when model is invalid" do
-    #Team.any_instance.stubs(:valid?).returns(false)
-    #put :update, 
-    #response.should render_template(:edit)
-    @team = FactoryGirl.create(:team, team_name: "Bubbah")
+    #@team = FactoryGirl.build(:team, team_name: "Bubbah")
     Team.any_instance.stubs(:valid?).returns(false)
-    put :update, id: @team, user: FactoryGirl.attributes_for(:invalid_team)
+    put :update, id: team.id, team: FactoryGirl.attributes_for(:invalid_team)
     response.should render_template(:edit)
   end
 
