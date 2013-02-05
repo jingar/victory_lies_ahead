@@ -12,6 +12,8 @@
 
     <%= f.label :gender %><br />
     <%= f.text_field :gender %>
+    
+    <%= f.hidden_field :user_id, :value => params[:user_id] %>
   </p>
   <p><%= f.submit %></p>
 <% end %>
