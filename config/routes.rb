@@ -7,6 +7,7 @@ SampleApp::Application.routes.draw do
   resources :teams
   resources :matches
   resources :heats
+  resources :heat_results
   resources :sessions, only: [:new, :create, :destroy]
   
 

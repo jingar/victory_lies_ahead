@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203160341) do
+ActiveRecord::Schema.define(:version => 20130205190500) do
+
+  create_table "heat_results", :force => true do |t|
+    t.time     "result_time"
+    t.integer  "heat_id"
+    t.integer  "hurdle_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "heat_results", ["heat_id"], :name => "index_heat_results_on_heat_id"
+  add_index "heat_results", ["hurdle_id"], :name => "index_heat_results_on_hurdle_id"
 
   create_table "heats", :force => true do |t|
     t.string   "gender"
@@ -44,12 +55,15 @@ ActiveRecord::Schema.define(:version => 20130203160341) do
 
   create_table "matches", :force => true do |t|
     t.datetime "when"
-    t.integer  "umpire_id"
+    t.string   "homeTeam"
+    t.string   "awayTeam"
+    t.integer  "pitch"
+    t.string   "umpire"
+    t.integer  "homeGoals"
+    t.integer  "awayGoals"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  add_index "matches", ["umpire_id"], :name => "index_matches_on_umpire_id"
 
   create_table "staffs", :force => true do |t|
     t.string   "first_name"
@@ -81,7 +95,10 @@ ActiveRecord::Schema.define(:version => 20130203160341) do
     t.string   "email"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "umpire_id"
   end
+
+  add_index "umpires", ["umpire_id"], :name => "index_umpires_on_umpire_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email"

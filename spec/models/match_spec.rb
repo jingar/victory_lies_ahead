@@ -4,7 +4,12 @@
 #
 #  id         :integer          not null, primary key
 #  when       :datetime
-#  umpire_id  :integer
+#  homeTeam   :string(255)
+#  awayTeam   :string(255)
+#  pitch      :integer
+#  umpire     :string(255)
+#  homeGoals  :integer
+#  awayGoals  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
