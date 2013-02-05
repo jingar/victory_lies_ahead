@@ -23,12 +23,12 @@ class HeatsController < ApplicationController
   end
 
   def edit
+    @heat = Heat.find(params[:id])
   end
 
   def update
-    @heat.find(params[:id])
-    if @heat.update_attributes
-    (params[:heat])
+    @heat = Heat.find(params[:id])
+    if @heat.update_attributes(params[:heat])
       redirect_to @heat
     else
       render 'edit'
