@@ -13,6 +13,7 @@ class Heat < ActiveRecord::Base
   attr_accessible :gender, :time
 
   has_many :hurdles, through: :heat_hurdles
+  has_many :heat_results
 
   validates :gender, presence: true, length: { maximum: 1 }
   validates :time, presence: true
