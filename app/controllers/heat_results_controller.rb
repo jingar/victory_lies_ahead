@@ -9,7 +9,7 @@ class HeatResultsController < ApplicationController
 
   def create
     @heat_result = Heat.new
-    @heat_result.time_result = params[:heat_result][:time_result]
+    @heat_result.result_time = params[:heat_result][:result_time]
     @heat_result.heat_id = params[:heat_result][:heat_id]
     @heat_result.hurdle_id = params[:heat_result][:hurdle_id]
     if @heat_result.save

@@ -5,7 +5,6 @@ class HeatsController < ApplicationController
 
   def new
     @heat = Heat.new
-    8.times { @heat.hurdles.build }		
   end
 
   def create
