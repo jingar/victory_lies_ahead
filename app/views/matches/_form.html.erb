@@ -16,8 +16,12 @@
     <%= f.datetime_select :when %>
   </div>
   <div class="field">
-    <%= f.label :opponent %><br />
-    <%= f.text_field :opponent %>
+    <%= f.label :homeTeam %><br />
+    <%= f.text_field :homeTeam %>
+  </div>
+  <div class="field">
+    <%= f.label :awayTeam %><br />
+    <%= f.text_field :awayTeam %>
   </div>
   <div class="field">
     <%= f.label :pitch %><br />
@@ -26,6 +30,14 @@
   <div class="field">
     <%= f.label :umpire %><br />
     <%= f.text_field :umpire %>
+  </div>
+  <div class="field">
+    <%= f.label :homeGoals %><br />
+    <%= f.number_field :homeGoals %>
+  </div>
+  <div class="field">
+    <%= f.label :awayGoals %><br />
+    <%= f.number_field :awayGoals %>
   </div>
   <div class="actions">
     <%= f.submit %>
