@@ -1,0 +1,27 @@
+<h1>Listing umpires</h1>
+
+<table>
+  <tr>
+    <th>First name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th>Last name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @umpires.each do |umpire| %>
+  <tr>
+    <td><%= umpire.first_name %></td>
+    <td><%= umpire.last_name %></td>
+    <td><%= umpire.email %></td>
+    <td><%= link_to 'Show', umpire %></td>
+    <td><%= link_to 'Edit', edit_umpire_path(umpire) %></td>
+    <td><%= link_to 'Destroy', umpire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Umpire', new_umpire_path %>
