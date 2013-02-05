@@ -11,10 +11,12 @@
         <%= f.fields_for :wattballs do |players| %>
           <p>
             <b>Edit Player</b> <br/>
-            First Name: <%= players.text_field :first_name %>
-            Last Name: <%= players.text_field :last_name %>
+            <%= render "wattball_fields", :f => players %>
           </p>
         <% end %>
+
+        <p><%= link_to_add_player "Add Player", f, :wattballs %>
+
         <p><%= f.submit "Submit" %></p>
     <% end %>
   </div>
