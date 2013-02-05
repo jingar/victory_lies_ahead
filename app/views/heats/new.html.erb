@@ -11,6 +11,9 @@
 
     <%= f.label :gender %>
     <%= f.text_field :gender %>
+
+    <%= f.label :hurdle_id %>
+    <%= collection_select(@heat, :hurdle_id, Hurdle.all, :id, :name) %>
     <br /><br />
     <%= f.submit "create new heat", class: "btn btn-large btn-primary" %>
     <% end %>

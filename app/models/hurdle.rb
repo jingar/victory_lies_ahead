@@ -25,6 +25,6 @@ class Hurdle < ActiveRecord::Base
   validates :gender, presence: true, length: {maximum: 1} 
 
   def name
-    "#{first_name}. #{last_name}"
+    "#{first_name} #{last_name}"
   end
 end
