@@ -15,20 +15,23 @@ class Admin::HurdlesController < ApplicationController
   end
     
   def create
-    @user = User.find(params[:hurdle][:user_id])
     @hurdle = Hurdle.new
     @hurdle.first_name = params[:hurdle][:first_name]
     @hurdle.last_name = params[:hurdle][:last_name]
     @hurdle.qualification = params[:hurdle][:qualification]
     @hurdle.gender = params[:hurdle][:gender]
     @hurdle.user_id = params[:hurdle][:user_id]
-    #@hurdle = @user.hurdles.build(params[:hurdle])
     if @hurdle.save
       redirect_to admin_hurdles_url, notice: "Hurdle athlete is now registred!"
     else
       render 'new'
     end
-    end
+  end
+  
+  def destroy
+    @hurdle = Hurdle.find(params[:id])
+    @hurdle.destroy
+    redirect_to admin_hurdles_url, :notice => "Successfully deleted a hurdle racer"
   end
 
  #def edit
@@ -50,3 +53,4 @@ class Admin::HurdlesController < ApplicationController
       redirect_to('/admin/staffsignin')
     end
   end
+end
