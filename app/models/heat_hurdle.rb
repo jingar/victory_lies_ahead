@@ -10,6 +10,8 @@
 #
 
 class HeatHurdle < ActiveRecord::Base
+  attr_accessible :hurdle_id, :heat_id
+
   belongs_to :heat
   belongs_to :hurdle
 

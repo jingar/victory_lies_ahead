@@ -11,7 +11,7 @@
 #
 
 class HeatResult < ActiveRecord::Base
-  attr_accessible :result_time
+  attr_accessible :result_time, :heat_id, :hurdle_id
 
   belongs_to :heat
   belongs_to :hurdle

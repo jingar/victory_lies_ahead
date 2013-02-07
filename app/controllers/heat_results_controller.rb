@@ -8,10 +8,10 @@ class HeatResultsController < ApplicationController
   end
 
   def create
-    @heat_result = Heat.new
-    @heat_result.result_time = params[:heat_result][:result_time]
-    @heat_result.heat_id = params[:heat_result][:heat_id]
-    @heat_result.hurdle_id = params[:heat_result][:hurdle_id]
+    @heat_result = Heat.new(params[:heat_result])
+    #@heat_result.result_time = params[:heat_result][:result_time]
+    #@heat_result.heat_id = params[:heat_result][:heat_id]
+    #@heat_result.hurdle_id = params[:heat_result][:hurdle_id]
     if @heat_result.save
       redirect_to @heat_result
     else

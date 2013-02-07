@@ -9,7 +9,11 @@
       <%= f.text_field :result_time %>
 
       <%= f.label :hurdle_id %>
-      <%= f.collection_select(:heat_result, :hurdle_id, Heat.find(:heat_id).hurdles, :hurdle_id, :name, prompt: true) %>
+      <%= collection_select(
+        @heat_result, :hurdle_id, 
+        Heat.find(:heat_id).hurdles(:order=>"first_name ASC"), :id, :name,
+        { :selected => @heat_result.hurdle_id},
+      ) %>
 
       <%= f.hidden_field :heat_id, :value => params[:heat_id] %>
       <br /><br />

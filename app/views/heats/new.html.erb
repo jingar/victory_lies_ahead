@@ -12,7 +12,7 @@
     <%= f.label :gender %>
     <%= f.text_field :gender %>
 
-    <%= f.label :hurdle %>
+    <%= f.label :hurdle_id %>
     <%= collection_select(
       @heat, :hurdle_id, 
       Hurdle.all(:order=>"first_name ASC"), :id, :name,

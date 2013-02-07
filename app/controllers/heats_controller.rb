@@ -8,9 +8,9 @@ class HeatsController < ApplicationController
   end
 
   def create
-    @heat = Heat.new
-    @heat.time = params[:heat][:time]
-    @heat.gender = params[:heat][:gender]
+    @heat = Heat.new(params[:heat])
+    #@heat.time = params[:heat][:time]
+    #@heat.gender = params[:heat][:gender]
     if @heat.save
       redirect_to @heat
     else

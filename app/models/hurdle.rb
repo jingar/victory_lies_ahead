@@ -13,7 +13,7 @@
 #
 
 class Hurdle < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :qualification, :gender
+  attr_accessible :first_name, :last_name, :qualification, :gender, :user_id
 
   belongs_to :user
   has_many :heats, through: :heat_hurdles
