@@ -40,12 +40,8 @@ class Admin::HurdlesController < ApplicationController
  
  def update
    @hurdle = Hurdle.find(params[:id])
-   first_name = params[:hurdle][:first_name]
-   last_name = params[:hurdle][:last_name]
-   qualification = params[:hurdle][:qualification]
-   gender = params[:hurdle][:gender]
-   user_id = (Hurdle.where(id: params[:id]).pluck(:user_id)).first
-   if Hurdle.find(params[:id]).update_attributes(user_id: user_id,first_name: first_name, last_name: last_name, qualification: qualification, gender: gender)
+   params[:hurdle][:user_id] = (Hurdle.where(id: params[:id]).pluck(:user_id)).first
+   if @hurdle.update_attributes(params[:hurdle])
      redirect_to [:admin,@hurdle], notice: "Successfully updated a Hurdle."
    else
      render action: 'edit'

@@ -1,6 +1,6 @@
 <%= form_for ([:admin, @hurdle]) do |f| %>
-  <%= render 'shared/error_messages', entity: @hurdle %>
-  <p>
+  <%= render 'shared/error_messages', entity: @hurdle %> 
+    <p>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
 
