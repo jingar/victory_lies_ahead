@@ -34,9 +34,23 @@ class Admin::HurdlesController < ApplicationController
     redirect_to admin_hurdles_url, :notice => "Successfully deleted a hurdle racer"
   end
 
- #def edit
-   # @hurdle = Hurdle.find(params[:id])
- #end
+ def edit
+    @hurdle = Hurdle.find(params[:id])
+ end
+ 
+ def update
+   @hurdle = Hurdle.find(params[:id])
+   first_name = params[:hurdle][:first_name]
+   last_name = params[:hurdle][:last_name]
+   qualification = params[:hurdle][:qualification]
+   gender = params[:hurdle][:gender]
+   user_id = (Hurdle.where(id: params[:id]).pluck(:user_id)).first
+   if Hurdle.find(params[:id]).update_attributes(user_id: user_id,first_name: first_name, last_name: last_name, qualification: qualification, gender: gender)
+     redirect_to [:admin,@hurdle], notice: "Successfully updated a Hurdle."
+   else
+     render action: 'edit'
+    end
+ end
 
    private 
   def signed_in_staff
