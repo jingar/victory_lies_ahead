@@ -14,14 +14,14 @@
     <%= f.radio_button :gender, "m" %>M 
     <%= fields_for "heat[hurdles]" do |h| %>
       <%= h.label :hurdle_id, "Select hurdles racers" %>
-      <%= h.text_field :hurdle_id %>
+      <%#= h.text_field :hurdle_id %>
+      <%= h.collection_select(
+        :hurdle_id,
+        Hurdle.all(:order=>"first_name ASC"), :id, :name,
+        { selected: @heat.hurdle_ids }#,
+        #{ :multiple => true }
+      ) %>
     <% end %>
-    <%#= collection_select(
-      :heat, :hurdle_id,
-      Hurdle.all(:order=>"first_name ASC"), :id, :name,
-      { selected: @heat.hurdle_ids }#,
-      #{ :multiple => true }
-    ) %>
 
     <br /><br />
     <%= f.submit "create new heat", class: "btn btn-large btn-primary" %>
