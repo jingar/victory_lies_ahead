@@ -15,10 +15,9 @@ HEAT_SIZE=8
   end
 
   def create
-    time = build_date_from_params(:time, params[:heat])
     @heat = Heat.new
     @heat.gender = params[:heat][:gender]
-    @heat.time = time
+    @heat.time = build_date_from_params(:time, params[:heat])
     if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
       params[:heat][:hurdles][:hurdle_id].each do |h|
       if h != ""
@@ -46,7 +45,7 @@ HEAT_SIZE=8
   def update
     @heat = Heat.find(params[:id])
     @heat.gender = params[:heat][:gender]
-    @heat.time = params[:heat][:time]
+    @heat.time = build_date_from_params(:time, params[:heat])
     if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
       @heat.hurdles.clear
       params[:heat][:hurdles][:hurdle_id].each do |h|
