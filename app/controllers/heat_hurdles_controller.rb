@@ -1,0 +1,2 @@
+class HeatHurdlesController < ApplicationController
+end
