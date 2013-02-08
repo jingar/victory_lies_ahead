@@ -21,7 +21,7 @@ b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^|\\s)"+b[3]+"(?:\\s|$)"
 
 function remove_player(link) {
         $(link).prev("input[type=hidden]").val("1");
-        $(link).closest(".fields").hide();
+        $(link).closest(".wattball").hide();
 }
 
 function add_player(link, association, content) {
