@@ -1,5 +1,5 @@
 class HeatsController < ApplicationController
-HEAT_SIZE=3
+HEAT_SIZE=8
   def index
     @heats = Heat.all
   end
@@ -9,6 +9,7 @@ HEAT_SIZE=3
   end
 
   def create
+    puts(:time)
     @heat = Heat.new
     @heat.gender = params[:heat][:gender]
     @heat.time = params[:heat][:time]
@@ -21,10 +22,10 @@ HEAT_SIZE=3
       if @heat.save
         redirect_to @heat
       else
-        render 'edit'
+        render 'new'
       end
     else
-      render 'edit'
+      render 'new'
     end
   end
 
