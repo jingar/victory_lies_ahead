@@ -1,4 +1,5 @@
 class HeatsController < ApplicationController
+HEAT_SIZE=3
   def index
     @heats = Heat.all
   end
@@ -11,21 +12,19 @@ class HeatsController < ApplicationController
     @heat = Heat.new
     @heat.gender = params[:heat][:gender]
     @heat.time = params[:heat][:time]
-    counter = 0
-    params[:heat][:hurdles][:hurdle_id].each do |h|
+    if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
+      params[:heat][:hurdles][:hurdle_id].each do |h|
       if h != ""
         @heat.hurdles << Hurdle.find(h)
-        counter = counter+1
       end
     end
-    if counter == 3
       if @heat.save
         redirect_to @heat
       else
-        render 'new'
+        render 'edit'
       end
     else
-      render 'new'
+      render 'edit'
     end
   end
 
@@ -39,8 +38,20 @@ class HeatsController < ApplicationController
 
   def update
     @heat = Heat.find(params[:id])
-    if @heat.update_attributes(params[:heat])
-      redirect_to @heat
+    @heat.gender = params[:heat][:gender]
+    @heat.time = params[:heat][:time]
+    if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
+      @heat.hurdles.clear
+      params[:heat][:hurdles][:hurdle_id].each do |h|
+      if h != ""
+        @heat.hurdles << Hurdle.find(h)
+      end
+    end
+      if @heat.save
+        redirect_to @heat
+      else
+        render 'edit'
+      end
     else
       render 'edit'
     end

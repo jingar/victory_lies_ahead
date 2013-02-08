@@ -10,8 +10,19 @@
       <%= f.text_field :time %>
 
       <%= f.label :gender %>
-      <%= f.text_field :gender %>
+      <%= f.radio_button :gender, "f" %>F
+      <%= f.radio_button :gender, "m" %>M 
+      <%= fields_for "heat[hurdles]" do |h| %>
+        <%= h.label :hurdle_id, "Select hurdles racers" %>
+        <%= h.collection_select(
+          :hurdle_id,
+          Hurdle.all(:order=>"first_name ASC"), :id, :name,
+          {include_blank: false},# selected: [1,2] },
+          { :multiple => true }
+        ) %>
+      <% end %>
 
+      <br /><br />
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

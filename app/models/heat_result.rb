@@ -11,10 +11,12 @@
 #
 
 class HeatResult < ActiveRecord::Base
-  attr_accessible :result_time, :heat_id, :hurdle_id
+  attr_accessible :result_time, :heat_id, :hurdle_id, :hurdles_attributes, :heats_attributes
 
   belongs_to :heat
   belongs_to :hurdle
 
   validates :result_time, presence: true
+  validates :heat_id, presence: true
+  validates :hurdle_id, presence: true
 end

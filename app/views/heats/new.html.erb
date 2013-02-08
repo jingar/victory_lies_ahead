@@ -14,11 +14,10 @@
     <%= f.radio_button :gender, "m" %>M 
     <%= fields_for "heat[hurdles]" do |h| %>
       <%= h.label :hurdle_id, "Select hurdles racers" %>
-      <%#= h.text_field :hurdle_id %>
       <%= h.collection_select(
         :hurdle_id,
         Hurdle.all(:order=>"first_name ASC"), :id, :name,
-        { selected: [1,2] },
+        {},# selected: [1,2] },
         { :multiple => true }
       ) %>
     <% end %>
