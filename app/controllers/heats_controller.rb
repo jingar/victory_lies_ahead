@@ -7,12 +7,18 @@ HEAT_SIZE=8
   def new
     @heat = Heat.new
   end
+  # Reconstruct a date object from date_select helper form params
+  def build_date_from_params(field_name, params)
+    Date.new(params["#{field_name.to_s}(1i)"].to_i, 
+      params["#{field_name.to_s}(2i)"].to_i, 
+      params["#{field_name.to_s}(3i)"].to_i)
+  end
 
   def create
-    puts(:time)
+    time = build_date_from_params(:time, params[:heat])
     @heat = Heat.new
     @heat.gender = params[:heat][:gender]
-    @heat.time = params[:heat][:time]
+    @heat.time = time
     if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
       params[:heat][:hurdles][:hurdle_id].each do |h|
       if h != ""
