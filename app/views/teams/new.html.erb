@@ -16,6 +16,9 @@
           Last Name: <%= players.text_field :last_name %>
         </p>
       <% end %>
+
+      <p><%= link_to_add_player "Add Player", f, :wattballs %></p>
+
       <%= f.submit "Register team", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

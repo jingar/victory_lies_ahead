@@ -11,7 +11,8 @@
         <%= f.fields_for :wattballs do |players| %>
           <p>
             <b>Edit Player</b> <br/>
-            <%= render "wattball_fields", :f => players %>
+            First Name: <%= players.text_field :first_name %>
+            Last Name: <%= players.text_field :last_name %>
           </p>
         <% end %>
 
