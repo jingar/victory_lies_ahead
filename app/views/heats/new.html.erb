@@ -3,27 +3,24 @@
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@heat) do |f| %>
+      <%= render 'shared/error_messages', entity: @heat %>
 
-    <%= render 'shared/error_messages', entity: @heat %>
+      <%= f.label :time, "date and time of the heat"  %>
+      <%= f.datetime_select:time, :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :start_year => Date.today.year - 2, :end_year => Date.today.year + 2, date_separator: "/", order: [:day, :month, :year], :minute_step => 15 %>
 
-    <%= f.label :time, "date and time of the heat"  %>
-    <%= f.datetime_select:time, :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :start_year => Date.today.year - 2, :end_year => Date.today.year + 2, date_separator: "/", order: [:day, :month, :year], :minute_step => 15 %>
+      <%= f.label :gender %>
+      <%= f.radio_button :gender, "f" %>F
+      <%= f.radio_button :gender, "m" %>M 
+      <%= fields_for "heat[hurdles]" do |h| %>
+        <%= h.label :hurdle_id, "Select hurdles racers" %>
+        <%= h.collection_select(
+          :hurdle_id, Hurdle.all(:order=>"first_name ASC"), :id, :name,
+          {}, { :multiple => true }
+        ) %>
+      <% end %>
 
-    <%= f.label :gender %>
-    <%= f.radio_button :gender, "f" %>F
-    <%= f.radio_button :gender, "m" %>M 
-    <%= fields_for "heat[hurdles]" do |h| %>
-      <%= h.label :hurdle_id, "Select hurdles racers" %>
-      <%= h.collection_select(
-        :hurdle_id,
-        Hurdle.all(:order=>"first_name ASC"), :id, :name,
-        {},# selected: [1,2] },
-        { :multiple => true }
-      ) %>
-    <% end %>
-
-    <br /><br />
-    <%= f.submit "create new heat", class: "btn btn-large btn-primary" %>
+      <br /><br />
+      <%= f.submit "create new heat", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>
