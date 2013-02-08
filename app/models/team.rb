@@ -11,7 +11,7 @@
 #
 
 class Team < ActiveRecord::Base
-    attr_accessible :team_name, :wattball_attributes, :user_id
+    attr_accessible :team_name, :wattballs_attributes, :user_id
     belongs_to :user
     has_many :wattballs
     has_and_belongs_to_many :matches
