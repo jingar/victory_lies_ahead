@@ -1,10 +1,30 @@
 <% provide(:title, 'All wattball teams') %>
 <h1> All Wattball Teams</h1>
 
-<ul class = "teams">
-    <% @teams.each do |team| %>
-        <li> 
-	    	<%= link_to team.team_name, team %>
-		</li>
-    <% end %>
-</ul>
+<table border="3" cellpadding="3">
+	<tr bgcolor="yellow">
+		<th>Name</th>
+		<th>Points</th>
+		<th>Played</th>
+		<th>Wins</th>
+		<th>Draws</th>
+		<th>Losses</th>
+		<th>Goals For</th>
+		<th>Goals Against</th>
+		<th>Goal Difference</th>
+	</tr>
+	<% @teams.each do |team| %>
+		<tr>
+			<td><%= link_to team.team_name, team %></td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+		</tr>
+	<% end %>
+</table>
+
