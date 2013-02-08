@@ -65,7 +65,7 @@ teamNik = User.find(6).teams.create!(team_name: "Run or fight").wattballs.create
   {first_name: "John", last_name: "Hollinger"}
 ], without_protection: true)
 
-heats = Heat.create!([
-  {time: "01/04/2013 12:00:00", gender: "m"},
-  {time: "01/04/2013 12:30:00", gender: "f"}
-])
+#heats = Heat.create!([
+#  {time: "01/04/2013 12:00:00", gender: "m"},
+#  {time: "01/04/2013 12:30:00", gender: "f"}
+#])

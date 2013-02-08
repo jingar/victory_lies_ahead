@@ -10,11 +10,12 @@
 #
 
 class Heat < ActiveRecord::Base
-  attr_accessible :gender, :time
+  attr_accessible :gender, :time, :hurdles_attributes
 
   has_many :hurdles, through: :heat_hurdles
   has_many :heat_hurdles
   has_many :heat_results
+  accepts_nested_attributes_for :heat_hurdles
 
   validates :gender, presence: true, length: { maximum: 1 }
   validates :time, presence: true

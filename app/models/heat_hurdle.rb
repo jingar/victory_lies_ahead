@@ -16,5 +16,4 @@ class HeatHurdle < ActiveRecord::Base
   belongs_to :hurdle
 
   validates :hurdle_id, presence: true
-  validates :heat_id, presence: true
 end

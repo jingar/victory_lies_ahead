@@ -10,14 +10,17 @@
     <%= f.text_field :time %>
 
     <%= f.label :gender %>
-    <%= f.text_field :gender %>
-
-    <%= f.label :hurdle_id %>
-    <%= collection_select(
-      @heat, :hurdle_id, 
+    <%= f.radio_button :gender, "f" %>F
+    <%= f.radio_button :gender, "m" %>M 
+    <%= fields_for "heat[hurdles]" do |h| %>
+      <%= h.label :hurdle_id, "Select hurdles racers" %>
+      <%= h.text_field :hurdle_id %>
+    <% end %>
+    <%#= collection_select(
+      :heat, :hurdle_id,
       Hurdle.all(:order=>"first_name ASC"), :id, :name,
-      { :selected => @heat.hurdle_ids},
-      { :multiple => true }
+      { selected: @heat.hurdle_ids }#,
+      #{ :multiple => true }
     ) %>
 
     <br /><br />
