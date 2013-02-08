@@ -1,12 +1,13 @@
 <%= form_for ([:admin, @hurdle]) do |f| %>
-  <%= render 'shared/error_messages', entity: @hurdle %>
-  <p>
+  <%= render 'shared/error_messages', entity: @hurdle %> 
+    <p>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
 
     <%= f.label :last_name %><br />
     <%= f.text_field :last_name %>
-
+    
+  <p> Qualification time must be given in the format HH:MM:SS </p>
     <%= f.label :qualification %><br />
     <%= f.text_field :qualification %>
 
