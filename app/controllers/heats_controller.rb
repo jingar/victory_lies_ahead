@@ -11,9 +11,19 @@ class HeatsController < ApplicationController
     @heat = Heat.new
     @heat.gender = params[:heat][:gender]
     @heat.time = params[:heat][:time]
-    @heat.hurdles << Hurdle.find(params[:heat][:hurdles][:hurdle_id])
-    if @heat.save
-      redirect_to @heat
+    counter = 0
+    params[:heat][:hurdles][:hurdle_id].each do |h|
+      if h != ""
+        @heat.hurdles << Hurdle.find(h)
+        counter = counter+1
+      end
+    end
+    if counter == 3
+      if @heat.save
+        redirect_to @heat
+      else
+        render 'new'
+      end
     else
       render 'new'
     end

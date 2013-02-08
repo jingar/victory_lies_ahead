@@ -18,8 +18,8 @@
       <%= h.collection_select(
         :hurdle_id,
         Hurdle.all(:order=>"first_name ASC"), :id, :name,
-        { selected: @heat.hurdle_ids }#,
-        #{ :multiple => true }
+        { selected: [1,2] },
+        { :multiple => true }
       ) %>
     <% end %>
 
