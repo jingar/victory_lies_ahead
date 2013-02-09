@@ -7,6 +7,7 @@ HEAT_SIZE=8
   def new
     @heat = Heat.new
   end
+
   # Reconstruct a date object from date_select helper form params
   def build_date_from_params(field_name, params)
     Date.new(params["#{field_name.to_s}(1i)"].to_i, 
@@ -67,5 +68,9 @@ HEAT_SIZE=8
     @heat = Heat.find(params[:id])
     @heat.destroy
     redirect_to heats_url, :notice => "Successfully deleted a heat."
+  end
+
+  def add_result
+    @heat = params[:heat_id]
   end
 end
