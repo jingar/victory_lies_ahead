@@ -77,9 +77,6 @@ HEAT_SIZE=8
   def update_result
     @heat = Heat.find(params[:id])
     @heat.update_attributes(params[:heat])
-    #@heat.heat_hurdles.each do |h_h|
-    #  h_h.finish_time = params[:heat][:heat_hurdles_attributes][:finish_time]
-    #end
     if @heat.save
       redirect_to @heat
     else
