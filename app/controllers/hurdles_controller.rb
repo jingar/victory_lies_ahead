@@ -12,12 +12,12 @@ class HurdlesController < ApplicationController
     end
     
     def create
-		@hurdle = current_user.hurdles.build(params[:hurdle])
-		if @hurdle.save
-		    flash[:success] = "Hurdle athlete is now registred!"
-		    redirect_to @hurdle
-		else
-			render 'new'
-		end
+      @hurdle = current_user.hurdles.build(params[:hurdle])
+      if @hurdle.save
+        flash[:success] = "Hurdle athlete is now registred!"
+        redirect_to @hurdle
+      else
+        render 'new'
+      end
     end
-end
+  end
