@@ -15,12 +15,7 @@ class Admin::HurdlesController < ApplicationController
   end
     
   def create
-    @hurdle = Hurdle.new
-    @hurdle.first_name = params[:hurdle][:first_name]
-    @hurdle.last_name = params[:hurdle][:last_name]
-    @hurdle.qualification = params[:hurdle][:qualification]
-    @hurdle.gender = params[:hurdle][:gender]
-    @hurdle.user_id = params[:hurdle][:user_id]
+    @hurdle = Hurdle.new(params[:hurdle])
     if @hurdle.save
       redirect_to admin_hurdles_url, notice: "Hurdle athlete is now registred!"
     else
