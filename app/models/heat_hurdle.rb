@@ -17,5 +17,5 @@ class HeatHurdle < ActiveRecord::Base
   belongs_to :hurdle
 
   validates :hurdle_id, presence: true
-  validates :finish_result, presence:true
+  validates :finish_time, presence:true
 end
