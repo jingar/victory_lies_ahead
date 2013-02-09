@@ -1,4 +1,5 @@
 class HurdlesController < ApplicationController
+  #before_filter :signed_in_user
     def new
 	@hurdle = Hurdle.new
     end

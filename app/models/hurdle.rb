@@ -24,6 +24,9 @@ class Hurdle < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :gender, presence: true, length: {maximum: 1} 
+#  REGEX = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d/
+#  TIME_REGEX = /^(20|21|22|23|[01]\d|\d)(([:.][0-5]\d){1,2})$/
+#  validates :qualification, format: { with:  REGEX, message: "not in format hh:mm:ss" }
 
   def name
     "#{first_name} #{last_name}"
