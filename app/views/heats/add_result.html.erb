@@ -7,6 +7,7 @@
       <%= render 'shared/error_messages', entity: @heat %>
 
       <%= f.fields_for :heat_hurdles do |h| %>
+        <p><%= h.object.hurdle.name %></p>
         <%= h.label :finish_time, "Insert result time" %>
         <%= h.time_select :finish_time, include_seconds: true %>
       <% end %>
