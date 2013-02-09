@@ -8,7 +8,7 @@
         Hurdle Racers:
         <ul>
           <% @heat.hurdles.each do |hurdle| %>
-            <li><%= hurdle.name %></li>
+            <li><%= hurdle.name %> <%= hurdle.heat_hurdles.find_by_heat_id(@heat).finish_time %></li>
           <% end %>
         </ul>
       </h1>

@@ -9,6 +9,7 @@ SampleApp::Application.routes.draw do
   resources :heats do
     member do
       get 'add_result'
+      put 'update_result'
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
