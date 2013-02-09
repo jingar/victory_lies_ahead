@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :hurdles
   has_many :teams
+  accepts_nested_attributes_for :teams, allow_destroy: true
+  accepts_nested_attributes_for :hurdles, allow_destoy: true
   
 
   before_save { |user| user.email = email.downcase }

@@ -71,6 +71,6 @@ HEAT_SIZE=8
   end
 
   def add_result
-    @heat = params[:heat_id]
+    @heat = Heat.find(params[:id])
   end
 end

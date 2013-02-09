@@ -1,0 +1,18 @@
+<% provide(:title, "Add Heat Result") %>
+<h1> Add Heat Result </h1>
+
+<div class = "row">
+  <div class = "span6 offset3">
+    <%= form_for(@heat) do |f| %>
+      <%= render 'shared/error_messages', entity: @heat %>
+
+      <%= fields_for :hurdles do |h| %>
+        <%= h.label :hurdle_id, "Select hurdles racers" %>
+        <div ><%= h.time_select :result_time, include_seconds: true %></div>
+      <% end %>
+
+      <br /><br />
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
