@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208124916) do
+ActiveRecord::Schema.define(:version => 20130209154619) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130208124916) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.datetime "time"
+    t.integer  "round"
   end
 
   create_table "hurdles", :force => true do |t|

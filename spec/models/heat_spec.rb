@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  time       :datetime
+#  round      :integer
 #
 
 require 'spec_helper'
