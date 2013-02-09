@@ -20,10 +20,7 @@ class User < ActiveRecord::Base
   :password, :password_confirmation, :sport
   has_secure_password
   has_many :hurdles
-  has_many :teams
-  accepts_nested_attributes_for :teams, allow_destroy: true
-  accepts_nested_attributes_for :hurdles, allow_destoy: true
-  
+  has_many :teams 
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token

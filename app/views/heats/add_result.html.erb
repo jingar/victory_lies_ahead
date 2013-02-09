@@ -6,9 +6,9 @@
     <%= form_for(@heat) do |f| %>
       <%= render 'shared/error_messages', entity: @heat %>
 
-      <%= fields_for :hurdles do |h| %>
-        <%= h.label :hurdle_id, "Select hurdles racers" %>
-        <div ><%= h.time_select :result_time, include_seconds: true %></div>
+      <%= f.fields_for :heat_hurdles do |h| %>
+        <%= h.label :finish_time, "Insert result time" %>
+        <%= h.time_select :finish_time, include_seconds: true %>
       <% end %>
 
       <br /><br />

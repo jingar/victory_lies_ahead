@@ -11,7 +11,7 @@
 #
 
 class HeatHurdle < ActiveRecord::Base
-  attr_accessible :hurdle_id, :heat_id, :finish_result
+  attr_accessible :hurdle_id, :heat_id, :finish_time
 
   belongs_to :heat
   belongs_to :hurdle
