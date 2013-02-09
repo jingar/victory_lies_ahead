@@ -5,8 +5,7 @@
   </tr>
   <% for hurdle in @hurdles %>
     <tr>
-      <td><%= hurdle.first_name %></td>
-      <td><%= hurdle.id %></td>
+      <td><%= hurdle.name %></td>
       <td><%= link_to "Show", [:admin,hurdle] %></td>
       <td><%= link_to "Edit", edit_admin_hurdle_path(hurdle) %></td>
       <td><%= link_to "Destroy", [:admin,hurdle], :confirm => 'Are you sure?', :method => :delete %></td>
