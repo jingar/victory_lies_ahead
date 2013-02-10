@@ -4,7 +4,7 @@
 <ul class = "heats">
   <% @heats.each do |heat| %>
     <li> 
-      <%= link_to heat.time.strftime('%e/%-m/%y %k:%M:%S'), heat %>
+      <%= link_to heat.time.strftime('%e %b %Y %k:%M:%S'), heat %>
     </li>
   <% end %>
 </ul>

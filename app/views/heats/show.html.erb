@@ -3,12 +3,13 @@
   <aside class = "span4">
     <section>
       <h1>
-        <%= @heat.time %>
+        <%= @heat.time.strftime('%e %b %Y %k:%M:%S') %>
         <%= @heat.gender %>
         Hurdle Racers:
         <ul>
           <% @heat.hurdles.each do |hurdle| %>
-            <li><%= hurdle.name %> <%= hurdle.heat_hurdles.find_by_heat_id(@heat).finish_time.strftime('%H:%M:%S') %></li>
+            <%= finish_time = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle.id).finish_time %>
+            <li><%= hurdle.name %> <%= finish_time.strftime('%H:%M:%S') if finish_time!=nil %></li>
           <% end %>
         </ul>
       </h1>

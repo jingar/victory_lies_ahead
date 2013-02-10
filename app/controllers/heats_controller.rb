@@ -76,8 +76,8 @@ HEAT_SIZE=8
 
   def update_result
     @heat = Heat.find(params[:id])
-    @heat.update_attributes(params[:heat])
-    if @heat.save
+    if @heat.update_attributes(params[:heat])
+      flash[:success] = "Heat details updated"
       redirect_to @heat
     else
       render 'add_result'
