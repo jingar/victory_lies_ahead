@@ -16,18 +16,30 @@ reps = User.create!([
   { first_name: "John", last_name: "Stainsby", email: "johnstainsby@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"},
   { first_name: "Nikola", last_name: "Damaskov", email: "mamatakolio@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"},
   { first_name: "Robbie", last_name: "Henderson", email: "robbie.gavin.henderson@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "hurdle"}
-]) 
+])
+# 4 dev team participants
+User.find(2).hurdles.create!(first_name: "Saad", last_name: "Arif", gender: "m", qualification: "00:00:50")
+User.find(3).hurdles.create(first_name: "Alex", last_name: "Eldrige", gender: "m", qualification: "0):01:30")
+User.find(4).hurdles.create(first_name: "Graham", last_name: "MacDonald", gender: "m", qualification: "00:00:00")
+User.find(7).hurdles.create(first_name: "Robbie", last_name: "Henderson", gender: "m", qualification: "00:01:10")
+# 25 males with no qualification
+for i in 1..25 do
+  User.find(2).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "m")
+end
+# 25 males with valid qualification
+for i in 1..25 do
+  User.find(3).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "m", qualification: "00:#{rand(0..5)}:#{rand(0..59)}")
+end
+# 25 female with no qualification
+for i in 1..25 do
+  User.find(2).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f")
+end
+# 25 female with valid qualification
+for i in 1..25 do
+  User.find(3).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f", qualification: "00:#{rand(0..5)}:#{rand(0..59)}")
+end
+hurdles = Hurdle.all
 
-hurdles = [
-  User.find(2).hurdles.create!(first_name: "Saad", last_name: "Arif", gender: "m", qualification: "00:00:50"),
-  User.find(3).hurdles.create(first_name: "Alex", last_name: "Eldrige", gender: "m", qualification: "0):01:30"),
-  User.find(4).hurdles.create(first_name: "Graham", last_name: "MacDonald", gender: "m", qualification: "00:00:00"),
-  User.find(7).hurdles.create(first_name: "Robbie", last_name: "Henderson", gender: "m", qualification: "00:01:10"),
-  User.find(2).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f"),
-  User.find(3).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f"),
-  User.find(4).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f"),
-  User.find(7).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f")
-]
 teamKos = User.find(1).teams.create!(team_name: "Heriot-Watt brigade").wattballs.create!([
   {first_name: "Emily", last_name: "Harvard"},
   {first_name: "David", last_name: "Borland"},
@@ -69,5 +81,5 @@ teamNik = User.find(6).teams.create!(team_name: "Run or fight").wattballs.create
   {first_name: "Bobbie", last_name: "Fletcher"},
   {first_name: "John", last_name: "Hollinger"}
 ])
-heat = Heat.create!(gender: "m", time: "01/04/2013 16:00:00")
-hurdles.each { |h| heat.hurdles << h }
+#heat = Heat.create!(gender: "m", time: "01/04/2013 16:00:00")
+#hurdles.each { |h| heat.hurdles << h }
