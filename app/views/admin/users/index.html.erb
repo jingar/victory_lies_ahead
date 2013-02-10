@@ -3,19 +3,21 @@
   <h2> Users </h2>
 </head>
 <body>
-  <table class ="table">
+  <table class ="table table_stripped">
     <thead>
       <tr>
-	<th>Name</th>
-	<th>Email Address</th>
-	<th>Address</th>
-	<th>Sport</th>
+	<th><%= sortable "first_name", User, "First Name" %></th>
+	<th><%= sortable "last_name", User, "Last Name" %></th>
+	<th><%= sortable "email", User, "Email Address" %></th>
+	<th><%= sortable "address", User, "Address" %></th>
+	<th><%= sortable "sport", User %></th>
       </tr>
     </thead>
       <tbody>
 	<% for user in @users %>
 	<tr>
-	  <td><%= user.first_name + " " + user.last_name %></td>
+	  <td><%= user.first_name %></td>
+	  <td><%= user.last_name %></td>
 	  <td><%= user.email %></td>
 	  <td><%= user.address %></td>
 	  <td><%= user.sport %></td>

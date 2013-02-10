@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_filter :skip_header
 
   def index
-    @users = User.all
+    @users = User.order(sort_column(User) + " " + sort_direction)
   end
 
   def show

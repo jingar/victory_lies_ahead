@@ -6,7 +6,8 @@
   <table class="table table-stripped">
     <thead>
       <tr>
-	<th><%= sortable "first_name", Hurdle, "Name" %></th>
+	<th><%= sortable "first_name", Hurdle, "First Name" %></th>
+	<th><%= sortable "last_name", Hurdle, "Last Name" %></th>
 	<th><%= sortable "qualification", Hurdle %></th>
 	<th><%= sortable "gender", Hurdle %></th>
       </tr>
@@ -14,7 +15,8 @@
     <tbody>
       <% for hurdle in @hurdles %>
       <tr>
-	<td><%= hurdle.name %></td>
+	<td><%= hurdle.first_name %></td>	
+	<td><%= hurdle.last_name %></td>
 	<td><%= hurdle.qualification %></td>
 	<td><%= hurdle.gender %></td>
 	<td><%= link_to "Show", [:admin,hurdle] %></td>
