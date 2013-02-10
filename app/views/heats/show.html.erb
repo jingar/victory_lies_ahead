@@ -3,8 +3,7 @@
   <aside class = "span4">
     <section>
       <h1>
-        <%= @heat.time.strftime('%e %b %Y %k:%M:%S') %>
-        <%= @heat.gender %>
+        When: <%= @heat.time.strftime('%e %b %Y %k:%M:%S') %> <br />
         Hurdle Racers:
         <ul>
           <% @heat.hurdles.each do |hurdle| %>

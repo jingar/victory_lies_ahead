@@ -6,6 +6,7 @@ SampleApp::Application.routes.draw do
   resources :wattballs
   resources :teams
   resources :matches
+  resources :tournaments
   resources :heats do
     member do
       get 'add_result'
