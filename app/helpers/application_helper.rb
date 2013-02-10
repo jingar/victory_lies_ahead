@@ -1,5 +1,5 @@
 module ApplicationHelper
-	def full_title(page_title)
+  def full_title(page_title)
 		base_title = "Heriot-Watt Sports Tournament"
 		if page_title.empty?
 			base_title
@@ -19,4 +19,19 @@ module ApplicationHelper
   	def link_to_remove_player(name, f)
     	f.hidden_field(:_destroy) + link_to_function(name, "remove_player(this)")
   	end
+
+  def sortable(column,model,title = nil)
+    title ||= column.titleize
+    direction = column == sort_column(model) && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, sort: column, direction: direction
+  end
+
+  def sort_column(model)
+    model.column_names.include?(params[:sort]) ? params[:sort] : "id"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
 end

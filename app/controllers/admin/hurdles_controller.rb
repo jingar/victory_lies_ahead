@@ -1,7 +1,6 @@
 class Admin::HurdlesController < ApplicationController
   before_filter :signed_in_staff
   before_filter :skip_header
-  
   def new
 	@hurdle = Hurdle.new
   end
@@ -9,9 +8,9 @@ class Admin::HurdlesController < ApplicationController
   def show
     @hurdle = Hurdle.find(params[:id])
   end
-
+  
   def index
-	   @hurdles = Hurdle.all
+    @hurdles = Hurdle.order(sort_column(Hurdle) + " " + sort_direction)
   end
     
   def create
@@ -44,18 +43,11 @@ class Admin::HurdlesController < ApplicationController
  end
 
    private 
-  def signed_in_staff
-        unless signed_in_staff?
-      store_location_staff
-      redirect_to '/admin/staffsignin', notice: "Please sign in."
-        end
-    end
-
-  def correct_user
-    @staff = Staff.find(params[:id])
-    if !current_user_staff?(@staff)
-      flash[:error] = "Wrong user"
-      redirect_to('/admin/staffsignin')
-    end
-  end
+ def correct_user
+   @staff = Staff.find(params[:id])
+   if !current_user_staff?(@staff)
+     flash[:error] = "Wrong user"
+     redirect_to('/admin/staffsignin')
+   end
+ end
 end

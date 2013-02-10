@@ -1,16 +1,30 @@
 <% provide(:title, "Hurldes") %>
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
-  <% for hurdle in @hurdles %>
-    <tr>
-      <td><%= hurdle.name %></td>
-      <td><%= link_to "Show", [:admin,hurdle] %></td>
-      <td><%= link_to "Edit", edit_admin_hurdle_path(hurdle) %></td>
-      <td><%= link_to "Destroy", [:admin,hurdle], :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<head>
+  <h2> Hurdles </h2>
+</head>
+<body>
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+	<th><%= sortable "first_name", Hurdle, "Name" %></th>
+	<th><%= sortable "qualification", Hurdle %></th>
+	<th><%= sortable "gender", Hurdle %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for hurdle in @hurdles %>
+      <tr>
+	<td><%= hurdle.name %></td>
+	<td><%= hurdle.qualification %></td>
+	<td><%= hurdle.gender %></td>
+	<td><%= link_to "Show", [:admin,hurdle] %></td>
+	<td><%= link_to "Edit", edit_admin_hurdle_path(hurdle) %></td>
+	<td><%= link_to "Destroy", [:admin,hurdle], :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+</body>
+
 
 <p><%= link_to "Back to Dashboard", admin_path %></p>

@@ -29,8 +29,14 @@ module StaffSessionsHelper
 		redirect_to(session[:return_to] || default)
 		session.delete(:return_to)
 	end
-
+        
 	def store_location_staff
 		session[:return_to] = request.url
 	end
+        def signed_in_staff
+          unless signed_in_staff?
+            store_location_staff
+            redirect_to '/admin/staffsignin', notice: "Please sign in."
+          end
+        end
 end
