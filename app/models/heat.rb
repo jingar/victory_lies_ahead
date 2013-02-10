@@ -11,11 +11,12 @@
 #
 
 class Heat < ActiveRecord::Base
-  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes
+  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id
 
   has_many :hurdles, through: :heat_hurdles
   has_many :heat_hurdles
   has_many :heat_results
+  belongs_to :tournament
   accepts_nested_attributes_for :heat_hurdles
 
   validates :gender, presence: true, length: { maximum: 1 }
