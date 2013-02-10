@@ -5,4 +5,5 @@ class AddColumnTournamentIdToHeatsModel < ActiveRecord::Migration
 
   def down
     column_remove :heats, :tournament_id
+  end
 end

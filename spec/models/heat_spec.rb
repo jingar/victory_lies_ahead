@@ -2,12 +2,13 @@
 #
 # Table name: heats
 #
-#  id         :integer          not null, primary key
-#  gender     :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  time       :datetime
-#  round      :integer
+#  id            :integer          not null, primary key
+#  gender        :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  time          :datetime
+#  round         :integer
+#  tournament_id :integer
 #
 
 require 'spec_helper'
