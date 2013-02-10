@@ -1,0 +1,12 @@
+<% provide(:title, @tournament.name) %>
+<div class = "row">
+  <aside class = "span4">
+    <section>
+      <h1>
+        Tournament name: <%= @tournament.name %> <br />
+        Start date: <%= @tournament.start_date.strftime('%e %b %Y %k:%M:%S') %> <br />
+        End date: <%= @tournament.end_date.strftime('%e %b %Y %k:%M:%S') %>
+      </h1>
+    </section>
+  </aside>
+</div>
