@@ -39,6 +39,7 @@ SampleApp::Application.routes.draw do
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
     resources :hurdles
+    resources :teams
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'

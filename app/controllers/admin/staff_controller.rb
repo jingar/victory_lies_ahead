@@ -45,12 +45,6 @@ class Admin::StaffController < ApplicationController
     end
 
    private 
-	def signed_in_staff
-		    unless signed_in_staff?
-			store_location_staff
-			redirect_to_staff '/admin/staffsignin', notice: "Please sign in."
-		    end
-		end
 
 	def correct_user
 		@staff = Staff.find(params[:id])
