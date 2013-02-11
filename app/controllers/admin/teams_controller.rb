@@ -19,12 +19,12 @@ class Admin::TeamsController < ApplicationController
   end
 
   def update
-    @team = Team.find(params[:id])
-    if @team.update_attributes(params[:team])
-      flash[:success] = "Team updated"
-      redirect_to @team
-    else
-      render 'edit'
+   @team = Team.find(params[:id])
+   params[:team][:user_id] = (Team.where(id: params[:id]).pluck(:user_id)).first
+   if @team.update_attributes(params[:team])
+     redirect_to [:admin,@team], notice: "Successfully updated a Hurdle."
+   else
+     render action: 'edit'
     end
   end
 
