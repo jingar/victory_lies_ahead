@@ -3,32 +3,33 @@
   <h2> Users </h2>
 </head>
 <body>
-  <table class ="table table_stripped">
-    <thead>
-      <tr>
-	<th><%= sortable "first_name", User, "First Name" %></th>
-	<th><%= sortable "last_name", User, "Last Name" %></th>
-	<th><%= sortable "email", User, "Email Address" %></th>
-	<th><%= sortable "address", User, "Address" %></th>
-	<th><%= sortable "sport", User %></th>
-      </tr>
-    </thead>
-      <tbody>
-	<% for user in @users %>
-	<tr>
-	  <td><%= user.first_name %></td>
-	  <td><%= user.last_name %></td>
-	  <td><%= user.email %></td>
-	  <td><%= user.address %></td>
-	  <td><%= user.sport %></td>
-	  <td><%= link_to "Add new hurldles racer", new_admin_hurdle_path(user_id: user.id) %></td>
-	  <td><%= link_to "Show", [:admin,user]%></td>
-	  <td><%= link_to "Edit", edit_admin_user_path(user) %></td>
-	  <td><%= link_to "Delete", [:admin,user], :confirm => 'Are you sure?', :method => :delete %></td>
-	</tr>
-      </tbody>
-      <% end %>
-  </table>
+	<table class ="tablesorter">
+  		<thead>
+			<tr>
+			  <th><%= sortable "first_name", User, "First Name" %></th>
+			  <th><%= sortable "last_name", User, "Last Name" %></th>
+			  <th><%= sortable "email", User, "Email Address" %></th>
+			  <th><%= sortable "address", User, "Address" %></th>
+			  <th><%= sortable "sport", User %></th>
+			</tr>
+      	</thead>
+		<tbody>
+			<% for user in @users %>
+			<tr>
+			  <td><%= user.first_name %></td>
+			  <td><%= user.last_name %></td>
+			  <td><%= user.email %></td>
+			  <td><%= user.address %></td>
+			  <td><%= user.sport %></td>
+			  <td><%= link_to "Add new hurldles racer", new_admin_hurdle_path(user_id: user.id) %></td>
+			  <td><%= link_to "Show", [:admin,user]%></td>
+			  <td><%= link_to "Edit", edit_admin_user_path(user) %></td>
+			  <td><%= link_to "Delete", [:admin,user], :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
 </body>
 <p><%= link_to "New user", new_admin_user_path %></p>
 <p><%= link_to "Back to Dashboard", admin_path %></p>
