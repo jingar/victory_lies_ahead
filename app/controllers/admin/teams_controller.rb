@@ -29,14 +29,13 @@ class Admin::TeamsController < ApplicationController
   end
 
   def create	
-    @team = current_user.teams.build(params[:team])
-    #@team.team_name = params[:team][:team_name]
+  @team = Team.new(params[:team])
     if @team.save
-      flash[:success] = "Wattball team is now registred!"
-      redirect_to @team
+      redirect_to admin_teams_url, notice: "Team is now registred!"
     else
       render 'new'
     end
+
   end
 
   def destroy
