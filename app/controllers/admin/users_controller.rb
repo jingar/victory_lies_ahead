@@ -1,7 +1,4 @@
-class Admin::UsersController < ApplicationController
-  before_filter :signed_in_staff
-  before_filter :skip_header
-
+class Admin::UsersController < Admin::AdminBaseController
   def index
     @users = User.order(sort_column(User) + " " + sort_direction)
   end
@@ -40,14 +37,5 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     redirect_to admin_users_url, :notice => "Successfully deleted a user."
-  end
-
-   private 
-  def correct_user
-    @staff = Staff.find(params[:id])
-    if !current_user_staff?(@staff)
-      flash[:error] = "Wrong user"
-      redirect_to('/admin/staffsignin')
-    end
   end
 end

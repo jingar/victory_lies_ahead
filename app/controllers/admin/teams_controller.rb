@@ -1,6 +1,4 @@
-class Admin::TeamsController < ApplicationController
-  before_filter :signed_in_staff
-  before_filter :skip_header
+class Admin::TeamsController < Admin::AdminBaseController
   def new
     @team = Team.new
     11.times { @team.wattballs.build }		
