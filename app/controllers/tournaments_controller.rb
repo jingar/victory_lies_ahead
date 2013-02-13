@@ -1,4 +1,5 @@
 class TournamentsController < ApplicationController
+  include TournamentsHelper
   def index
     @tournaments = Tournament.all
   end
@@ -37,38 +38,7 @@ class TournamentsController < ApplicationController
   def schedule_heats
     @tournament = Tournament.find(params[:id])
 
-    #create heats for the first day - no qualifications
-    gen = "m"; date = @tournament.start_date; heat_full = 0; hurdles_for_heat = []
-    #find all male racers with no qualification
-    Hurdle.where("qualification IS NULL AND gender = ?", gen).each do |qual|
-      hurdles_for_heat << qual
-      heat_full=heat_full+1
-      if heat_full==8
-        @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
-        hurdles_for_heat = []
-        heat_full = 0
-      end
-    end
-    if heat_full != 0
-      @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
-      hurdles_for_heat = []; heat_full = 0
-    end
-
-    gen = "f";
-    #find all female hurdles with no qualification
-    Hurdle.where("qualification IS NULL AND gender = ?", gen).each do |qual|
-      hurdles_for_heat << qual
-      heat_full=heat_full+1
-      if heat_full==8
-        @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
-        hurdles_for_heat = []
-        heat_full = 0
-      end
-    end
-    if heat_full != 0
-      @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
-      hurdles_for_heat = []; heat_full=0
-    end
+    @tournament = auto_gen_heats_no_qual(@tournament)
 
     if @tournament.save
       flash[:success] = "Tournament is ready to go!"

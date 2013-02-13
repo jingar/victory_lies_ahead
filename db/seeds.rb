@@ -81,5 +81,4 @@ teamNik = User.find(6).teams.create!(team_name: "Run or fight").wattballs.create
   {first_name: "Bobbie", last_name: "Fletcher"},
   {first_name: "John", last_name: "Hollinger"}
 ])
-#heat = Heat.create!(gender: "m", time: "01/04/2013 16:00:00")
-#hurdles.each { |h| heat.hurdles << h }
+tournament = Tournament.create!(name: "Riccarton Sports Tournament", start_date: "01/04/2013 08:15:00", end_date: "08/04/2013 22:30:00")
