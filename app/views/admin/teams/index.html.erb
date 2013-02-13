@@ -1,0 +1,24 @@
+<% provide(:title, "Teams") %>
+<head>
+  <h2>Teams</h2>
+</head>
+<body>
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th><%= sortable "team_name", Team, "Team Name" %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for team in @teams %>
+      <tr>
+	<td><%= team.team_name %></td>
+	<td><%= link_to "Show", [:admin,team] %></td>
+	<td><%= link_to "Edit", edit_admin_team_path(team) %></td>
+	<td><%= link_to "Destroy", [:admin,team], :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+</body>
+<p><%= link_to "Back to Dashboard", admin_path %></p>

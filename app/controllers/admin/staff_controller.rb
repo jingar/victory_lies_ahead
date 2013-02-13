@@ -1,7 +1,4 @@
-class Admin::StaffController < ApplicationController
-    before_filter :signed_in_staff
-    before_filter :correct_user, only: [:new, :delete, :index]
-
+class Admin::StaffController < Admin::AdminBaseController
     def show
 		@staff = Staff.find(params[:id])
     end
@@ -39,18 +36,12 @@ class Admin::StaffController < ApplicationController
 		end
     end
 
-    def delete
+    def destroy
 		Staff.find_by_user_name(params[:user_name]).destroy
 		redirect_to '/admin/staffsignin'
     end
 
    private 
-	def signed_in_staff
-		    unless signed_in_staff?
-			store_location_staff
-			redirect_to_staff '/admin/staffsignin', notice: "Please sign in."
-		    end
-		end
 
 	def correct_user
 		@staff = Staff.find(params[:id])

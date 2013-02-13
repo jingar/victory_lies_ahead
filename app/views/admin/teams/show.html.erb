@@ -1,0 +1,28 @@
+<% provide(:title, @team.team_name) %>
+
+<p>
+  <strong>Team name:</strong>
+  <%= @team.team_name %> <br>
+
+<p> Team members</p>
+  <table class ="table">
+    <thead>
+      <tr>
+  <th>First Name</th>
+  <th>Last Name</th>
+      </tr>
+    </thead>
+      <tbody>
+  <% @team.wattballs.each do |player| %>
+  <tr>
+    <td><%= player.first_name %></td>
+    <td><%= player.last_name %>
+  </tr>
+      </tbody>
+      <% end %>
+  </table>
+<p>
+<%= link_to "Edit", edit_admin_team_path(@team) %> |
+  <%= link_to "Destroy", admin_team_path(@team), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", admin_teams_path %>
+</p>
