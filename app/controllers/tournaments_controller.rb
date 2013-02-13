@@ -33,4 +33,11 @@ class TournamentsController < ApplicationController
       render 'edit'
     end
   end
+
+  def schedule_heats
+    @tournament = Tournament.find(params[:id])
+    #@heat = @tournament.heat
+    flash[:failure] = "Tournament went wrong"
+    redirect_to @tournament
+  end
 end

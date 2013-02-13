@@ -1,12 +1,12 @@
 SampleApp::Application.routes.draw do
 
 
-  resources :users
-  resources :hurdles
-  resources :wattballs
-  resources :teams
-  resources :matches
-  resources :tournaments
+  resources :users, :hurdles, :wattballs, :teams, :matches
+  resources :tournaments do
+    member do
+      post 'schedule_heats'
+    end
+  end
   resources :heats do
     member do
       get 'add_result'
