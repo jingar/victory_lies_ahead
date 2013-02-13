@@ -38,11 +38,8 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
 
     #create heats for the first day - no qualifications
-    #males
-    gen = "m"
-    date = @tournament.start_date
-    heat_full = 0
-    hurdles_for_heat = []
+    gen = "m"; date = @tournament.start_date; heat_full = 0; hurdles_for_heat = []
+    #find all male racers with no qualification
     Hurdle.where("qualification IS NULL AND gender = ?", gen).each do |qual|
       hurdles_for_heat << qual
       heat_full=heat_full+1
@@ -53,8 +50,24 @@ class TournamentsController < ApplicationController
       end
     end
     if heat_full != 0
-      hurdles_for_heat = []
       @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
+      hurdles_for_heat = []; heat_full = 0
+    end
+
+    gen = "f";
+    #find all female hurdles with no qualification
+    Hurdle.where("qualification IS NULL AND gender = ?", gen).each do |qual|
+      hurdles_for_heat << qual
+      heat_full=heat_full+1
+      if heat_full==8
+        @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
+        hurdles_for_heat = []
+        heat_full = 0
+      end
+    end
+    if heat_full != 0
+      @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
+      hurdles_for_heat = []; heat_full=0
     end
 
     if @tournament.save

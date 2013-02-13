@@ -4,6 +4,7 @@
     <section>
       <h1>
         When: <%= @heat.time.strftime('%e %b %Y %k:%M:%S') %> <br />
+        Gender: <%= @heat.gender %> <br />
         Hurdle Racers:
         <ul>
           <% @heat.hurdles.each do |hurdle| %>
