@@ -36,8 +36,33 @@ class TournamentsController < ApplicationController
 
   def schedule_heats
     @tournament = Tournament.find(params[:id])
-    #@heat = @tournament.heat
-    flash[:failure] = "Tournament went wrong"
-    redirect_to @tournament
+
+    #create heats for the first day - no qualifications
+    #males
+    gen = "m"
+    date = @tournament.start_date
+    heat_full = 0
+    hurdles_for_heat = []
+    Hurdle.where("qualification IS NULL AND gender = ?", gen).each do |qual|
+      hurdles_for_heat << qual
+      heat_full=heat_full+1
+      if heat_full==8
+        @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
+        hurdles_for_heat = []
+        heat_full = 0
+      end
+    end
+    if heat_full != 0
+      hurdles_for_heat = []
+      @tournament.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
+    end
+
+    if @tournament.save
+      flash[:success] = "Tournament is ready to go!"
+      redirect_to @tournament
+    else
+      flash[:failure] = "Tournament went wrong"
+      redirect_to @tournament
+    end
   end
 end
