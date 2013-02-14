@@ -38,11 +38,12 @@ class TournamentsController < ApplicationController
   def schedule_heats
     @tournament = Tournament.find(params[:id])
 
+    #delete all heats before generating new bunch
     Heat.all.each do |heat|
       heat.delete
     end
 
-    @tournament = auto_gen_heats_no_qual(@tournament)
+    @tournament = auto_gen_heats(auto_gen_heats_no_qual(@tournament))
 
     if @tournament.save
       flash[:success] = "Tournament is ready to go!"

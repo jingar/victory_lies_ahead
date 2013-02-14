@@ -18,23 +18,24 @@ module TournamentsHelper
     return sizes
   end
 
+  def auto_gen_heats(tour)
+    return tour
+  end
+
   def auto_gen_heats_no_qual(tour)
     #create heats for the first day - no qualifications
-    genders = ["m","f"]; date = tour.start_date; heat_full = 0; hurdles_for_heat = []
+    genders = ["m","f"]; date = tour.start_date; heat_full = 0; hurdles_for_heat = []; round = 0
     #find all male racers with no qualification
     genders.each do |gen|
       sizes = heat_size(Hurdle.where("qualification IS NULL AND gender = ?", gen).count)
       heat_number = 0
       Hurdle.where("qualification IS NULL AND gender = ?", gen).each do |qual|
         hurdles_for_heat << qual; heat_full=heat_full+1
+        #build a heat when enough racers are gathered
         if heat_full==sizes[heat_number]
-          tour.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
+          tour.heats.build(time: date, gender: gen, round: round).hurdles << hurdles_for_heat
           hurdles_for_heat = []; heat_full = 0; date = date+HEAT_INTERVAL; heat_number = heat_number +1
         end
-      end
-      if heat_full != 0
-        tour.heats.build(time: date, gender: gen).hurdles << hurdles_for_heat
-        hurdles_for_heat = []; heat_full = 0; date = date+HEAT_INTERVAL
       end
     end
     return tour

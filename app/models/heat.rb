@@ -12,7 +12,7 @@
 #
 
 class Heat < ActiveRecord::Base
-  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id
+  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id, :round
 
   has_many :hurdles, through: :heat_hurdles
   has_many :heat_hurdles
