@@ -15,8 +15,7 @@ class Heat < ActiveRecord::Base
   attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id, :round
 
   has_many :hurdles, through: :heat_hurdles
-  has_many :heat_hurdles
-  has_many :heat_results
+  has_many :heat_hurdles, :dependent => :destroy
   belongs_to :tournament
   accepts_nested_attributes_for :heat_hurdles
 

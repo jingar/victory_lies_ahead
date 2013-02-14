@@ -38,10 +38,8 @@ class TournamentsController < ApplicationController
   def schedule_heats
     @tournament = Tournament.find(params[:id])
 
-    #delete all heats before generating new bunch
-    Heat.all.each do |heat|
-      heat.delete
-    end
+    #destroy all heats before rescheduling
+    @tournament.heats.destroy_all
 
     @tournament = auto_gen_heats(auto_gen_heats_no_qual(@tournament))
 

@@ -45,10 +45,23 @@ HEAT_SIZE=8
 
   def update
     @heat = Heat.find(params[:id])
-    @heat.gender = params[:heat][:gender]
-    @heat.time = build_date_from_params(:time, params[:heat])
+    if @heat.update_attributes(params[:team])
+      flash[:success] = "Heat updated"
+      redirect_to @heat
+    else
+      render 'edit'
+    end
+    if false
+    #@heat.gender = params[:heat][:gender]
+    #@heat.time = build_date_from_params(:time, params[:heat])
+
+    #redundant feature of editing hurdles in the heat
     if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
-      @heat.hurdles.clear
+      #delete old hurdles
+      HeatHurdle.where("heat_id = ?", @heat.id).each do |h_h|
+        h_h.destroy
+      end
+
       params[:heat][:hurdles][:hurdle_id].each do |h|
       if h != ""
         @heat.hurdles << Hurdle.find(h)
@@ -62,6 +75,7 @@ HEAT_SIZE=8
     else
       render 'edit'
     end
+    end#end of redundant feature
   end
 
   def destroy
