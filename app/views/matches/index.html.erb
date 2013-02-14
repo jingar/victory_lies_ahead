@@ -23,13 +23,8 @@
     <td><%= match.umpire %></td>
     <td><%= match.homeGoals %></td>
     <td><%= match.awayGoals %></td>
-    <td><%= link_to 'Show', match %></td>
-    <td><%= link_to 'Edit', edit_match_path(match) %></td>
-    <td><%= link_to 'Destroy', match, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Match', new_match_path %>
