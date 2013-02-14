@@ -41,7 +41,7 @@ class TournamentsController < ApplicationController
     #destroy all heats before rescheduling
     @tournament.heats.destroy_all
 
-    @tournament = auto_gen_heats(auto_gen_heats_no_qual(@tournament))
+    @tournament = auto_gen_heats(@tournament)
 
     if @tournament.save
       flash[:success] = "Tournament is ready to go!"
