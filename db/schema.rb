@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210135826) do
+ActiveRecord::Schema.define(:version => 20130214184028) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130210135826) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.time     "finish_time"
+    t.integer  "lane"
   end
 
   add_index "heat_hurdles", ["heat_id"], :name => "index_heat_hurdles_on_heat_id"
