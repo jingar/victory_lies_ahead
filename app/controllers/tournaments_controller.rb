@@ -38,6 +38,10 @@ class TournamentsController < ApplicationController
   def schedule_heats
     @tournament = Tournament.find(params[:id])
 
+    Heat.all.each do |heat|
+      heat.delete
+    end
+
     @tournament = auto_gen_heats_no_qual(@tournament)
 
     if @tournament.save
