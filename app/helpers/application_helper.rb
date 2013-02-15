@@ -35,4 +35,11 @@ module ApplicationHelper
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
   
+  def sport_type(model)
+    if model.sport == "hurdles" 
+      link_to "Add new hurldles racer", new_admin_hurdle_path(user_id: model.id)
+    elsif model.sport == "wattball"
+     link_to "Add new Team", new_admin_team_path(user_id: model.id)
+    end
+  end
 end
