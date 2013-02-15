@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215122806) do
+ActiveRecord::Schema.define(:version => 20130215141447) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -27,11 +27,12 @@ ActiveRecord::Schema.define(:version => 20130215122806) do
 
   create_table "heats", :force => true do |t|
     t.string   "gender"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.datetime "time"
     t.integer  "round"
     t.integer  "tournament_id"
+    t.boolean  "played",        :default => false
   end
 
   create_table "hurdles", :force => true do |t|
