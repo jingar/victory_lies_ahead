@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210135826) do
+ActiveRecord::Schema.define(:version => 20130215114846) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -87,6 +87,9 @@ ActiveRecord::Schema.define(:version => 20130210135826) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "match_teams_id"
+    t.integer  "wins"
+    t.integer  "draws"
+    t.integer  "losses"
   end
 
   add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
