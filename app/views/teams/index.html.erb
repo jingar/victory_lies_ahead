@@ -16,11 +16,11 @@
 	<% @teams.each do |team| %>
 		<tr>
 			<td><%= link_to team.team_name, team %></td>
-			<td>0</td>
-			<td>0</td>
-			<td>0</td>
-			<td>0</td>
-			<td>0</td>
+			<td><%= 0%></td>
+			<td><%= 0%></td>
+			<td><%= team.wins %></td>
+			<td><%= team.draws%></td>
+			<td><%= team.losses%></td>
 			<td>0</td>
 			<td>0</td>
 			<td>0</td>
