@@ -16,19 +16,11 @@
     <%= f.datetime_select :when %>
   </div>
   <div class="field">
-    <%= f.label :homeTeam %><br />
-    <%= f.text_field :homeTeam %>
-  </div>
-  <div class="field">
     <%= f.label :team_id %><br />
     <select name="match[team_id]">
     <% Team.all.each do |team| %>
       <option value="<%= team.id %>"><%= team.team_name %></option>
   <% end %>
-  <div class="field">
-    <%= f.label :awayTeam %><br />
-    <%= f.text_field :awayTeam %>
-  </div>
   <div class="field">
     <%= f.label :team_id %><br />
     <select name="match[team_id]">
