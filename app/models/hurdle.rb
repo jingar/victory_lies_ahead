@@ -10,6 +10,7 @@
 #  updated_at    :datetime         not null
 #  user_id       :integer
 #  gender        :string(255)
+#  round         :integer
 #
 
 class Hurdle < ActiveRecord::Base

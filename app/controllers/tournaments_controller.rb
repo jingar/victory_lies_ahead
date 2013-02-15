@@ -38,10 +38,13 @@ class TournamentsController < ApplicationController
   def schedule_heats
     @tournament = Tournament.find(params[:id])
 
-    #destroy all heats before rescheduling
-    @tournament.heats.destroy_all
 
-    @tournament = auto_gen_heats(@tournament)
+    @tournament_new = schedule_tournament_heats(@tournament)
+    #destroy all heats before rescheduling
+    Heat.destroy_all(tournament_id: @tournament)
+    #@tournament.heats.delete_all
+    #set to new version of the tournament
+    @tournament = @tournament_new
 
     if @tournament.save
       flash[:success] = "Tournament is ready to go!"

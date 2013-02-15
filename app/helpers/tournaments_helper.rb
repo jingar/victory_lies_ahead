@@ -28,9 +28,9 @@ module TournamentsHelper
     return sizes
   end
 
-  def gen_heats_from_hurdles(tour_date, round, hurdles, gen)
+  def schedule_round(tour_date, round, hurdles, gen)
     #init local variables
-    hurdles_for_heat=[];heat_full=0;heat_number=0
+    hurdles_for_heat=[];heat_full=0;heat_number=0;lanes = (1..MAX_HEAT_SIZE).to_a
 
     #find optimal heat sizes for the number of participants
     sizes=heat_sizes(hurdles.count)
@@ -38,17 +38,29 @@ module TournamentsHelper
     hurdles.each do |racer|
       #add racer to heat array and increment heat_full
       hurdles_for_heat << racer;heat_full+=1
-      #lanes = (1..8).to_a
 
       #build a heat when enough racers are gathered
       if heat_full==sizes[heat_number]
-        heat = tour_date["tour"].heats.build(time: tour_date["date"], gender: gen, round: round, tournament_id: tour_date["tour"].id)
+        heat = tour_date["tour"].heats.build(time: tour_date["date"], gender: gen, round: round)
         heat.hurdles << hurdles_for_heat
 
         #add random lane numbers for each heat
-        #heat.hurdles.each do |hurdle|
-        #  HeatHurdle.find_by_heat_id_and_hurdle_id(heat, hurdle).lane = 
-        #end
+        heat.hurdles.each do |hurdle|
+          heat.heat_hurdles.each do |heat_hurdle|
+            #if array is empty
+            if(lanes.empty?)
+              lanes = (1..MAX_HEAT_SIZE).to_a
+            end
+
+            #delete the number from the array and set num to it
+            #add the lanes number to the current hurdle
+            if(heat_hurdle.hurdle_id == hurdle.id)
+              heat_hurdle.lane=lanes.delete(lanes.sample)
+              #break
+            end
+          #HeatHurdle.find_by_heat_id_and_hurdle_id(heat.id,hurdle.id).lane = lanes.delete(lanes.sample)
+          end
+        end
 
         #reset counting vars for the next heat
         hurdles_for_heat=[];tour_date["date"]+=HEAT_INTERVAL;heat_number+=1;heat_full=0
@@ -59,13 +71,13 @@ module TournamentsHelper
     return tour_date
   end
 
-  def auto_gen_heats_no_qual(tour_date)
+  def schedule_heats_for_genders(tour_date, round)
     #create heats for the first day - no qualifications
-    genders = ["m","f"];round=0
+    genders = ["m","f"]
     #find all male racers with no qualification
     genders.each do |gen|
       hurdles_no_qual = Hurdle.where("qualification IS NULL AND gender = ?", gen)
-      tour_date=gen_heats_from_hurdles(tour_date, round, hurdles_no_qual, gen)
+      tour_date=schedule_round(tour_date, round, hurdles_no_qual, gen)
       #tour = t_d[0]
       #date = t_d[1]
     end
@@ -73,9 +85,10 @@ module TournamentsHelper
     return tour_date
   end
 
-  def auto_gen_heats(tour)
+  def schedule_tournament_heats(tour)
+    round = 0
     tour_date = Hash["tour"=>tour,"date"=>tour.start_date]
-    tour_date_day0 = auto_gen_heats_no_qual(tour_date)
+    tour_date_day0 = schedule_heats_for_genders(tour_date, round)
 
     return tour_date_day0["tour"]
   end

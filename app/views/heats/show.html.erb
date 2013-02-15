@@ -8,8 +8,15 @@
         Hurdle Racers:
         <ul>
           <% @heat.hurdles.each do |hurdle| %>
-            <%= finish_time = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle.id).finish_time %>
-            <li><%= hurdle.name %> <%= finish_time.strftime('%H:%M:%S') if finish_time!=nil %></li>
+            <% heat_hurdle = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle.id)
+                finish_time = heat_hurdle.finish_time
+                lane = heat_hurdle.lane
+            %>
+            <li><%= hurdle.name %>, lane: <%= lane %>
+                <% if finish_time!=nil %>
+                <%=  "finishing time: " %>
+                <%= finish_time.strftime('%H:%M:%S') if finish_time!=nil %>
+            <% end %></li>
           <% end %>
         </ul>
       </h1>
