@@ -28,9 +28,28 @@ module TournamentsHelper
     return sizes
   end
 
+  def allocate_lanes(heat)
+    lanes = (1..MAX_HEAT_SIZE).to_a
+    #add random lane numbers for each heat
+    heat.hurdles.each do |hurdle|
+      heat.heat_hurdles.each do |heat_hurdle|
+        #if array is empty
+        if(lanes.empty?)
+          lanes = (1..MAX_HEAT_SIZE).to_a
+        end
+
+        #delete the number from the array and set num to it
+        #add the lanes number to the current hurdle
+        if(heat_hurdle.hurdle_id == hurdle.id)
+          heat_hurdle.lane=lanes.delete(lanes.sample)
+        end
+      end
+    end
+  end
+
   def schedule_round(tour_date, round, hurdles, gen)
     #init local variables
-    hurdles_for_heat=[];heat_full=0;heat_number=0;lanes = (1..MAX_HEAT_SIZE).to_a
+    hurdles_for_heat=[];heat_full=0;heat_number=0
 
     #find optimal heat sizes for the number of participants
     sizes=heat_sizes(hurdles.count)
@@ -44,23 +63,8 @@ module TournamentsHelper
         heat = tour_date["tour"].heats.build(time: tour_date["date"], gender: gen, round: round)
         heat.hurdles << hurdles_for_heat
 
-        #add random lane numbers for each heat
-        heat.hurdles.each do |hurdle|
-          heat.heat_hurdles.each do |heat_hurdle|
-            #if array is empty
-            if(lanes.empty?)
-              lanes = (1..MAX_HEAT_SIZE).to_a
-            end
-
-            #delete the number from the array and set num to it
-            #add the lanes number to the current hurdle
-            if(heat_hurdle.hurdle_id == hurdle.id)
-              heat_hurdle.lane=lanes.delete(lanes.sample)
-              #break
-            end
-          end
-        end
-
+        #allocate lanes for the new heat
+        allocate_lanes(heat)
         #reset counting vars for the next heat
         hurdles_for_heat=[];tour_date["date"]+=HEAT_INTERVAL;heat_number+=1;heat_full=0
       end
@@ -75,8 +79,8 @@ module TournamentsHelper
     genders = ["m","f"]
     #find all male racers with no qualification
     genders.each do |gen|
-      hurdles_no_qual = Hurdle.where("qualification IS NULL AND gender = ?", gen)
-      tour_date=schedule_round(tour_date, round, hurdles_no_qual, gen)
+      hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
+      tour_date=schedule_round(tour_date, round, hurdles, gen)
     end
 
     return tour_date
