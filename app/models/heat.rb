@@ -9,10 +9,11 @@
 #  time          :datetime
 #  round         :integer
 #  tournament_id :integer
+#  played        :boolean          default(FALSE)
 #
 
 class Heat < ActiveRecord::Base
-  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id, :round
+  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id, :round, :played
 
   has_many :hurdles, through: :heat_hurdles
   has_many :heat_hurdles, :dependent => :destroy

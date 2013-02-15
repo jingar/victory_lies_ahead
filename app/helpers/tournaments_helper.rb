@@ -77,17 +77,14 @@ module TournamentsHelper
     genders.each do |gen|
       hurdles_no_qual = Hurdle.where("qualification IS NULL AND gender = ?", gen)
       tour_date=schedule_round(tour_date, round, hurdles_no_qual, gen)
-      #tour = t_d[0]
-      #date = t_d[1]
     end
 
     return tour_date
   end
 
   def schedule_tournament_heats(tour)
-    round = 0
     tour_date = Hash["tour"=>tour,"date"=>tour.start_date]
-    tour_date_day0 = schedule_heats_for_genders(tour_date, round)
+    tour_date_day0 = schedule_heats_for_genders(tour_date, 0)
 
     return tour_date_day0["tour"]
   end

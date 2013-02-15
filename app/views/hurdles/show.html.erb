@@ -15,8 +15,10 @@
 		Gender: <%= @printGender %>
 		<% if @hurdle.qualification %>
 		    <br />
-		    Qualification time: <%= @hurdle.qualification %>
+		    Qualification time: <%= @hurdle.qualification.strftime('%H:%M:%S') %>
 		<% end %>
+                <br />
+                Round: <%= @hurdle.round %>
 	    </h1>
 	</section>
     </aside>

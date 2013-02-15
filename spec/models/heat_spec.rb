@@ -9,6 +9,7 @@
 #  time          :datetime
 #  round         :integer
 #  tournament_id :integer
+#  played        :boolean          default(FALSE)
 #
 
 require 'spec_helper'
