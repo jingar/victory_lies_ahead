@@ -90,6 +90,7 @@ HEAT_SIZE=8
 
   def update_result
     @heat = Heat.find(params[:id])
+    @heat.played = true
     if @heat.update_attributes(params[:heat])
       flash[:success] = "Heat details updated"
       redirect_to @heat
