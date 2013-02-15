@@ -1,7 +1,7 @@
 SampleApp::Application.routes.draw do
 
 
-  resources :users, :hurdles, :wattballs, :teams, :matches
+  resources :users, :hurdles, :wattballs, :teams, :matches, :umpires
   resources :tournaments do
     member do
       post 'schedule_heats'
