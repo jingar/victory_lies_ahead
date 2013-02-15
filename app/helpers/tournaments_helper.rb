@@ -58,7 +58,6 @@ module TournamentsHelper
               heat_hurdle.lane=lanes.delete(lanes.sample)
               #break
             end
-          #HeatHurdle.find_by_heat_id_and_hurdle_id(heat.id,hurdle.id).lane = lanes.delete(lanes.sample)
           end
         end
 
