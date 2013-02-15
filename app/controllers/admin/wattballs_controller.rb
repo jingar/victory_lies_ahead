@@ -12,14 +12,20 @@ class Admin:: WattballsController < Admin::AdminBaseController
   end
 
   def create	
-    @wattball = current_user.teams.wattballs.build
+    @wattball = Wattball.find_by_team_id(Team.find(params[:wattball][:team_id]))
     @wattball.first_name = params[:wattball][:first_name]
     @wattball.last_name = params[:wattball][:last_name]
-    if @wattball.save
-      flash[:success] = "Wattball player is now registred!"
-      redirect_to @wattball
+    if @wattball.update_attributes(params[:wattball])
+      redirect_to admin_wattballs_url, notice: @wattball.inspect
     else
       render 'new'
     end
   end
+
+  def destroy
+    @wattball = Wattball.find(params[:id])
+    @wattball.destroy
+    redirect_to admin_wattballs_url, :notice => "Successfully deleted a wattball racer"
+  end
+
 end

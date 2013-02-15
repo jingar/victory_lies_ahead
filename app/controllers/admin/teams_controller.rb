@@ -33,7 +33,6 @@ class Admin::TeamsController < Admin::AdminBaseController
     else
       render 'new'
     end
-
   end
 
   def destroy

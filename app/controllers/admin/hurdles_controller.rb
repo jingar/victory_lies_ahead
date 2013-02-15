@@ -1,6 +1,6 @@
 class Admin::HurdlesController < Admin::AdminBaseController
   def new
-	@hurdle = Hurdle.new
+ @hurdle = Hurdle.new
   end
 
   def show
