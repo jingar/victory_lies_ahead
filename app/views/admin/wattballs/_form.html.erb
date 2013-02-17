@@ -4,9 +4,9 @@
 	<div class="span6 offset3">
 	    <%= form_for ([:admin, @wattball]) do |f| %>
 		<%= render 'shared/error_messages', entity: @wattball %>
+
 		<%= f.hidden_field :team_id, :value => params[:team_id] %>
 		<div id = "dynamic_field" >
-
 		</div>
 
 		<%= submit_tag "New Player", :type => 'button', :onclick => 'addInput("dynamic_field")' , class: "btn btn-large btn-primary" %>
