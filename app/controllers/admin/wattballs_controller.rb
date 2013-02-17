@@ -12,7 +12,9 @@ class Admin:: WattballsController < Admin::AdminBaseController
   end
 
   def create	
-    @wattball = Wattball.find_by_team_id(Team.find(params[:wattball][:team_id]))
+#    @wattball = Wattball.find_by_team_id(Team.find(params[:wattball][:team_id])).build
+    team_id = Team.find(params[:wattball][:team_id])
+    @wattball = Wattball.build_from(team_id,params[:wattball])
     @wattball.first_name = params[:wattball][:first_name]
     @wattball.last_name = params[:wattball][:last_name]
     if @wattball.update_attributes(params[:wattball])
