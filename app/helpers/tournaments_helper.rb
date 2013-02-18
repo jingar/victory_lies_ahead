@@ -2,6 +2,7 @@ module TournamentsHelper
   HEAT_INTERVAL = 3600  #every hour
   MAX_HEAT_SIZE = 8  #only 8 tracks available
 
+  #given number of participants in a round, calculate size of each heat
   def heat_sizes(divisor)
     sizes = []
     #calculate number of heats necessary
@@ -26,6 +27,24 @@ module TournamentsHelper
     end
 
     return sizes
+  end
+
+  def find_date_from_tour(start_date)
+    last_round = Heat.last.round
+    return start_date+last_round.day
+  end
+
+  def find_round_from_date(start_date, date)
+    return (date - start_date).day
+  end
+
+  def how_many_rounds
+    n_of_racers = Hash["m"=>0,"f"=>0]
+    ["m","f"].each do |gen|
+      n_of_racers[gen]=Hurdle.where("gender=?",gen).count 
+    end
+
+    return n_of_racers
   end
 
   def allocate_lanes(heat)
@@ -78,9 +97,10 @@ module TournamentsHelper
     return tour_date
   end
 
-  def schedule_heats_for_genders(tour_date, round)
+  def schedule_heats_for_genders(tour_date)
     #create heats for the first day - no qualifications
     genders = ["m","f"]
+    round = find_round_from_date(tour_date["tour"].start_date, tour_date["date"])
     #find all male racers with no qualification
     genders.each do |gen|
       hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
@@ -91,9 +111,9 @@ module TournamentsHelper
   end
 
   def schedule_tournament_heats(tour)
-    tour_date = Hash["tour"=>tour,"date"=>tour.start_date]
-    tour_date_day0 = schedule_heats_for_genders(tour_date, 0)
+    day = find_day_from_tour(tour.start_date)
+    tour_date = Hash["tour"=>tour,"date"=>day]
 
-    return tour_date_day0["tour"]
+    return schedule_heats_for_genders(tour_date)["tour"]
   end
 end
