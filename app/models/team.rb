@@ -13,7 +13,7 @@
 class Team < ActiveRecord::Base
     attr_accessible :team_name, :wattballs_attributes, :user_id
     belongs_to :user
-    has_many :wattballs
+    has_many :wattballs, :dependent => :destroy
     has_and_belongs_to_many :matches
     has_many :match_teams
     has_many :matches, through: :match_teams 
