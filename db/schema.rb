@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215114846) do
+ActiveRecord::Schema.define(:version => 20130215140517) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -84,12 +84,14 @@ ActiveRecord::Schema.define(:version => 20130215114846) do
   create_table "teams", :force => true do |t|
     t.string   "team_name"
     t.integer  "user_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "match_teams_id"
-    t.integer  "wins"
-    t.integer  "draws"
-    t.integer  "losses"
+    t.integer  "wins",           :default => 0
+    t.integer  "draws",          :default => 0
+    t.integer  "losses",         :default => 0
+    t.integer  "goalsfor",       :default => 0
+    t.integer  "goalsagainst",   :default => 0
   end
 
   add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
