@@ -1,4 +1,4 @@
-<%= form_for ([:admin, @team]),url:{ action: :create, user_id: params[:user_id]} do |f| %>
+<%= form_for ([:admin, @team]) do |f| %>
   <%= render 'shared/error_messages', entity: @team %>
   <p>
     <%= f.label :team_name %>
