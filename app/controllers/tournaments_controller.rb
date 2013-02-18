@@ -35,18 +35,29 @@ class TournamentsController < ApplicationController
     end
   end
 
-  def schedule_heats
+  def schedule_round_of_heats
     @tournament = Tournament.find(params[:id])
 
     @tournament = schedule_tournament_heats(@tournament)
-    #destroy all heats before rescheduling
-    Heat.destroy_all(tournament_id: @tournament)
 
     if @tournament.save
       flash[:success] = "Tournament is ready to go!"
       redirect_to @tournament
     else
       flash[:failure] = "Tournament went wrong"
+      redirect_to @tournament
+    end
+  end
+
+  def delete_heats
+    @tournament = Tournament.find(params[:id])
+
+    #destroy all heats before rescheduling
+    if Heat.destroy_all(tournament_id: @tournament)
+      flash[:success] = "Heats are deleted!"
+      redirect_to @tournament
+    else
+      flash[:failure] = "Heat deletion went wrong"
       redirect_to @tournament
     end
   end

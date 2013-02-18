@@ -1,6 +1,6 @@
 module TournamentsHelper
-  HEAT_INTERVAL = 3600
-  MAX_HEAT_SIZE = 8
+  HEAT_INTERVAL = 3600  #every hour
+  MAX_HEAT_SIZE = 8  #only 8 tracks available
 
   def heat_sizes(divisor)
     sizes = []
@@ -29,6 +29,10 @@ module TournamentsHelper
   end
 
   def allocate_lanes(heat)
+    allocate_lanes_randomly(heat)
+  end
+
+  def allocate_lanes_randomly(heat)
     lanes = (1..MAX_HEAT_SIZE).to_a
     #add random lane numbers for each heat
     heat.hurdles.each do |hurdle|
