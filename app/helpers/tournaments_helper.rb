@@ -60,6 +60,14 @@ module TournamentsHelper
     return rounds
   end
 
+
+  def find_round_sizes(number, no_qual)
+    rounds = how_many_rounds(number)
+    rounds[0] = heat_sizes(no_qual)
+
+    return rounds
+  end
+
   def allocate_lanes(heat)
     allocate_lanes_randomly(heat)
   end
@@ -83,9 +91,20 @@ module TournamentsHelper
     end
   end
 
-  def schedule_round(tour_date, round, hurdles, gen)
+  def generate_round(tour_date, round_size, gen)
+    heats = []
+    round_size[round].each do |size|
+      heats << tour_date["tour"].heats.build(time: tour_date["date"], gender: gen, round: round)
+      tour_date["date"]+=HEAT_INTERVAL;
+      
+    end
+    
+    
+  end
+
+  def populate_round(tour_date, hurdles, heats)
     #init local variables
-    hurdles_for_heat=[];heat_full=0;heat_number=0
+    hurdles_for_heat=[];heat_full=0;heat_counter=0
 
     #find optimal heat sizes for the number of participants
     sizes=heat_sizes(hurdles.count)
@@ -96,13 +115,12 @@ module TournamentsHelper
 
       #build a heat when enough racers are gathered
       if heat_full==sizes[heat_number]
-        heat = tour_date["tour"].heats.build(time: tour_date["date"], gender: gen, round: round)
-        heat.hurdles << hurdles_for_heat
+        heats[heat_counter].hurdles << hurdles_for_heat
 
         #allocate lanes for the new heat
-        allocate_lanes(heat)
+        allocate_lanes(heats[heat_counter])
         #reset counting vars for the next heat
-        hurdles_for_heat=[];tour_date["date"]+=HEAT_INTERVAL;heat_number+=1;heat_full=0
+        hurdles_for_heat=[];heat_full=0,heat_counter+=1
       end
     end
 
@@ -124,7 +142,7 @@ module TournamentsHelper
   end
 
   def schedule_tournament_heats(tour)
-    day = find_day_from_tour(tour.start_date)
+    day = tour.start_date
     tour_date = Hash["tour"=>tour,"date"=>day]
 
     return schedule_heats_for_genders(tour_date)["tour"]
