@@ -15,13 +15,13 @@
     <td><%= umpire.first_name %></td>
     <td><%= umpire.last_name %></td>
     <td><%= umpire.email %></td>
-    <td><%= link_to 'Show', umpire %></td>
-    <td><%= link_to 'Edit', edit_umpire_path(umpire) %></td>
-    <td><%= link_to 'Destroy', umpire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', [:admin,umpire] %></td>
+    <td><%= link_to 'Edit', edit_admin_umpire_path(umpire) %></td>
+    <td><%= link_to 'Delete', [:admin,umpire], method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Umpire', new_umpire_path %>
+<%= link_to 'New Umpire', new_admin_umpire_path %>
