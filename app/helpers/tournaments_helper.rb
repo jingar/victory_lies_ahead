@@ -32,7 +32,7 @@ module TournamentsHelper
   def how_many_rounds(divisor)
     rounds = []; i = 1
     while divisor >= MAX_HEAT_SIZE
-      rounds[i] = divisor
+      rounds[i] = heat_sizes(divisor)
       
       if divisor == MAX_HEAT_SIZE then break end
 
