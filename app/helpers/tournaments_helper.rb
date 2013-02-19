@@ -1,6 +1,15 @@
 module TournamentsHelper
   HEAT_INTERVAL = 3600  #every hour
   MAX_HEAT_SIZE = 8  #only 8 tracks available
+  CUTTING_FACTOR = 2  #cut the loosers by half
+
+  #round the number to the MAX_HEAT_SIZE
+  def round_up_to_heat(number)
+    # already a factor
+    return number if number % MAX_HEAT_SIZE == 0
+    # go to nearest factor
+    return number + MAX_HEAT_SIZE - (number % MAX_HEAT_SIZE)
+  end
 
   #given number of participants in a round, calculate size of each heat
   def heat_sizes(divisor)
@@ -30,18 +39,20 @@ module TournamentsHelper
   end
 
   def how_many_rounds(divisor)
+    #init for vars, i starts at 1, since round 0 is non-standard
     rounds = []; i = 1
+    #dummy condition, doesn't actually work due to the fact that 4+4=8
     while divisor >= MAX_HEAT_SIZE
+      #populate with array of heat sizes
       rounds[i] = heat_sizes(divisor)
-      
+
+      #the true break, after the last round size has been set
       if divisor == MAX_HEAT_SIZE then break end
 
-      divisor/=2
-      remainder = divisor % MAX_HEAT_SIZE
-      if remainder !=0 && 
-        add = MAX_HEAT_SIZE - remainder
-        divisor += add
-      end
+      #cut the participants by half
+      divisor/=CUTTING_FACTOR
+
+      divisor = round_up_to_heat(divisor)
 
       i+=1
     end
