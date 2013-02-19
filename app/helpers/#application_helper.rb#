@@ -41,12 +41,4 @@ module ApplicationHelper
      link_to "Add new Team", new_admin_team_path(user_id: model.id)
     end
   end
-
-  def validate_wattballs?
-    if team.wattballs.count <= 11
-      true
-    else 
-      false
-    end
-  end
 end
