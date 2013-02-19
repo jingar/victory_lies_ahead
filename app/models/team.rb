@@ -11,15 +11,16 @@
 #
 
 class Team < ActiveRecord::Base
-    attr_accessible :team_name, :wattballs_attributes, :user_id, :wins, :draws, :losses, :goalsfor, :goalsagainst
-    belongs_to :user
-    has_many :wattballs, :dependent => :destroy
-    has_and_belongs_to_many :matches
-    has_many :match_teams
-    has_many :matches, through: :match_teams 
-    accepts_nested_attributes_for :wattballs, :allow_destroy => true
+  attr_accessible :team_name, :wattballs_attributes, :user_id, :wins, :draws, :losses, :goalsfor, :goalsagainst,:number_of_players
+  belongs_to :user
+  has_many :wattballs, dependent: :destroy
+  has_and_belongs_to_many :matches
+  has_many :match_teams
+  has_many :matches, through: :match_teams 
+  accepts_nested_attributes_for :wattballs, :allow_destroy => true
 
-    validates :team_name, presence: true
-    validates :user_id, presence: true
-    validates_uniqueness_of :team_name
+  validates :team_name, presence: true
+  validates :user_id, presence: true
+  validates_uniqueness_of :team_name
+
 end
