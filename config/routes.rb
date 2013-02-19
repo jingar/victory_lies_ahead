@@ -39,7 +39,7 @@ SampleApp::Application.routes.draw do
     resources :staff
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
-    resources :hurdles
+    resources :hurdles, :wattballs
     resources :teams
     resources :umpires
     resources :matches

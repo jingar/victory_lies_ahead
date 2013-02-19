@@ -1,0 +1,17 @@
+<% provide(:title , 'Add Team Member') %>
+<h1>Add Team Member</h1>
+<div class="row">
+	<div class="span6 offset3">
+	    <%= form_for ([:admin, @wattball]) do |f| %>
+		<%= render 'shared/error_messages', entity: @wattball 
+		    
+		    
+		<p><%= link_to_add_player "Add Player", f, :wattballs %></p>
+		<%= f.hidden_field :team_id, :value => params[:team_id] %>
+
+		<%= f.submit "Register Players", class: "btn btn-large btn-primary" %>
+	    <% end %>
+	</div>
+</div>
+
+

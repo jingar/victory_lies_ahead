@@ -20,7 +20,7 @@ class Admin::TeamsController < Admin::AdminBaseController
     @team = Team.find(params[:id])
     params[:team][:user_id] = (Team.where(id: params[:id]).pluck(:user_id)).first
     if @team.update_attributes(params[:team])
-      redirect_to [:admin,@team], notice: "Successfully updated a Team."
+      redirect_tsasdasdo , notice: "Successfully updated a Team."
     else
       render 'edit'
     end

@@ -1,0 +1,30 @@
+<% provide(:title, "Wattball Members") %>
+<head>
+  <h2> Wattball Players </h2>
+</head>
+<body>
+	<table class ="tablesorter">
+  		<thead>
+			<tr>
+			  <th><%= sortable "first_name", Wattball, "First Name" %></th>
+			  <th><%= sortable "last_name", Wattball, "Last Name" %></th>
+			   <th><%= sortable "team_name", Team, "Member of Team" %></th>
+			</tr>
+      	</thead>
+		<tbody>
+			 <% @wattballs.each do |wattball| %>
+			<tr>
+			  <td><%= wattball.first_name %></td>
+			  <td><%= wattball.last_name %></td>
+			  <td><%= Team.find(wattball.team_id).team_name %></td>
+			  <td><%= link_to "Show", [:admin,wattball]%></td>
+			  <td><%= link_to "Edit", edit_admin_wattball_path(wattball) %></td>
+			  <td><%= link_to "Delete", [:admin,wattball], :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</
+<p><%= link_to "Back to Dashboard", admin_path %></p>
+

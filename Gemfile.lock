@@ -109,6 +109,7 @@ GEM
       guard (>= 1.1)
     has_scope (0.5.1)
     hike (1.2.1)
+    hirb (0.7.1)
     i18n (0.6.1)
     inherited_resources (1.3.1)
       has_scope (~> 0.5.0)
@@ -253,6 +254,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   guard-rspec (= 1.2.1)
   guard-spork!
+  hirb
   inherited_resources
   jquery-rails (= 2.0.2)
   libnotify (= 0.5.9)
