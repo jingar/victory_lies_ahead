@@ -39,7 +39,7 @@ for i in 1..25 do
   User.find(3).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f", qualification: "00:#{rand(0..5)}:#{rand(0..59)}")
 end
 hurdles = Hurdle.all
-
+# 3 Teams
 teamKos = User.find(1).teams.create!(team_name: "Heriot-Watt brigade").wattballs.create!([
   {first_name: "Emily", last_name: "Harvard"},
   {first_name: "David", last_name: "Borland"},
@@ -80,6 +80,21 @@ teamNik = User.find(6).teams.create!(team_name: "Run or fight").wattballs.create
   {first_name: "Harold", last_name: "Bilden"},
   {first_name: "Bobbie", last_name: "Fletcher"},
   {first_name: "John", last_name: "Hollinger"}
+])
+
+#11 Umpires
+umpire = Umpire.create!([
+  { first_name: "Alan", last_name: "Muir", email: "am245@gmail.com"},
+  { first_name: "Calum", last_name: "Murray", email: "cm321@gmail.com"},
+  { first_name: "Craig", last_name: "Thomson", email: "ct548@gmail.com"},
+  { first_name: "Craig", last_name: "Charleston", email: "cc896@gmail.com"},
+  { first_name: "Crawford", last_name: "Allan", email: "ca852@gmail.com"},
+  { first_name: "Iain", last_name: "Brines", email: "ib666@gmail.com"},
+  { first_name: "John", last_name: "McKendrick", email: "jm853@gmail.com"},
+  { first_name: "Mike", last_name: "Tumilty", email: "mt025@gmail.com"},
+  { first_name: "Paul", last_name: "Robertson", email: "pr556@gmail.com"},
+  { first_name: "Stevie", last_name: "O'Reilly", email: "so007@gmail.com"},
+  { first_name: "William", last_name: "Collum", email: "wc951@gmail.com"}
 ])
 #heat = Heat.create!(gender: "m", time: "01/04/2013 16:00:00")
 #hurdles.each { |h| heat.hurdles << h }

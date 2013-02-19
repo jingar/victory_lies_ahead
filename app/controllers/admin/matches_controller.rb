@@ -44,8 +44,8 @@ class Admin::MatchesController < Admin::AdminBaseController
 
     respond_to do |format|
       if @match.save
-        format.html { redirect_to @match, notice: 'Match was successfully created.' }
-        format.json { render json: @match, status: :created, location: @match }
+        format.html { redirect_to [:admin,@match], notice: 'Match was successfully created.' }
+        format.json { render json: [:admin,@match], status: :created, location: [:admin,@match] }
       else
         format.html { render action: "new" }
         format.json { render json: @match.errors, status: :unprocessable_entity }
@@ -76,7 +76,7 @@ class Admin::MatchesController < Admin::AdminBaseController
     @match.destroy
 
     respond_to do |format|
-      format.html { redirect_to matches_url }
+      format.html { redirect_to admin_matches_url }
       format.json { head :no_content }
     end
   end

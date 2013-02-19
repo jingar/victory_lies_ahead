@@ -15,7 +15,7 @@
 #
 
 class Match < ActiveRecord::Base
-  attr_accessible :awayGoals, :awayTeam, :homeGoals, :homeTeam, :pitch, :umpire, :when, :umpire_id, :team
+  attr_accessible :awayGoals, :awayTeam, :homeGoals, :homeTeam, :pitch, :umpire, :when, :umpire_id, :team_id, :awayTeam_id
   
   has_one :team
   accepts_nested_attributes_for :team
