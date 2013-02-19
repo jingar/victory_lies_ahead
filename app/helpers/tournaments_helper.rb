@@ -29,22 +29,24 @@ module TournamentsHelper
     return sizes
   end
 
-  def find_date_from_tour(start_date)
-    last_round = Heat.last.round
-    return start_date+last_round.day
-  end
+  def how_many_rounds(divisor)
+    rounds = []; i = 1
+    while divisor >= MAX_HEAT_SIZE
+      rounds[i] = divisor
+      
+      if divisor == MAX_HEAT_SIZE then break end
 
-  def find_round_from_date(start_date, date)
-    return (date - start_date).day
-  end
+      divisor/=2
+      remainder = divisor % MAX_HEAT_SIZE
+      if remainder !=0 && 
+        add = MAX_HEAT_SIZE - remainder
+        divisor += add
+      end
 
-  def how_many_rounds
-    n_of_racers = Hash["m"=>0,"f"=>0]
-    ["m","f"].each do |gen|
-      n_of_racers[gen]=Hurdle.where("gender=?",gen).count 
+      i+=1
     end
 
-    return n_of_racers
+    return rounds
   end
 
   def allocate_lanes(heat)
@@ -100,7 +102,7 @@ module TournamentsHelper
   def schedule_heats_for_genders(tour_date)
     #create heats for the first day - no qualifications
     genders = ["m","f"]
-    round = find_round_from_date(tour_date["tour"].start_date, tour_date["date"])
+    round = Heat.last.round + 1
     #find all male racers with no qualification
     genders.each do |gen|
       hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
