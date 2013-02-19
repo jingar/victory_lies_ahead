@@ -1,4 +1,4 @@
-class MatchesController < ApplicationController
+class Admin::MatchesController < Admin::AdminBaseController
   # GET /matches
   # GET /matches.json
   def index

@@ -1,7 +1,7 @@
 SampleApp::Application.routes.draw do
 
 
-  resources :users, :hurdles, :wattballs, :teams, :matches
+  resources :users, :hurdles, :wattballs, :teams
   resources :tournaments do
     member do
       post 'schedule_heats'
@@ -42,10 +42,12 @@ SampleApp::Application.routes.draw do
     resources :hurdles
     resources :teams
     resources :umpires
+    resources :matches
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'
     match 'admin/umpires', to: "admin#umpires"
+    match 'admin/matches', to: "admin#matches"
   end
 
 
