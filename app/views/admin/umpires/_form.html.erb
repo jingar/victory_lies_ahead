@@ -1,15 +1,6 @@
-<%= form_for(@umpire) do |f| %>
-  <% if @umpire.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@umpire.errors.count, "error") %> prohibited this umpire from being saved:</h2>
-
-      <ul>
-      <% @umpire.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for([:admin,@umpire]) do |f| %>
+<%= render 'shared/error_messages', entity: @umpire %>
+ 
 
   <div class="field">
     <%= f.label :first_name %><br />
