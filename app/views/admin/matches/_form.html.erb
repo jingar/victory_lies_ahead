@@ -6,20 +6,20 @@
     <%= f.datetime_select :when %>
   </div>
   <div class="field">
-    <%= f.label :homeTeam_id %><br />
-    <select name="match[team_id]">
-    <% Team.all.each do |team| %>
-      <option value="<%= team.id %>"><%= team.team_name %></option>
+    <%= f.label :homeTeam %><br />
+    <select name="match[homeTeam]">
+    <% Team.all.each do |homeTeam| %>
+      <option value="<%= homeTeam.id %>"><%= homeTeam.team_name %></option>
   <% end %>
   <div class="field">
     <%= f.label :homeGoals %><br />
     <%= f.number_field :homeGoals %>
   </div>
   <div class="field">
-    <%= f.label :awayTeam_id %><br />
-    <select name="match[team_id]">
-    <% Team.all.each do |team| %>
-      <option value="<%= team.id %>"><%= team.team_name %></option>
+    <%= f.label :awayTeam %><br />
+    <select name="match[awayTeam]">
+    <% Team.all.each do |awayTeam| %>
+      <option value="<%= awayTeam.id %>"><%= awayTeam.team_name %></option>
   <% end %>
    <div class="field">
     <%= f.label :awayGoals %><br />
@@ -30,10 +30,10 @@
     <%= f.number_field :pitch %>
   </div>
   <div class="field">
-    <%= f.label :umpire_id %><br />
-    <select name="match[umpire_id]">
+    <%= f.label :umpire %><br />
+    <select name="match[umpire]">
     <% Umpire.all.each do |umpire| %>
-        <option value="<%= umpire.id %>"><%= umpire.first_name + " " + umpire.last_name %></option>
+        <option value="<%= umpire.id %>"><%= umpire.first_name + " " + umpire.last_name %>></option>
     <% end %>
 </select>
   </div>
