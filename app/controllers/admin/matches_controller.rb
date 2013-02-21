@@ -60,7 +60,7 @@ class Admin::MatchesController < Admin::AdminBaseController
 
     respond_to do |format|
       if @match.update_attributes(params[:match])
-        format.html { redirect_to @match, notice: 'Match was successfully updated.' }
+        format.html { redirect_to [:admin,@match], notice: 'Match was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
