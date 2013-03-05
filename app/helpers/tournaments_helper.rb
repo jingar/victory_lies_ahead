@@ -113,11 +113,14 @@ module TournamentsHelper
     days_needed = count_days(rounds,max_heats_per_day)
 
     schedule = []
-    if days_needed < tour_duration
-    #extend the tournament, notify the staff
-    else
-    #expand the heats out
+    if days_needed > tour_duration
+      #extend the tournament, notify the staff
+      t_d += (days_needed - tour_duration)
+      #NOTIFY STAFF
     end
+    #spread the heats out
+    schedule[0] = start
+    schedule[tour_duration] = start + tour_duration.days
 
     return schedule
   end
