@@ -32,7 +32,7 @@ module TournamentsHelper
     rest = divisor % number
     if (rest) !=0
       #if any racers are not in heats, add them to the last one
-      sizes[number-1] = general + rest 
+      sizes[number-1] = rest 
     end
 
     return sizes
@@ -91,18 +91,8 @@ module TournamentsHelper
     end
   end
 
-  def generate_round(tour_date, round_size, gen)
-    heats = []
-    round_size[round].each do |size|
-      heats << tour_date["tour"].heats.build(time: tour_date["date"], gender: gen, round: round)
-      tour_date["date"]+=HEAT_INTERVAL;
-      
-    end
-    
-    
-  end
-
-  def populate_round(tour_date, hurdles, heats)
+  #populate a round with hurdles
+  def populate_round(tour_date, hurdles, round)
     #init local variables
     hurdles_for_heat=[];heat_full=0;heat_counter=0
 
@@ -115,7 +105,7 @@ module TournamentsHelper
 
       #build a heat when enough racers are gathered
       if heat_full==sizes[heat_number]
-        heats[heat_counter].hurdles << hurdles_for_heat
+        heats[heat_counter].hurdles << hurdlerounroundt
 
         #allocate lanes for the new heat
         allocate_lanes(heats[heat_counter])
@@ -135,16 +125,38 @@ module TournamentsHelper
     #find all male racers with no qualification
     genders.each do |gen|
       hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
-      tour_date=schedule_round(tour_date, round, hurdles, gen)
+      rounds = find_round_sizes(hurdles.count)
+
+      raise "RoundException" if hurdles==[]
+      tour_date=populate_round(tour_date, rounds[round], hurdles, gen) if Heat.count>0
     end
 
     return tour_date
   end
 
-  def schedule_tournament_heats(tour)
-    day = tour.start_date
+  def populate_tournament(tour)
     tour_date = Hash["tour"=>tour,"date"=>day]
+    tour_date = schedule_heats_for_genders(tour_date)
+    
+    
+    
+    return tour
+  end
 
-    return schedule_heats_for_genders(tour_date)["tour"]
+  def generate_tournament(tour)
+    raise "TournamentNotEmptyException" if tour.heats.count > 0
+    day = tour.start_date;genders = ["m","f"]
+    no_qual = Hurdle.where("qualification = ?", Time.new(2000))
+    rounds = find_round_sizes(Hurdle.count, no_qual)
+
+    rounds.times do |round|
+      genders.each do |gen|
+        tour.heats.build(time: day, gender: gen, round: round)
+        day+=HEAT_INTERVAL;
+      end
+      day+=1.day
+    end
+
+    return tour
   end
 end

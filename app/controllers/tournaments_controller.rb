@@ -35,10 +35,35 @@ class TournamentsController < ApplicationController
     end
   end
 
-  def schedule_round_of_heats
+  def populate_heats
     @tournament = Tournament.find(params[:id])
 
-    @tournament = schedule_tournament_heats(@tournament)
+    begin
+      @tournament = populate_tournament(@tournament)
+    rescue "RoundException"
+      flash[:falure] = "No hurdles are yet registred for this round."
+      redirect_to @tournament
+    end
+
+    if @tournament.save
+      flash[:success] = "Tournament is ready to go!"
+      redirect_to @tournament
+    else
+      flash[:failure] = "Tournament went wrong"
+      redirect_to @tournament
+    end
+  end
+
+  def generate_heats
+    @tournament = Tournament.find(params[:id])
+
+    begin
+      @tournament = generate_tournament(@tournament)
+    rescue "TournamentNotEmptyException"
+    #rescue
+      flash[:failure] = "Tournament is not empty."
+      redirect_to @tournament
+    end
 
     if @tournament.save
       flash[:success] = "Tournament is ready to go!"

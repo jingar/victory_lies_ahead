@@ -10,7 +10,8 @@
       <br />
       Number of heats: <%= @tournament.heats.count %>
     </h1>
-    <%= link_to 'Schedule Heats', schedule_round_of_heats_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
+    <%= link_to 'Generate Heats', generate_heats_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
+    <%= link_to 'Populate Heats', populate_heats_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
     <%= link_to 'Delele Heats', delete_heats_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
   </section>
 </aside>
