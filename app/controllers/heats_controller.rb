@@ -1,7 +1,7 @@
 class HeatsController < ApplicationController
 HEAT_SIZE=8
   def index
-    @heats = Heat.all
+    @heats = Heat.rounded_heats
   end
 
   def new

@@ -20,6 +20,8 @@ class Heat < ActiveRecord::Base
   belongs_to :tournament
   accepts_nested_attributes_for :heat_hurdles
 
+  scope :rounded_heats, order('round ASC')
+
   validates :gender, presence: true, length: { maximum: 1 }
   validates :time, presence: true
   validates_uniqueness_of :time

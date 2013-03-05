@@ -2,6 +2,7 @@ module TournamentsHelper
   HEAT_INTERVAL = 3600  #every hour
   MAX_HEAT_SIZE = 8  #only 8 tracks available
   CUTTING_FACTOR = 2  #cut the loosers by half
+  DAY = 86400
 
   #round the number to the MAX_HEAT_SIZE
   def round_up_to_heat(number)
@@ -76,24 +77,49 @@ module TournamentsHelper
     return rounds
   end
 
-  def count_heats(rounds)
-    sum = 0
+  def find_heats_per_day(tour)
+    start=tour.start_date;stop=tour.end_date
+    day_dur=((stop - start).to_i%DAY)
+    max_heats_per_day = day_dur / HEAT_INTERVAL #from 8am to 6pm
+
+    return max_heats_per_day
+  end
+
+  def count_days(rounds,max_heats)
+    days = 0
+
     rounds.each do |round|
-      round.each do |heat|
-        sum+=1
+      round_duration = 0
+      if round.size >= max_heats
+        round_duration /= max_heats
+        if round_duration % max_heats > 0 then round_duration += 1 end
       end
+
+      days+= 1 + round_duration
     end
 
-    return sum
+    return days
   end
 
   #date spreading:
   #first determine if the time to the end of tournament is enough,
   #then spread the heats out as much as possible
-  def date_calculus(tour)#, rounds)
-    start=tour.start_date.to_date;stop=tour.end_date.to_date
-    max_heats = 10 #10 heats per day, from 8am to 6pm
-    return (stop-start) < max_heats
+  def date_calculus(tour)
+    start=tour.start_date;stop=tour.end_date
+    tour_duration = stop.to_date - start.to_date
+
+    rounds = find_round_sizes(106,20)
+    max_heats_per_day = find_heats_per_day(tour)
+    days_needed = count_days(rounds,max_heats_per_day)
+
+    schedule = []
+    if days_needed < tour_duration
+    #extend the tournament, notify the staff
+    else
+    #expand the heats out
+    end
+
+    return schedule
   end
 
   #need to develop lane allocation for winners
