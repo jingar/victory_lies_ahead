@@ -11,9 +11,7 @@ module TournamentsHelper
     return number + MAX_HEAT_SIZE - (number % MAX_HEAT_SIZE)
   end
 
-  #given number of participants in a round, calculate size of each heat
-  def heat_sizes(divisor)
-    sizes = []
+  def number_of_heats(divisor)
     #calculate number of heats necessary
     number = divisor / MAX_HEAT_SIZE
     if (divisor % MAX_HEAT_SIZE) !=0
@@ -21,6 +19,13 @@ module TournamentsHelper
       number += 1
     end
 
+    return number
+  end
+
+  #given number of participants in a round, calculate size of each heat
+  def heat_sizes(divisor)
+    sizes = []
+    number = number_of_heats(divisor)
     #find number of lanes for most of the heats
     general = divisor / number
 
@@ -29,10 +34,12 @@ module TournamentsHelper
       sizes[i] = general
     end
 
-    rest = divisor % number
-    if (rest) !=0
-      #if any racers are not in heats, add them to the last one
-      sizes[number-1] = rest 
+    #if any racers are not in heats, add them to the last one
+    rest = divisor - general*number; i=1
+    while(rest > 0)
+      sizes[number-i] += 1
+      rest -= 1
+      i += 1
     end
 
     return sizes
@@ -60,7 +67,8 @@ module TournamentsHelper
     return rounds
   end
 
-
+  #returns an array representing the tournament
+  #each element is a round of heats, which size is stored inside
   def find_round_sizes(number, no_qual)
     rounds = how_many_rounds(number)
     rounds[0] = heat_sizes(no_qual)
@@ -68,6 +76,27 @@ module TournamentsHelper
     return rounds
   end
 
+  def count_heats(rounds)
+    sum = 0
+    rounds.each do |round|
+      round.each do |heat|
+        sum+=1
+      end
+    end
+
+    return sum
+  end
+
+  #date spreading:
+  #first determine if the time to the end of tournament is enough,
+  #then spread the heats out as much as possible
+  def date_calculus(tour)#, rounds)
+    start=tour.start_date.to_date;stop=tour.end_date.to_date
+    max_heats = 10 #10 heats per day, from 8am to 6pm
+    return (stop-start) < max_heats
+  end
+
+  #need to develop lane allocation for winners
   def allocate_lanes(heat)
     allocate_lanes_randomly(heat)
   end
@@ -146,15 +175,21 @@ module TournamentsHelper
   def generate_tournament(tour)
     raise "TournamentNotEmptyException" if tour.heats.count > 0
     day = tour.start_date;genders = ["m","f"]
-    no_qual = Hurdle.where("qualification = ?", Time.new(2000))
-    rounds = find_round_sizes(Hurdle.count, no_qual)
 
-    rounds.times do |round|
-      genders.each do |gen|
-        tour.heats.build(time: day, gender: gen, round: round)
-        day+=HEAT_INTERVAL;
+    genders.each do |gen|
+      unisex_racers = Hurdle.where("gender = ?", gen)
+      no_qual = unisex_racers.where("qualification = ?", Time.new(2000))
+      rounds = find_round_sizes(unisex_racers.count, no_qual.count)
+
+      i=0
+      rounds.each do |round|
+        round.each do |heat|
+          tour.heats.build(time: day, gender: gen, round: i)
+          day+=HEAT_INTERVAL
+        end
+
+        day+=1.day;i+=1
       end
-      day+=1.day
     end
 
     return tour
