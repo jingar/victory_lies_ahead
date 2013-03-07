@@ -40,16 +40,19 @@ class TournamentsController < ApplicationController
 
     begin
       @tournament = populate_tournament(@tournament)
-    rescue "RoundException"
+    rescue "RoundNotEmptyException"
+      flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
+      redirect_to @tournament
+    rescue "NoHurdleException"
       flash[:falure] = "No hurdles are yet registred for this round."
       redirect_to @tournament
     end
 
-    if @tournament.save
-      flash[:success] = "Tournament is ready to go!"
+    if @tournament.save!
+      flash[:success] = "Tournament round is populated!"
       redirect_to @tournament
     else
-      flash[:failure] = "Tournament went wrong"
+      flash[:failure] = "Tournament population went wrong"
       redirect_to @tournament
     end
   end
@@ -66,10 +69,10 @@ class TournamentsController < ApplicationController
     end
 
     if @tournament.save
-      flash[:success] = "Tournament is ready to go!"
+      flash[:success] = "Tournament heats are generated!"
       redirect_to @tournament
     else
-      flash[:failure] = "Tournament went wrong"
+      flash[:failure] = "Tournament generation went wrong"
       redirect_to @tournament
     end
   end

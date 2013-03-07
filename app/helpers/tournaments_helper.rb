@@ -104,6 +104,7 @@ module TournamentsHelper
   #date spreading:
   #first determine if the time to the end of tournament is enough,
   #then spread the heats out as much as possible
+  #incomplete
   def date_calculus(tour)
     start=tour.start_date;stop=tour.end_date
     tour_duration = stop.to_date - start.to_date
@@ -115,12 +116,21 @@ module TournamentsHelper
     schedule = []
     if days_needed > tour_duration
       #extend the tournament, notify the staff
-      t_d += (days_needed - tour_duration)
+      tour_duration += (days_needed - tour_duration)
       #NOTIFY STAFF
     end
     #spread the heats out
     schedule[0] = start
-    schedule[tour_duration] = start + tour_duration.days
+    schedule[tour_duration] = 0#last round
+
+    #look at each round, see if it requires more than one day
+    #take another day for the round
+    #make rounds into a hash of int[] and date
+    rounds.each do |round|
+      if round.size > max_heats_per_day
+      end
+
+    end
 
     return schedule
   end
@@ -150,54 +160,55 @@ module TournamentsHelper
   end
 
   #populate a round with hurdles
-  def populate_round(tour_date, hurdles, round)
-    #init local variables
+  def populate_round(tour, hurdles, round_size_array, heats)
+    #init counting variables
     hurdles_for_heat=[];heat_full=0;heat_counter=0
-
-    #find optimal heat sizes for the number of participants
-    sizes=heat_sizes(hurdles.count)
+puts("round_size_array = "+round_size_array.to_s+"; N_hurdles="+hurdles.count.to_s)
 
     hurdles.each do |racer|
       #add racer to heat array and increment heat_full
-      hurdles_for_heat << racer;heat_full+=1
-
+      hurdles_for_heat << racer; heat_full+=1
+#if heat_counter == 3 then puts("AT ROUND 3: "+racer.name) end
       #build a heat when enough racers are gathered
-      if heat_full==sizes[heat_number]
-        heats[heat_counter].hurdles << hurdlerounroundt
+      if heat_full==round_size_array[heat_counter]
+#puts("h_f="+heat_full.to_s+"; r_s="+round_size_array[heat_counter].to_s+"; r="+heat_counter.to_s)
+        heats[heat_counter].hurdles << hurdles_for_heat
 
         #allocate lanes for the new heat
         allocate_lanes(heats[heat_counter])
         #reset counting vars for the next heat
-        hurdles_for_heat=[];heat_full=0,heat_counter+=1
+        hurdles_for_heat=[];heat_full=0;heat_counter+=1
       end
     end
 
-    #return date available for a new heat
-    return tour_date
-  end
-
-  def schedule_heats_for_genders(tour_date)
-    #create heats for the first day - no qualifications
-    genders = ["m","f"]
-    round = Heat.last.round + 1
-    #find all male racers with no qualification
-    genders.each do |gen|
-      hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
-      rounds = find_round_sizes(hurdles.count)
-
-      raise "RoundException" if hurdles==[]
-      tour_date=populate_round(tour_date, rounds[round], hurdles, gen) if Heat.count>0
-    end
-
-    return tour_date
+    return tour
   end
 
   def populate_tournament(tour)
-    tour_date = Hash["tour"=>tour,"date"=>day]
-    tour_date = schedule_heats_for_genders(tour_date)
-    
-    
-    
+    genders = ["m","f"]
+
+    genders.each do |gen|
+      #find the last played heat -> round, if none - assume round 0
+      last_heat=Heat.rounded_heats.where("played=? and gender=?",true,gen).last
+      round = if last_heat == nil then 0 else last_heat.round + 1 end
+      #raise "RoundNotEmptyException" if Heat.where("round=?",round)[0].hurdles !=[]
+      #find all racers for this round, raise exception, if none
+      hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
+      raise "NoHurdleException" if hurdles==[]
+      heats = tour.heats.where("round=? AND gender = ?", round, gen)
+
+      #calculate round size
+      unisex_racers = Hurdle.where("gender = ?", gen)
+      no_qual = unisex_racers.where("round = ?", 0)
+      rounds = find_round_sizes(unisex_racers.count, no_qual.count)
+
+      #do nothing, if at the end of the tournament
+      return tour if rounds[round]==nil
+
+      tour=populate_round(tour, hurdles, rounds[round], heats)
+#puts("POP TOUR = "+tour.heats[0].hurdles.count.to_s)
+    end
+
     return tour
   end
 
