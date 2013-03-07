@@ -93,6 +93,11 @@ HEAT_SIZE=8
     @heat.played = true
     if @heat.update_attributes(params[:heat])
       flash[:success] = "Heat details updated"
+
+      if Heat.where("round=? and played=? and gender=?",@heat.round, false, @heat.gender)==[]
+        populate_tournament(Tournament.find(@heat.tournament_id))
+      end
+
       redirect_to @heat
     else
       render 'add_result'
