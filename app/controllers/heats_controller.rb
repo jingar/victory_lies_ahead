@@ -98,10 +98,10 @@ HEAT_SIZE=8
         begin
           @tournament = Tournament.find(@heat.tournament_id)
           @tournament = populate_tournament(@tournament)
-        rescue "RoundNotEmptyException"
+        rescue RoundNotEmpty
           flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
           redirect_to @heat
-        rescue "NoHurdleException"
+        rescue NoHurdles
           flash[:falure] = "No hurdles are yet registred for this round."
           redirect_to @heat
         end

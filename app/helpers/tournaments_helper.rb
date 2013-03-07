@@ -191,12 +191,13 @@ puts("round_size_array = "+round_size_array.to_s+"; N_hurdles="+hurdles.count.to
       #find the last played heat -> round, if none - assume round 0
       last_heat=Heat.rounded_heats.where("played=? and gender=?",true,gen).last
       round = if last_heat == nil then 0 else last_heat.round + 1 end
-      raise "RoundNotEmptyException" if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
+      raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
 
       #find all racers for this round, raise exception, if none
       hurdles = Hurdle.where("round = ? AND gender = ?", round, gen)
-      raise "NoHurdleException" if hurdles==[]
+      raise NoHurdles if hurdles==[]
       heats = tour.heats.where("round=? AND gender = ?", round, gen)
+      raise NoHeats if heats==[]
 
       #calculate round size
       unisex_racers = Hurdle.where("gender = ?", gen)
@@ -214,7 +215,7 @@ puts("round_size_array = "+round_size_array.to_s+"; N_hurdles="+hurdles.count.to
   end
 
   def generate_tournament(tour)
-    raise "TournamentNotEmptyException" if tour.heats.count > 0
+    raise TournamentNotEmpty if tour.heats.count > 0
     day = tour.start_date;genders = ["m","f"]
 
     genders.each do |gen|

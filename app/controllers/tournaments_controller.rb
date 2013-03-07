@@ -40,12 +40,14 @@ class TournamentsController < ApplicationController
 
     begin
       @tournament = populate_tournament(@tournament)
-    rescue "RoundNotEmptyException"
-      flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
+    rescue RoundNotEmpty
+      flash[:falure] = "Current round is already populated, wait for all results to be filled in."
       redirect_to @tournament
-    rescue "NoHurdleException"
+      return
+    rescue NoHurdles
       flash[:falure] = "No hurdles are yet registred for this round."
       redirect_to @tournament
+      return
     end
 
     if @tournament.save!
@@ -62,7 +64,7 @@ class TournamentsController < ApplicationController
 
     begin
       @tournament = generate_tournament(@tournament)
-    rescue "TournamentNotEmptyException"
+    rescue TournamentNotEmpty
     #rescue
       flash[:failure] = "Tournament is not empty."
       redirect_to @tournament
