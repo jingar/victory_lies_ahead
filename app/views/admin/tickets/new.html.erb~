@@ -1,0 +1,5 @@
+<% provide(:title, "Add new user") %>
+
+<%= render 'form' %>
+
+<p><%= link_to "Back to List", admin_users_path %></p>

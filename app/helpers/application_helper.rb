@@ -41,4 +41,14 @@ module ApplicationHelper
      link_to "Add new Team", new_admin_team_path(user_id: model.id)
     end
   end
+
+  def generate_ticket_id()
+    Digest::SHA1.hexdigest("#{Time.now.to_f}#{rand}")
+  end
+  
+  def calculate_total_amount(order_id)
+      Ticket.where(order_id: order_id).sum(:tickets_bought)
+  end
 end
+
+

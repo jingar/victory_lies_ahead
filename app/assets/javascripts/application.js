@@ -1,3 +1,4 @@
+
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -27,3 +28,4 @@ function add_player(link, association, content) {
         var regexp = new RegExp("new_" + association, "g");
         $(link).parent().before(content.replace(regexp, new_id));
 }
+
