@@ -95,7 +95,24 @@ HEAT_SIZE=8
       flash[:success] = "Heat details updated"
 
       if Heat.where("round=? and played=? and gender=?",@heat.round, false, @heat.gender)==[]
-        populate_tournament(Tournament.find(@heat.tournament_id))
+        begin
+          @tournament = Tournament.find(@heat.tournament_id)
+          @tournament = populate_tournament(@tournament)
+        rescue "RoundNotEmptyException"
+          flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
+          redirect_to @heat
+        rescue "NoHurdleException"
+          flash[:falure] = "No hurdles are yet registred for this round."
+          redirect_to @heat
+        end
+
+        if @tournament.save!
+          flash[:success] = "Tournament round is populated!"
+          redirect_to @tournament
+        else
+          flash[:failure] = "Tournament population went wrong"
+          redirect_to @tournament
+        end
       end
 
       redirect_to @heat
