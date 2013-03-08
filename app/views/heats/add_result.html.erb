@@ -9,7 +9,7 @@
       <%= f.fields_for :heat_hurdles do |h| %>
         <p><%= h.object.hurdle.name %></p>
         <%= h.label :finish_time, "Insert result time" %>
-        <%= h.time_select :finish_time, include_seconds: true %>
+        <%= h.time_select :finish_time, include_seconds: true, default: {hour: '00', minute: '00', second: '00'} %>
       <% end %>
 
       <br /><br />

@@ -1,7 +1,7 @@
 class HeatsController < ApplicationController
 HEAT_SIZE=8
   def index
-    @heats = Heat.all
+    @heats = Heat.rounded_heats
   end
 
   def new
@@ -45,10 +45,23 @@ HEAT_SIZE=8
 
   def update
     @heat = Heat.find(params[:id])
-    @heat.gender = params[:heat][:gender]
-    @heat.time = build_date_from_params(:time, params[:heat])
+    if @heat.update_attributes(params[:team])
+      flash[:success] = "Heat updated"
+      redirect_to @heat
+    else
+      render 'edit'
+    end
+    if false
+    #@heat.gender = params[:heat][:gender]
+    #@heat.time = build_date_from_params(:time, params[:heat])
+
+    #redundant feature of editing hurdles in the heat
     if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
-      @heat.hurdles.clear
+      #delete old hurdles
+      HeatHurdle.where("heat_id = ?", @heat.id).each do |h_h|
+        h_h.destroy
+      end
+
       params[:heat][:hurdles][:hurdle_id].each do |h|
       if h != ""
         @heat.hurdles << Hurdle.find(h)
@@ -62,6 +75,7 @@ HEAT_SIZE=8
     else
       render 'edit'
     end
+    end#end of redundant feature
   end
 
   def destroy
@@ -76,8 +90,31 @@ HEAT_SIZE=8
 
   def update_result
     @heat = Heat.find(params[:id])
+    @heat.played = true
     if @heat.update_attributes(params[:heat])
       flash[:success] = "Heat details updated"
+
+      if Heat.where("round=? and played=? and gender=?",@heat.round, false, @heat.gender)==[]
+        begin
+          @tournament = Tournament.find(@heat.tournament_id)
+          @tournament = populate_tournament(@tournament)
+        rescue RoundNotEmpty
+          flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
+          redirect_to @heat
+        rescue NoHurdles
+          flash[:falure] = "No hurdles are yet registred for this round."
+          redirect_to @heat
+        end
+
+        if @tournament.save!
+          flash[:success] = "Tournament round is populated!"
+          redirect_to @tournament
+        else
+          flash[:failure] = "Tournament population went wrong"
+          redirect_to @tournament
+        end
+      end
+
       redirect_to @heat
     else
       render 'add_result'

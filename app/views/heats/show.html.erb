@@ -4,11 +4,20 @@
     <section>
       <h1>
         When: <%= @heat.time.strftime('%e %b %Y %k:%M:%S') %> <br />
+        Round: <%= @heat.round %> <br />
         Hurdle Racers:
         <ul>
-          <% @heat.hurdles.each do |hurdle| %>
-            <%= finish_time = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle.id).finish_time %>
-            <li><%= hurdle.name %> <%= finish_time.strftime('%H:%M:%S') if finish_time!=nil %></li>
+          <% @heat.hurdles.each do |hurdle| 
+             heat_hurdle = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle)
+logger.debug "view h_h:"+heat_hurdle.id.to_s
+                finish_time = heat_hurdle.finish_time
+                lane = heat_hurdle.lane
+logger.debug "view LANE :"+lane.to_s
+            %>
+            <li><%= hurdle.name %>, lane: <%= lane %>
+                <%= if finish_time!=nil
+                    ", finishing time: " + finish_time.strftime('%H:%M:%S')
+                   end %></li>
           <% end %>
         </ul>
       </h1>

@@ -7,15 +7,12 @@
 
       <% counter = 1 %>
       <%= render 'shared/name_field', form: f, counter: counter %>	
-      <%#= f.label :gender %>
-      <%#= f.select :gender, [['Female', 'f'],['Male', 'm']], { include_blank: true } %>
       <%= f.label :gender %>
-      <%= f.radio_button :gender, "f" %>F
-      <%= f.radio_button :gender, "m" %>M 
+      <%= f.radio_button :gender, "f" %>Female
+      <%= f.radio_button :gender, "m" %>Male
 			
       <%= f.label :qualification %>
-      <%= f.time_select :qualification, include_seconds: true %>
-      <%#= f.text_field :qualification %>
+      <%= f.time_select :qualification, include_seconds: true, default: {hour:'00', minute: '00', second: '00'}%>
 
       <%= f.submit "Register hurdle", class: "btn btn-large btn-primary" %>
     <% end %>

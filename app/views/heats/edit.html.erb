@@ -9,6 +9,8 @@
       <%= f.label :time, "date and time of the heat"  %>
       <%= f.datetime_select(:time, :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :start_year => Date.today.year - 2, :end_year => Date.today.year + 2, date_separator: "/", order: [:day, :month, :year], :minute_step => 15) %>
 
+      <% if false %>
+      <%# should not allow editing of hurdles in a heat %>
       <%= f.label :gender %>
       <%= f.radio_button :gender, "f" %>F
       <%= f.radio_button :gender, "m" %>M 
@@ -18,6 +20,7 @@
           :hurdle_id, Hurdle.all(:order=>"first_name ASC"), :id, :name,
           {include_blank: false}, { :multiple => true }
         ) %>
+      <% end %>
       <% end %>
 
       <br /><br />
