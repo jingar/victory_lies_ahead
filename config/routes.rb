@@ -1,7 +1,6 @@
 SampleApp::Application.routes.draw do
 
-
-  resources :users, :hurdles, :wattballs, :teams, :matches
+  resources :users, :hurdles, :wattballs, :teams
   resources :tournaments do
     member do
       post 'generate_heats'
@@ -33,6 +32,7 @@ SampleApp::Application.routes.draw do
   match '/schedules', to: "static_pages#schedules"
   match '/schedules/matches', to: "matches#index"
   match '/schedules/heats', to: "heats#index"
+
   
   root to: 'static_pages#home'
   
@@ -40,11 +40,16 @@ SampleApp::Application.routes.draw do
     resources :staff
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
-    resources :hurdles
+    resources :hurdles, :wattballs
     resources :teams
+    resources :umpires
+    resources :matches
+    resources :tickets
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'
+    match 'admin/umpires', to: "admin#umpires"
+    match 'admin/matches', to: "admin#matches"
   end
 
 

@@ -17,12 +17,12 @@ class Admin::TeamsController < Admin::AdminBaseController
   end
 
   def update
-   @team = Team.find(params[:id])
-   params[:team][:user_id] = (Team.where(id: params[:id]).pluck(:user_id)).first
-   if @team.update_attributes(params[:team])
-     redirect_to [:admin,@team], notice: "Successfully updated a Hurdle."
-   else
-     render action: 'edit'
+    @team = Team.find(params[:id])
+    params[:team][:user_id] = (Team.where(id: params[:id]).pluck(:user_id)).first
+    if @team.update_attributes(params[:team])
+      redirect_to [:admin,@team], notice: "Successfully updated a Team."
+    else
+      render 'edit'
     end
   end
 
@@ -33,7 +33,6 @@ class Admin::TeamsController < Admin::AdminBaseController
     else
       render 'new'
     end
-
   end
 
   def destroy

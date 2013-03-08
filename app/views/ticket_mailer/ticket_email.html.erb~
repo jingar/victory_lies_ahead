@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    < meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+  <head/>
+  <body>
+    <h1> Ticket Conformation for, <%= @ticket.first_name %></h1>
+    <p>
+      Your unique order id is : <%= @ticket.order_id %>.
+      TotalCost is calculate : <%= calculate_total_amount(@ticket.order_id) * ticket_price %>
+    </p>
+  </body>
+</html>
+
+

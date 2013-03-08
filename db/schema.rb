@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130215141447) do
+=======
+ActiveRecord::Schema.define(:version => 20130303210107) do
+>>>>>>> master
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -68,6 +72,8 @@ ActiveRecord::Schema.define(:version => 20130215141447) do
     t.integer  "awayGoals"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "umpire_id"
+    t.integer  "team_id"
   end
 
   create_table "staffs", :force => true do |t|
@@ -87,12 +93,30 @@ ActiveRecord::Schema.define(:version => 20130215141447) do
   create_table "teams", :force => true do |t|
     t.string   "team_name"
     t.integer  "user_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "match_teams_id"
+    t.integer  "wins",              :default => 0
+    t.integer  "draws",             :default => 0
+    t.integer  "losses",            :default => 0
+    t.integer  "goalsfor",          :default => 0
+    t.integer  "goalsagainst",      :default => 0
+    t.integer  "number_of_players"
   end
 
   add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
+
+  create_table "tickets", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "address"
+    t.string   "order_id"
+    t.integer  "tickets_bought"
+    t.boolean  "used"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "tournaments", :force => true do |t|
     t.datetime "start_date"
@@ -109,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20130215141447) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "umpire_id"
+    t.integer  "match_id"
   end
 
   add_index "umpires", ["umpire_id"], :name => "index_umpires_on_umpire_id", :unique => true

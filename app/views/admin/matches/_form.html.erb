@@ -1,27 +1,33 @@
-<%= form_for(@match) do |f| %>
-  <% if @match.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@match.errors.count, "error") %> prohibited this match from being saved:</h2>
-
-      <ul>
-      <% @match.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for([:admin,@match]) do |f| %>
+  <%= render 'shared/error_messages', entity: @match %> 
 
   <div class="field">
-    <%= f.label :when %><br />
+	<%= f.label :when %><br />
     <%= f.datetime_select :when %>
   </div>
   <div class="field">
     <%= f.label :homeTeam %><br />
-    <%= f.text_field :homeTeam %>
+	<select name="match[homeTeam]">
+		<% Team.all.each do |homeTeam| %>
+			<option value="<%= homeTeam.team_name %>"><%= homeTeam.team_name %></option>
+		<% end %>
+	</select>
+  </div>
+  <div class="field">
+    <%= f.label :homeGoals %><br />
+    <%= f.number_field :homeGoals %>
   </div>
   <div class="field">
     <%= f.label :awayTeam %><br />
-    <%= f.text_field :awayTeam %>
+    <select name="match[awayTeam]">
+		<% Team.all.each do |awayTeam| %>
+			<option value="<%= awayTeam.team_name %>"><%= awayTeam.team_name %></option>
+		<% end %>
+	</select>
+  </div>
+   <div class="field">
+    <%= f.label :awayGoals %><br />
+    <%= f.number_field :awayGoals %>
   </div>
   <div class="field">
     <%= f.label :pitch %><br />
@@ -29,15 +35,11 @@
   </div>
   <div class="field">
     <%= f.label :umpire %><br />
-    <%= f.text_field :umpire %>
-  </div>
-  <div class="field">
-    <%= f.label :homeGoals %><br />
-    <%= f.number_field :homeGoals %>
-  </div>
-  <div class="field">
-    <%= f.label :awayGoals %><br />
-    <%= f.number_field :awayGoals %>
+    <select name="match[umpire]">
+		<% Umpire.all.each do |umpire| %>
+			<option value="<%= umpire.first_name + " " + umpire.last_name %>"><%= umpire.first_name + " " + umpire.last_name %></option>
+		<% end %>
+	</select>
   </div>
   <div class="actions">
     <%= f.submit %>

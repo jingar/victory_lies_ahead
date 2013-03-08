@@ -1,17 +1,24 @@
-<%= form_for ([:admin, @team]) do |f| %>
-  <%= render 'shared/error_messages', entity: @team %>
-  <p>
-    <%= f.label :team_name %>
-    <%= f.text_field :team_name %>
-  </p>
-  <%= f.fields_for :wattballs do |players| %>
-    <p>
-      <b></b> <br/>
-      First Name: <%= players.text_field :first_name %>
-      Last Name: <%= players.text_field :last_name %>
-    </p>
-  <% end %>
-  <%= f.hidden_field :user_id, :value => params[:user_id] %>
-  <p><%= link_to_add_player "Add Player", f, :wattballs %>
-  <p><%= f.submit %></p>
-<% end %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for ([:admin, @team]), url: { action: :create, user_id: params[:user_id] } do |f| %>
+      <%= render 'shared/error_messages', entity: @team %>
+        <p>
+          <b>Edit Team Name</b> <br/>
+            <%= f.label :team_name %>
+            <%= f.text_field :team_name %>
+        </p>
+
+        <%= f.fields_for :wattballs do |players| %>
+          <p>
+            <b>Edit Player</b> <br/>
+            First Name: <%= players.text_field :first_name %>
+            Last Name: <%= players.text_field :last_name %>
+          </p>
+        <% end %>
+	<%= f.hidden_field :user_id, :value => params[:user_id] %>
+        <p><%= link_to_add_player "Add Player", f, :wattballs %>
+
+        <p><%= f.submit "Submit" , class: "btn btn-large btn-primary" %></p>
+    <% end %>
+  </div>
+</div>

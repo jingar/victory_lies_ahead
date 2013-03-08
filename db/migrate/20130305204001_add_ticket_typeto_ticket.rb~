@@ -1,0 +1,9 @@
+class AddTicketTypetoTicket < ActiveRecord::Migration
+  def up
+    add_column :tickets, :ticket_type, :string
+  end
+
+  def down
+    remove_column :tickets, :ticket_type,
+  end
+end

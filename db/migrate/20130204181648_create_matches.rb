@@ -8,6 +8,7 @@ class CreateMatches < ActiveRecord::Migration
       t.string :umpire
       t.integer :homeGoals
       t.integer :awayGoals
+      t.references :team_id
 
       t.timestamps
     end
