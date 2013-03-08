@@ -3,6 +3,10 @@ class Admin::TicketsController < Admin::AdminBaseController
   	@ticket = Ticket.new
 	end
 
+        def index
+          @tickets = Ticket.order(sort_column(Ticket) + " " + sort_direction)
+        end
+
 	def create
 		@ticket = Ticket.new(params[:ticket])
 		if @ticket.save
@@ -13,4 +17,10 @@ class Admin::TicketsController < Admin::AdminBaseController
 			render 'new'
 		end
 	end
+
+        def destroy
+          @ticekt = Ticket.find(params[:id])
+          @ticket.destroy 
+          redirect_to admin_tickets_url, :notice => "Successfully deleted a ticket."
+        end
 end

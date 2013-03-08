@@ -1,0 +1,37 @@
+<% provide(:title, "Tickets") %>
+<head>
+  <h2> Tickets </h2>
+</head>
+<body>
+	<table class ="tablesorter">
+  		<thead>
+			<tr>
+			  <th><%= sortable "first_name", Ticket, "First Name" %></th>
+			  <th><%= sortable "last_name", Ticket, "Last Name" %></th>
+			  <th><%= sortable "email", Ticket, "Email Address" %></th>
+			  <th><%= sortable "address", Ticket, "Address" %></th>
+			  <th><%= sortable "order_id", Ticket, "Order ID" %></th>
+			  <th><%= sortable "tickets_bought", Ticket, "Tickets Bought" %></th>
+			  <th><%= sortable "used", Ticket, "Used" %></th>
+			</tr>
+      	</thead>
+		<tbody>
+			<% for ticket in @tickets %>
+			<tr>
+			  <td><%= ticket.first_name %></td>
+			  <td><%= ticket.last_name %></td>
+			  <td><%= ticket.email %></td>
+			  <td><%= ticket.address %></td>
+			  <td><%= ticket.order_id %></td>
+			  <td><%= ticket.tickets_bought %></td>
+			  <td><%= ticket.used %></td>
+			  <td><%= link_to "Delete", [:admin,ticket], :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+      		</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<p><%= link_to "New ticket", new_admin_ticket_path %></p>
+<p><%= link_to "Back to Dashboard", admin_path %></p>
+

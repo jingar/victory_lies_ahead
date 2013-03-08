@@ -1,4 +1,4 @@
-pp<% provide(:title, "Users") %>
+<% provide(:title, "Users") %>
 <head>
   <h2> Users </h2>
 </head>
@@ -6,11 +6,11 @@ pp<% provide(:title, "Users") %>
 	<table class ="tablesorter">
   		<thead>
 			<tr>
-			  <th><%= sortable "first_name", User, "First Name" %></th>
-			  <th><%= sortable "last_name", User, "Last Name" %></th>
-			  <th><%= sortable "email", User, "Email Address" %></th>
-			  <th><%= sortable "address", User, "Address" %></th>
-			  <th><%= sortable "sport", User %></th>
+			  <th><%= sortable "first_name", Ticket, "First Name" %></th>
+			  <th><%= sortable "last_name", Ticket, "Last Name" %></th>
+			  <th><%= sortable "email", Ticket, "Email Address" %></th>
+			  <th><%= sortable "address", Ticket, "Address" %></th>
+			  <th><%= sortable "sport", Ticket %></th>
 			</tr>
       	</thead>
 		<tbody>
