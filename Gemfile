@@ -10,6 +10,7 @@ gem "meta_search",    '>= 1.1.0.pre'
 gem 'inherited_resources'
 gem 'hirb'
 gem "whenever", "~> 0.8.2"
+gem 'rrschedule'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
