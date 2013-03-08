@@ -9,11 +9,11 @@ class Ticket < ActiveRecord::Base
   validates :order_id, presence:   true,
                     uniqueness: { case_sensitive: false }
 
-  validate :check_tickets
+  validate :check_tickets?
 
-  def check_tickets()
-    if ticket.adult_tickets_bought == 0 && ticket.concession_tickets_bought == 0
-      ticket.errors.add_to_base("You must buy atleast one ticket")
+  def check_tickets?()
+    if adult_tickets_bought == 0 && concession_tickets_bought == 0
+      errors.add(:base, "You must reserve at least one ticket")
       return false
     else
       return true

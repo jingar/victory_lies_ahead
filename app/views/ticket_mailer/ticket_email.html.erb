@@ -6,9 +6,10 @@
   <body>
     <h1> Ticket Conformation for, <%= @ticket.first_name %></h1>
     <p>
-      You have reserved <%= calculate_total_amount(@ticket.order_id) %> ticket(s) <br>
+      You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
+      You have reserved <%= calculate_concession_tickets(@ticket.order_id) %> Concession ticket(s) <br>
       The unique order id for the reserved ticket(s) is : <%= @ticket.order_id %> <br>
-      Total cost of the tickets is : £<%= calculate_total_amount(@ticket.order_id) * 10 %> <br>
+      Total cost of the tickets is : £<%= calculate_total_cost(10,5,@ticket.order_id) %> <br>
 
 
       Venue Address -  Heriot-Watt University <br>
