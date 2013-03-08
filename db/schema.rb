@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20130303210107) do
     t.string   "umpire"
     t.integer  "homeGoals"
     t.integer  "awayGoals"
+    t.integer  "team_id_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "umpire_id"

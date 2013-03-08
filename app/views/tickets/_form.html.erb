@@ -1,0 +1,31 @@
+# coding: utf-8  
+
+<script type = "text/javascript" >
+  function calculate_price(input,display,ticket_price)
+  {
+  var s = document.getElementById(input).value;
+  document.getElementById(display).innerHTML = "£ " + s*ticket_price;
+  }
+</script>
+<%= form_for (@ticket) do |f| %>
+	<%= render 'shared/error_messages', entity: @ticket %>
+	<p>
+		<%= f.label :first_name %>
+		<%= f.text_field :first_name %>
+
+		<%= f.label :last_name %>
+		<%= f.text_field :last_name %>
+
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+
+		<%= f.label :address %>
+		<%= f.text_field :address %>
+		
+		<%= f.label :tickets_bought %>
+		<%= f.number_field :tickets_bought , in: 1..10, step: 1, value: 1,onchange: "calculate_price('ticket_tickets_bought',1,10)"%>
+		<%= f.hidden_field :order_id, value: generate_ticket_id() %>
+		<%= f.label :total_price %> <%=f.label :amount, "£ 10", id: 1 %>
+  	</p>
+	<p><%= f.submit %></p>
+<% end %>
