@@ -6,7 +6,8 @@ class CreateTickets < ActiveRecord::Migration
       t.string :email
       t.string :address
       t.string :order_id
-      t.integer :tickets_bought
+      t.integer :adult_tickets_bought
+      t.integer :concession_tickets_bought
       t.boolean :used
 
       t.timestamps

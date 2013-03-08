@@ -4,7 +4,8 @@ class Admin::TicketsController < Admin::AdminBaseController
 	end
 
         def index
-          @tickets = Ticket.order(sort_column(Ticket) + " " + sort_direction)
+          @sort_tickets = Ticket.order(sort_column(Ticket) + " " + sort_direction)
+          @tickets = Ticket.search(params[:search])
         end
 
 	def create

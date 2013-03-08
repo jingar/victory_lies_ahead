@@ -1,10 +1,11 @@
 # coding: utf-8  
 
 <script type = "text/javascript" >
-  function calculate_price(input,display,ticket_price)
+  function calculate_price(adult,concession,display,ticket_price)
   {
-  var s = document.getElementById(input).value;
-  document.getElementById(display).innerHTML = "£ " + s*ticket_price;
+  var a = document.getElementById(adult).value;
+  var c = document.getElementById(concession).value;
+  document.getElementById(display).innerHTML = "£ " + ((a*ticket_price) + c*(ticket_price));
   }
 </script>
 <%= form_for ([:admin, @ticket]) do |f| %>
@@ -22,10 +23,14 @@
 		<%= f.label :address %>
 		<%= f.text_field :address %>
 		
-		<%= f.label :tickets_bought %>
-		<%= f.number_field :tickets_bought , in: 1..10, step: 1, value: 1,onchange: "calculate_price('ticket_tickets_bought',1,10)"%>
+		<%= f.label :adult_tickets %>
+		<%= f.number_field :adult_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,10)"%>
+
+		<%= f.label :concession_tickets %>
+		<%= f.number_field :concession_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,10)"%>
+		
 		<%= f.hidden_field :order_id, value: generate_ticket_id() %>
-		<%= f.label :total_price %> <%=f.label :amount, "£ 10", id: 1 %>
+		<%= f.label :total_price %> <%=f.label :amount, "£ 0", id: 1 %>
   
   	</p>
 	<p><%= f.submit %></p>
