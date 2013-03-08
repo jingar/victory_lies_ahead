@@ -3,6 +3,13 @@
   <h2> Tickets </h2>
 </head>
 <body>
+  	<b>Seach for reserved tickets by Order Id</b>
+	<%= form_tag admin_tickets_path, :method => 'get' do %>
+	<p>
+          <%= text_field_tag :search, params[:search] %><br/>
+          <%= submit_tag "Search", :order_id => nil %><br/>
+	</p>
+	<% end %>
 	<table class ="tablesorter">
   		<thead>
 			<tr>
@@ -16,7 +23,7 @@
 			</tr>
       	</thead>
 		<tbody>
-			<% for ticket in @tickets %>
+			<% for ticket in @sort_tickets %>
 			<tr>
 			  <td><%= ticket.first_name %></td>
 			  <td><%= ticket.last_name %></td>
@@ -30,8 +37,9 @@
       		</tbody>
       		<% end %>
     </table>
-  </section>
 </body>
+
+
 <p><%= link_to "New ticket", new_admin_ticket_path %></p>
 <p><%= link_to "Back to Dashboard", admin_path %></p>
 

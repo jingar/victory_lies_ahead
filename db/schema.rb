@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130308124337) do
     t.string   "umpire"
     t.integer  "homeGoals"
     t.integer  "awayGoals"
+    t.integer  "team_id_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "umpire_id"
@@ -108,10 +109,11 @@ ActiveRecord::Schema.define(:version => 20130308124337) do
     t.string   "email"
     t.string   "address"
     t.string   "order_id"
-    t.integer  "tickets_bought"
-    t.boolean  "used",           :default => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "adult_tickets_bought"
+    t.integer  "concession_tickets_bought"
+    t.boolean  "used"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "tournaments", :force => true do |t|

@@ -100,3 +100,4 @@ umpire = Umpire.create!([
 ])
 #heat = Heat.create!(gender: "m", time: "01/04/2013 16:00:00")
 #hurdles.each { |h| heat.hurdles << h }
+
