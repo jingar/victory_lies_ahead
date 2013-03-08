@@ -8,6 +8,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  finish_time :time
+#  lane        :integer
 #
 
 class HeatHurdle < ActiveRecord::Base

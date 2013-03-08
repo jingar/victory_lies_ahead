@@ -4,7 +4,9 @@ SampleApp::Application.routes.draw do
   resources :users, :hurdles, :wattballs, :teams, :matches
   resources :tournaments do
     member do
-      post 'schedule_heats'
+      post 'generate_heats'
+      post 'populate_heats'
+      post 'delete_heats'
     end
   end
   resources :heats do

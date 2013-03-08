@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210135826) do
+ActiveRecord::Schema.define(:version => 20130215141447) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130210135826) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.time     "finish_time"
+    t.integer  "lane"
   end
 
   add_index "heat_hurdles", ["heat_id"], :name => "index_heat_hurdles_on_heat_id"
@@ -26,11 +27,12 @@ ActiveRecord::Schema.define(:version => 20130210135826) do
 
   create_table "heats", :force => true do |t|
     t.string   "gender"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.datetime "time"
     t.integer  "round"
     t.integer  "tournament_id"
+    t.boolean  "played",        :default => false
   end
 
   create_table "hurdles", :force => true do |t|
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(:version => 20130210135826) do
     t.datetime "updated_at",    :null => false
     t.integer  "user_id"
     t.string   "gender"
+    t.integer  "round"
   end
 
   add_index "hurdles", ["user_id", "created_at"], :name => "index_hurdles_on_user_id_and_created_at"
