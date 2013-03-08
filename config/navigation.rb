@@ -32,12 +32,15 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Define the primary navigation
 navigation.items do |primary|
+  primary.dom_class = "topnav"
   primary.item :home, 'Home', root_path
   primary.item :participants, 'Participants', participants_path do |participant|
+    participant.dom_class = "subnav"
     participant.item :wattball, "Wattball", '/participants/teams'
     participant.item :hurdle, "Hurdles", '/participants/athletes'
   end
   primary.item :schedules, 'Schedules', schedules_path do |schedule|
+    schedule.dom_class = "subnav"
     schedule.item :wattball, "Wattball", '/schedules/matches'
     schedule.item :hurdles, "Hurdles", '/schedules/heats'
   end
