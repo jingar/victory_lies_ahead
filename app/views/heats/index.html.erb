@@ -3,8 +3,8 @@
 
 <ul class = "heats">
   <% @heats.each do |heat| %>
-    <li> 
-      <%= link_to heat.time.strftime('%e %b %Y %k:%M:%S'), heat %>
+    <li>
+      <%= link_to heat.time.strftime('%e %b %Y %k:%M:%S')+" "+heat.gender+"; round: "+heat.round.to_s+"; n_hurdles: "+heat.hurdles.count.to_s, heat %>
     </li>
   <% end %>
 </ul>

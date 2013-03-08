@@ -9,16 +9,18 @@
 #  time          :datetime
 #  round         :integer
 #  tournament_id :integer
+#  played        :boolean          default(FALSE)
 #
 
 class Heat < ActiveRecord::Base
-  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id
+  attr_accessible :gender, :time, :hurdles_attributes, :heat_hurdles_attributes, :tournament_id, :round, :played
 
   has_many :hurdles, through: :heat_hurdles
-  has_many :heat_hurdles
-  has_many :heat_results
+  has_many :heat_hurdles, :dependent => :destroy
   belongs_to :tournament
   accepts_nested_attributes_for :heat_hurdles
+
+  scope :rounded_heats, order('round ASC')
 
   validates :gender, presence: true, length: { maximum: 1 }
   validates :time, presence: true
