@@ -187,6 +187,7 @@ GEM
       json (~> 1.4)
     responders (0.9.3)
       railties (~> 3.1)
+    rrschedule (0.3.3)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -264,6 +265,7 @@ DEPENDENCIES
   pg (= 0.12.2)
   rails (= 3.2.11)
   rb-inotify (= 0.8.8)
+  rrschedule
   rspec-rails (= 2.11.0)
   sass-rails (= 3.2.5)
   simple-navigation
