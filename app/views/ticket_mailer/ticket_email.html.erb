@@ -6,17 +6,20 @@
   <body>
     <h1> Ticket Conformation for, <%= @ticket.first_name %></h1>
     <p>
-      You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
-      You have reserved <%= calculate_concession_tickets(@ticket.order_id) %> Concession ticket(s) <br>
+      <% if calculate_adult_tickets(@ticket.order_id) > 0 %>
+       You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
+      <% end %>
+      <% if calculate_concession_tickets(@ticket.order_id) > 0 %>
+       You have reserved <%= calculate_concession_tickets(@ticket.order_id) %> Concession ticket(s) <br>
+      <% end %>
       The unique order id for the reserved ticket(s) is : <%= @ticket.order_id %> <br>
       Total cost of the tickets is : £<%= calculate_total_cost(10,5,@ticket.order_id) %> <br>
-
 
       Venue Address -  Heriot-Watt University <br>
       Edinburgh EH14 4AS <br>
       0131 451 8400 <br>
 
-      <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+      <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A" style="color:#0000FF;text-align:left">View Venue on Google Maps</a></small>
       
     </p>
   </body>
