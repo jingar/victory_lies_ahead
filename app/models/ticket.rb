@@ -1,4 +1,5 @@
 class Ticket < ActiveRecord::Base
+  
   attr_accessible :address, :email, :first_name, :last_name, :order_id, :adult_tickets_bought, :concession_tickets_bought, :used
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

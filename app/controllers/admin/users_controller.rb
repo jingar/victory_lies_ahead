@@ -31,7 +31,7 @@ class Admin::UsersController < Admin::AdminBaseController
     else
       render :action => 'edit'
     end
-  end
+  end 
 
   def destroy
     @user = User.find(params[:id])

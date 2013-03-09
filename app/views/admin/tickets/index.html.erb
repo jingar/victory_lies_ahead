@@ -13,26 +13,33 @@
 	<table class ="tablesorter">
   		<thead>
 			<tr>
-			  <th><%= sortable "first_name", Ticket, "First Name" %></th>
+			  <th><%= sortable  "first_name", Ticket, "First Name" %></th>
 			  <th><%= sortable "last_name", Ticket, "Last Name" %></th>
 			  <th><%= sortable "email", Ticket, "Email Address" %></th>
 			  <th><%= sortable "address", Ticket, "Address" %></th>
 			  <th><%= sortable "order_id", Ticket, "Order ID" %></th>
-			  <th><%= sortable "tickets_bought", Ticket, "Tickets Bought" %></th>
+			  <th><%= sortable "adult_tickets_bought", Ticket, "Tickets Bought" %></th>
+			  <th><%= sortable "concession_tickets_bought", Ticket, "Tickets Bought" %></th>
+			  <th><%= sortable "total_ticket_cost", Ticket, "Total Ticket Cost" %></th>
 			  <th><%= sortable "used", Ticket, "Used" %></th>
 			</tr>
       	</thead>
 		<tbody>
-			<% for ticket in @sort_tickets %>
+			<% for ticket in @tickets %>
+			<% a = ticket.order_id %>
 			<tr>
 			  <td><%= ticket.first_name %></td>
 			  <td><%= ticket.last_name %></td>
 			  <td><%= ticket.email %></td>
 			  <td><%= ticket.address %></td>
 			  <td><%= ticket.order_id %></td>
-			  <td><%= ticket.tickets_bought %></td>
+			  <td><%= ticket.adult_tickets_bought %></td>
+			  <td><%= ticket.concession_tickets_bought %></td>
+			  <td><%= calculate_total_cost(10,5,ticket.order_id) %></td>
 			  <td><%= ticket.used %></td>
-			  <td><%= link_to "Delete", [:admin,ticket], :confirm => 'Are you sure?', :method => :delete %></td>
+			  <% if !(ticket.used) %>
+			  <td><%= link_to 'Change', admin_activate_ticket_path(ticket), confirm: 'Are you Sure? Once activated this ticket cannot be deactivated' %></td>
+			  <% end %>
 			</tr>
       		</tbody>
       		<% end %>
