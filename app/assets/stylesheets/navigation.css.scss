@@ -1,39 +1,32 @@
-ul.topnav {
-	list-style: none;
-	padding: 0 20px;	
-	margin: 0;
-	float: left;
-	width: 100%;
-	background: #222;
-	font-size: 1.2em;
+.topnav {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
 }
-ul.topnav li {
-	float: left;
-	margin: 0;	
-	padding: 0 15px 0 0;
-	position: relative; /*--Declare X and Y axis base for sub navigation--*/
+.topnav li {
+  display: block;
+  background: #000;
+  position: relative;
+  float: left;
 }
-ul.topnav li a{
-	padding: 10px 5px;
-	color: #fff;
-	display: block;
-	text-decoration: none;
-	float: left;
+.subnav { display: none; }
+.topnav li a {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 0px 20px;
+  margin-left: 1px;
+  white-space: nowrap;
 }
-ul.topnav li a:hover {
-	color: #77BACE; }
-ul.topnav li ul {
-	display: none;  }
-ul.topnav li:hover ul, ul.topnav li.hover ul {
-	position: absolute;
-	display: inline;
-	left: 0;
-	width: 100%;
-	margin: 0;
-	padding: 0; }
-ul.topnav li:hover li, ul.subnav li.hover li {
-	float: left; }
-ul.topnav li:hover li a, ul.subnav li.hover li a {
-	color: #fff; }
-ul.topnav li li a:hover {
-	color: #77BACE; }
+.topnav li a:hover { background: #000; }
+.topnav li:hover ul {
+  display: block;
+  position: absolute;
+}
+.topnav li:hover li {
+  float: none;
+  font-size: 11px;
+}
+.topnav li:hover a { background: #000; }
+.topnav li:hover li a:hover { background: #000; }

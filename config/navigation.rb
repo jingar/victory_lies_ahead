@@ -44,10 +44,6 @@ navigation.items do |primary|
     schedule.item :wattball, "Wattball", '/schedules/matches'
     schedule.item :hurdles, "Hurdles", '/schedules/heats'
   end
-	#primary.item :schedules, 'Schedules', schedules_path do |schedules|
-	#    schedules.item :wattball, "Wattball", schedules_wattball_path
-	#    schdules.item :hurdle, "Hurdles", schedules_hurdle_path
-	#end
     
     # Add an item to the primary navigation. The following params apply:
     # key - a symbol which uniquely defines your navigation item in the scope of the primary_navigation
