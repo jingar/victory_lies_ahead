@@ -14,6 +14,26 @@
     <th></th>
   </tr>
 
+<br />
+
+<p>
+<% @schedule.generate %>
+<%  puts @schedule.to_s %>
+<%  @schedule.gamedays.each do |gd| %>
+<%  puts "\n" %>
+<%  puts "Date: " %>
+<% puts gd.date.strftime("%Y/%m/%d") %>
+<%  puts "\n" %>
+<%  gd.games.each do |g| %>
+<%    puts "Home: " + g.team_a.to_s + " Vs Away: " + g.team_b.to_s + " Pitch: ##{g.playing_surface} Kick-off: #{g.game_time.strftime("%I:%M %p")}" %>
+<% end %>
+<%  puts "\n" %>
+<% end %>
+<%= @schedule %>
+</p>
+
+<br />
+
 <% @matches.each do |match| %>
   <tr>
     <td><%= match.when %></td>
@@ -30,7 +50,6 @@
 <% end %>
 </table>
 
-<br />
 
 <%= link_to 'New Match', new_admin_match_path, class: "btn btn-large btn-primary" %>
-<%= link_to 'Generate Schedule', new_admin_match_path, class: "btn btn-large btn-primary" %>
+<%= link_to 'Generate New Schedule', new_admin_match_path, class: "btn btn-large btn-primary" %>
