@@ -1,0 +1,32 @@
+<% provide(:title, "Users") %>
+<head>
+  <h2> Staff Members </h2>
+</head>
+<body>
+	<table class ="table table-striped">
+  		<thead>
+			<tr>
+			  <th><%= sortable "first_name", Staff, "First Name" %></th>
+			  <th><%= sortable "last_name", Staff, "Last Name" %></th>
+			  <th><%= sortable "position", Staff, "Position" %></th>
+			  <th><%= sortable "user_name", Staff, "Username" %></th>
+			</tr>
+      	</thead>
+		<tbody>
+			<% for staff in @staffs %>
+			<tr>
+			  <td><%= staff.first_name %></td>
+			  <td><%= staff.last_name %></td>
+			  <td><%= staff.position %></td>
+			  <td><%= staff.user_name %></td>
+			  <td><%= link_to "Edit", edit_admin_staff_path(staff) %></td>
+			  <td><%= link_to "Delete", [:admin,staff], :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<p><%= link_to "New staff", new_admin_staff_path %></p>
+<p><%= link_to "Back to Dashboard", admin_path %></p>
+
