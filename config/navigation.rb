@@ -31,15 +31,18 @@ SimpleNavigation::Configuration.run do |navigation|
   # navigation.auto_highlight = false
 
   # Define the primary navigation
+navigation.selected_class = 'current'
+navigation.renderer = SimpleNavigation::Renderer::Bootstrap
+navigation.autogenerate_item_ids = false
 navigation.items do |primary|
   primary.dom_class = "topnav"
   primary.item :home, 'Home', root_path
-  primary.item :participants, 'Participants', participants_path do |participant|
+  primary.item :participants, 'Participants', participants_path, highlights_on: /\/participants/ do |participant|
     participant.dom_class = "subnav"
     participant.item :wattball, "Wattball", '/participants/teams'
     participant.item :hurdle, "Hurdles", '/participants/athletes'
   end
-  primary.item :schedules, 'Schedules', schedules_path do |schedule|
+  primary.item :schedules, 'Schedules', schedules_path, highlights_on: /\/schedules/ do |schedule|
     schedule.dom_class = "subnav"
     schedule.item :wattball, "Wattball", '/schedules/matches'
     schedule.item :hurdles, "Hurdles", '/schedules/heats'
