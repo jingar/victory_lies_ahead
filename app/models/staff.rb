@@ -14,23 +14,22 @@
 #
 
 class Staff < ActiveRecord::Base
-    attr_accessible :first_name, :last_name, :user_name,
-    :password, :password_confirmation, :position
-    has_secure_password
-
-
-    before_save { |staff| staff.user_name = user_name.downcase }
-    before_save :create_remember_token
-
-    validates :first_name, presence: true, length: {maximum: 50}
-    validates :last_name, presence: true, length: { maximum: 50 }
-    validates :user_name, presence: true, uniqueness: { case_sensitive: false }
-    validates :password, presence: true, length: { minimum: 6 }
-    validates :password_confirmation, presence: true
-    validates :position, presence: true
-
-	private
-	def create_remember_token
-	    self.remember_token = SecureRandom.urlsafe_base64
-	end
+  attr_accessible :first_name, :last_name, :user_name,
+  :password, :password_confirmation, :position
+  has_secure_password
+  
+  
+  before_save { |staff| staff.user_name = user_name.downcase }
+  before_save :create_remember_token
+  validates :first_name, presence: true, length: {maximum: 50}
+  validates :last_name, presence: true, length: { maximum: 50 }
+  validates :user_name, presence: true, uniqueness: { case_sensitive: false }
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
+  validates :position, presence: true
+  
+  private
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
+  end
 end

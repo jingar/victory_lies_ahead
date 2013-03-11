@@ -37,7 +37,7 @@ SampleApp::Application.routes.draw do
   root to: 'static_pages#home'
   
   namespace :admin do
-    resources :staff
+    resources :staffs
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
     resources :hurdles, :wattballs
