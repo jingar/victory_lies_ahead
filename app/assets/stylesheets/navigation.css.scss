@@ -1,7 +1,11 @@
 .topnav {
-  margin: 0;
-  padding: 0;
   width: 100%;
+  background: #000;
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  background: #000;
+  padding: 0;
   list-style: none;
 }
 .topnav li {
@@ -10,8 +14,7 @@
   position: relative;
   float: left;
 }
-.subnav { display: none; }
-.topnav li a {
+.topnav a {
   display: block;
   text-decoration: none;
   color: #ffffff;
@@ -19,14 +22,15 @@
   margin-left: 1px;
   white-space: nowrap;
 }
-.topnav li a:hover { background: #000; }
-.topnav li:hover ul {
+.topnav li:hover .subnav {
   display: block;
   position: absolute;
 }
-.topnav li:hover li {
+.subnav { display: none; }
+.subnav li {
   float: none;
-  font-size: 11px;
+  font-size: 14px;
 }
-.topnav li:hover a { background: #000; }
-.topnav li:hover li a:hover { background: #000; }
+.topnav a:hover {
+  color: #006DCC;
+}

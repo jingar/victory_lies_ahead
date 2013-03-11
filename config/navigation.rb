@@ -32,7 +32,6 @@ SimpleNavigation::Configuration.run do |navigation|
 
   # Define the primary navigation
 navigation.selected_class = 'current'
-navigation.renderer = SimpleNavigation::Renderer::Bootstrap
 navigation.autogenerate_item_ids = false
 navigation.items do |primary|
   primary.dom_class = "topnav"
