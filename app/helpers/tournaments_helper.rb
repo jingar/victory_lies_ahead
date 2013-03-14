@@ -25,6 +25,7 @@ module TournamentsHelper
 
   #given number of participants in a round, calculate size of each heat
   def heat_sizes(divisor)
+    if divisor == 0 then return 0 end
     sizes = []
     number = number_of_heats(divisor)
     #find number of lanes for most of the heats
@@ -139,6 +140,22 @@ module TournamentsHelper
     return schedule
   end
 
+  def date_calc(start,day_start,day_duration,round)
+    time=start;schedule=[]
+    round.size.times do |r|
+#print day_start+day_duration;print "\n"
+      if time >= day_start + day_duration
+#print time;print "\n"
+        time=day_start+1.day
+        day_start = time
+      end
+      schedule[r] = time
+      time+=HEAT_INTERVAL
+    end
+
+    return schedule
+  end
+
   #need to develop lane allocation for winners
   def allocate_lanes(heat)
     heat=allocate_lanes_randomly(heat)
@@ -186,7 +203,7 @@ module TournamentsHelper
     return heats
   end
 
-  def generate_tournament(tour)
+  def generate_tournament_A(tour)
     raise TournamentNotEmpty if tour.heats.count > 0
     genders = ["m","f"]
 
@@ -209,6 +226,43 @@ module TournamentsHelper
     end
 
     return tour
+  end
+
+  def generate_tournament(tour)
+    raise TournamentNotEmpty if tour.heats.count >0
+
+    schedule=[]
+    start = tour.start_date;stop = tour.end_date;genders =["m","f"]
+    morn = start.hour.hours+start.min.minutes
+#print morn; print " MORNING\n"
+    day_duration = ((stop-start)-(stop.to_date-start.to_date).days).to_i
+    rounds=[]
+    genders.size.times do |g|
+      racers = Hurdle.where("gender = ?",genders[g])
+      no_qual = racers.where("qualification=?",Time.new(2000))
+      rounds[g] = find_round_sizes(racers.count,no_qual.count)
+    end
+
+    round = if rounds[0].size>=rounds[1].size then rounds[0] else rounds[1] end
+    round.size.times do |r|
+      genders.size.times do |g|
+        if rounds[g][r] != nil
+          schedule[r]=[];day_start = start.to_date.to_time.utc + morn.seconds + 1.hour
+print day_start;print " DT\n"
+          schedule[r][g] = date_calc(start,day_start,day_duration,rounds[g][r])
+          stop=schedule[r][g].last;start = stop + HEAT_INTERVAL
+
+          schedule[r][g].each do |time|
+            tour.heats.build(time: time, gender: genders[g], round: r)
+          end
+        end
+      end
+#print schedule.last.last.last;print "\n"
+      stop=schedule.last.last.last;start = stop + HEAT_INTERVAL
+    end
+
+    return tour
+    
   end
 
 end

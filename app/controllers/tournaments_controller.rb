@@ -44,14 +44,15 @@ class TournamentsController < ApplicationController
         #find the last played heat -> round, if none - assume round 0
         last_heat=Heat.rounded_heats.where("played=? and gender=?",true,gen).last
         round = if last_heat == nil then 0 else last_heat.round + 1 end
-        #COMMENT TO DEBUG
-        raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
 
         #find all racers for this round, raise exception, if none
         hurdles = Hurdle.where("round = ? AND gender = ?",round,gen)
         raise NoHurdles if hurdles==[]
         heats = @tournament.heats.where("round=? AND gender = ?",round,gen)
         raise NoHeats if heats==[]
+
+        #COMMENT TO DEBUG
+        raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
 
         #calculate round size
         unisex_racers = Hurdle.where("gender = ?", gen)
@@ -71,6 +72,10 @@ class TournamentsController < ApplicationController
       return
     rescue NoHurdles
       flash[:falure] = "No hurdles are yet registred for this round."
+      redirect_to @tournament
+      return
+    rescue NoHeats
+      flash[:falure] = "No heats are yet generated."
       redirect_to @tournament
       return
     end
