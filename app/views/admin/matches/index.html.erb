@@ -15,33 +15,6 @@
   </tr>
 
 <br />
-<p>
-<% @schedule.generate %>
-<%  puts @schedule.to_s %>
-<%  @schedule.gamedays.each do |gd| %>
-<%  puts "\n" %>
-<%  puts "Date: " %>
-<% puts gd.date.strftime("%Y/%m/%d") %>
-<%  puts "\n" %>
-<%  gd.games.each do |g| %>
-<%    puts "Home: " + g.team_a.to_s + " Vs Away: " + g.team_b.to_s + " Pitch: ##{g.playing_surface} Kick-off: #{g.game_time.strftime("%I:%M %p")}" %>
-<%=    @matches = Match.new do |m| %>
-<%      m.awayGoals = 0 %>
-<%      m.awayTeam = g.team_b.to_s %>
-<%      m.homeGoals = 0 %>
-<%      m.homeTeam = g.team_a.to_s %>
-<%      m.pitch = "#{g.playing_surface}" %>
-<%      m.umpire = "Mike Tumilty" %>
-<%      m.save %>
-<%    end %>
-<%  end %>
-<%  puts "\n" %>
-<% end %>
-<%= @schedule %>
-<% @matches = Match.all %>
-</p>
-
-<br />
 
 <% @matches.each do |match| %>
   <tr>

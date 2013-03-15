@@ -10,6 +10,10 @@ require 'rrschedule'
   def index
     @matches = Match.all
     
+    @matches.each do |m|
+		m.destroy
+    end
+    
     @teams = Team.all(:select => "team_name")
     
     #creating the array of teams to be used for automatic scheduling
@@ -46,6 +50,29 @@ require 'rrschedule'
   #Shuffle team order before each cycle. Default is true
   :shuffle => true
   )
+  @schedule.generate
+  puts @schedule.to_s
+  @schedule.gamedays.each do |gd| 
+  puts "\n" 
+  puts "Date: " 
+ puts gd.date.strftime("%Y/%m/%d") 
+  puts "\n" 
+  gd.games.each do |g| 
+    puts "Home: " + g.team_a.to_s + " Vs Away: " + g.team_b.to_s + " Pitch: ##{g.playing_surface} Kick-off: #{g.game_time.strftime("%I:%M %p")}" 
+    @matches = Match.new do |m| 
+      m.awayGoals = 0 
+      m.awayTeam = g.team_b.to_s 
+      m.homeGoals = 0 
+      m.homeTeam = g.team_a.to_s 
+      m.pitch = "#{g.playing_surface}" 
+      m.umpire = "Mike Tumilty" 
+      m.save 
+    end 
+  end 
+  puts "\n" 
+ end 
+ @matches = Match.all 
+  
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @matches }
