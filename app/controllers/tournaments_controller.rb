@@ -53,7 +53,7 @@ class TournamentsController < ApplicationController
         raise NoHeats if @heats==[]
 
         #COMMENT TO DEBUG
-        #raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
+        raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
 
         #calculate round size
         unisex_racers = Hurdle.where("gender = ?", gen)
