@@ -230,11 +230,11 @@ module TournamentsHelper
 
   def generate_tournament(tour)
     raise TournamentNotEmpty if tour.heats.count >0
+    Time.zone = "UTC"
 
     schedule=[]
     start = tour.start_date;stop = tour.end_date;genders =["m","f"]
     morn = start.hour.hours+start.min.minutes
-#print morn; print " MORNING\n"
     day_duration = ((stop-start)-(stop.to_date-start.to_date).days).to_i
     rounds=[]
     genders.size.times do |g|
@@ -247,8 +247,8 @@ module TournamentsHelper
     round.size.times do |r|
       genders.size.times do |g|
         if rounds[g][r] != nil
-          schedule[r]=[];day_start = start.to_date.to_time.utc + morn.seconds + 1.hour
-print day_start;print " DT\n"
+          schedule[r]=[];day_start = start.beginning_of_day + morn
+#print day_start;print " CURRENT\n"
           schedule[r][g] = date_calc(start,day_start,day_duration,rounds[g][r])
           stop=schedule[r][g].last;start = stop + HEAT_INTERVAL
 
