@@ -119,8 +119,12 @@ module TournamentsHelper
   end
 
   #need to develop lane allocation for winners
-  def allocate_lanes(heat)
-    heat=allocate_lanes_randomly(heat)
+  def allocate_lanes(heat,round)
+    if round < 2
+     heat=allocate_lanes_randomly(heat)
+    else
+      heat=allocate_lanes_in_order(heat)
+    end
 
     return heat
   end
@@ -140,6 +144,18 @@ module TournamentsHelper
     return heat
   end
 
+  def allocate_lanes_in_order(heat)
+    lanes = [4,5,3,6,2,7,1,8]
+    h_hs = heat.heat_hurdles
+    h_hs.sort! { |a,b| a.finish_time <=> b.finish_time }
+    h_hs.each do |h_h|
+      h_h.lane = lanes.delete_at(0)
+    end
+
+    heat.save
+    return heat
+  end
+
   #populate a round with hurdles
   def populate_round(hurdles, round_size_array, heats)
     #init counting variables
@@ -154,7 +170,7 @@ module TournamentsHelper
         heats[heat_counter].hurdles << hurdles_for_heat
 
         #allocate lanes for the new heat
-        heats[heat_counter] = allocate_lanes(heats[heat_counter])
+        heats[heat_counter] = allocate_lanes(heats[heat_counter],hurdles.first.round)
 #logger.debug "LANES return: "+heats[heat_counter].heat_hurdles[0].lane.to_s
         #reset counting vars for the next heat
         hurdles_for_heat=[];heat_full=0;heat_counter+=1

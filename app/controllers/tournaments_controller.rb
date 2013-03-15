@@ -36,8 +36,9 @@ class TournamentsController < ApplicationController
   end
 
   def populate_heats
+    #mylogger ||= Logger.new("#{Rails.root}/log/my.log")
+    @heats=[];@tournament = Tournament.find(params[:id])
     begin
-      @tournament = Tournament.find(params[:id])
       genders = ["m","f"]
 
       genders.each do |gen|
@@ -48,11 +49,11 @@ class TournamentsController < ApplicationController
         #find all racers for this round, raise exception, if none
         hurdles = Hurdle.where("round = ? AND gender = ?",round,gen)
         raise NoHurdles if hurdles==[]
-        heats = @tournament.heats.where("round=? AND gender = ?",round,gen)
-        raise NoHeats if heats==[]
+        @heats = @tournament.heats.where("round=? AND gender = ?",round,gen)
+        raise NoHeats if @heats==[]
 
         #COMMENT TO DEBUG
-        raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
+        #raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
 
         #calculate round size
         unisex_racers = Hurdle.where("gender = ?", gen)
@@ -60,10 +61,12 @@ class TournamentsController < ApplicationController
         rounds = find_round_sizes(unisex_racers.count, no_qual.count)
 
         #do nothing, if at the end of the tournament
-        return tour if rounds[round]==nil
+        if rounds[round]==nil
+          flash[:failure] = "Tournament is finished."
+          return
+        end
 
-        heats=populate_round(hurdles, rounds[round], heats)
-#logger.debug "oo0 lane:"+heats[0].heat_hurdles[0].hurdle_id.to_s
+        @heats=populate_round(hurdles, rounds[round], @heats)
       end
 
     rescue RoundNotEmpty
@@ -82,9 +85,11 @@ class TournamentsController < ApplicationController
 
     if @tournament.save
       flash[:success] = "Tournament round is populated!"
+#mylogger.info "array 0 lane:"+@heats[0].heat_hurdles[0].lane.to_s
+#mylogger.info "tournament 0 lane:"+@tournament.heats.first.heat_hurdles[0].lane.to_s
       redirect_to @tournament
     else
-      flash[:failure] = "Tournament population went wrong"
+      flash[:failure] = "Tournament population went wrong."
       redirect_to @tournament
     end
   end
