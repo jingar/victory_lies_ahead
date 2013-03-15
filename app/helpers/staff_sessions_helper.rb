@@ -33,17 +33,31 @@ module StaffSessionsHelper
 	def store_location_staff
 		session[:return_to] = request.url
 	end
-    def signed_in_staff
-      unless signed_in_staff?
-        store_location_staff
-        redirect_to '/admin/staffsignin', notice: "Please sign in."
-      end
-    end
-  def correct_user
-    @staff = Staff.find(params[:id])
-    if !current_user_staff?(@staff)
-      flash[:error] = "Wrong user"
-      redirect_to('/admin/staffsignin')
-    end
-  end        
+        
+        def signed_in_staff
+          unless signed_in_staff?
+            store_location_staff
+            redirect_to '/admin/staffsignin', notice: "Please sign in."
+          end
+        end
+        def is_staff?
+          @staff_level = Staff.find_by_remember_token(cookies[:remember_token])
+          @staff_level.position == "Staff"
+        end
+
+        def is_admin?
+          @staff_level = Staff.find_by_remember_token(cookies[:remember_token])
+          @staff_level.position == "Admin"
+        end
+        def staff_access
+          if !is_staff?
+            redirect_to('/404.html')
+          end
+        end
+
+        def admin_access
+          if !is_admin?
+            redirect_to('/404.html')
+          end
+        end
 end

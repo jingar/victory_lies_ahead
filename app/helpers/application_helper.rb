@@ -43,12 +43,21 @@ module ApplicationHelper
   end
 
   def generate_ticket_id()
-    Digest::SHA1.hexdigest("#{Time.now.to_f}#{rand}")
+    id = Digest::SHA1.hexdigest("#{Time.now.to_f}#{rand}")
+    id[0..10]
   end
   
-  def calculate_total_amount(order_id)
-      Ticket.where(order_id: order_id).sum(:tickets_bought)
+  def calculate_adult_tickets(order_id)
+      Ticket.where(order_id: order_id).sum(:adult_tickets_bought)
   end
+  def calculate_concession_tickets(order_id)
+      Ticket.where(order_id: order_id).sum(:concession_tickets_bought)
+  end
+  def calculate_total_cost(adult_price,concession_price,order_id)
+    (calculate_adult_tickets(order_id) * adult_price) + (calculate_concession_tickets(order_id) * concession_price)
+  end
+
+
 end
 
 

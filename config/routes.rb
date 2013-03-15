@@ -37,7 +37,7 @@ SampleApp::Application.routes.draw do
   root to: 'static_pages#home'
   
   namespace :admin do
-    resources :staff
+    resources :staffs
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
     resources :hurdles, :wattballs
@@ -45,6 +45,7 @@ SampleApp::Application.routes.draw do
     resources :umpires
     resources :matches
     resources :tickets
+    match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'

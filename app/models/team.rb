@@ -2,12 +2,18 @@
 #
 # Table name: teams
 #
-#  id             :integer          not null, primary key
-#  team_name      :string(255)
-#  user_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  match_teams_id :integer
+#  id                :integer          not null, primary key
+#  team_name         :string(255)
+#  user_id           :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  match_teams_id    :integer
+#  wins              :integer          default(0)
+#  draws             :integer          default(0)
+#  losses            :integer          default(0)
+#  goalsfor          :integer          default(0)
+#  goalsagainst      :integer          default(0)
+#  number_of_players :integer
 #
 
 class Team < ActiveRecord::Base

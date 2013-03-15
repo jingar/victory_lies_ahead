@@ -10,8 +10,11 @@
 #  umpire     :string(255)
 #  homeGoals  :integer
 #  awayGoals  :integer
+#  team_id_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  umpire_id  :integer
+#  team_id    :integer
 #
 
 require 'spec_helper'

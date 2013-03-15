@@ -1,0 +1,23 @@
+<%= form_for ([:admin, @staff]) do |f| %>
+	<%= render 'shared/error_messages', entity: @staff %>
+	<p>
+		<%= f.label :first_name %>
+		<%= f.text_field :first_name %>
+
+		<%= f.label :last_name %>
+		<%= f.text_field :last_name %>
+
+		<%= f.label :user_name %>
+		<%= f.text_field :user_name %>
+
+		<%= f.label :password %>
+		<%= f.password_field :password %>
+
+		<%= f.label :password_confirmation, "Confirmation" %>
+		<%= f.password_field :password_confirmation %>
+		
+		<%= f.label :position %>
+		<%= f.select :position, [['Admin'], ['Staff']], { include_blank: true } %>
+	</p>
+	<p><%= f.submit %></p>
+<% end %>

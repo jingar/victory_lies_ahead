@@ -1,4 +1,0 @@
-class Ticket < ActiveRecord::Base
-  attr_accessible :address, :email_address, :first_name, :last_name, :unique_ticket_id
-end
-

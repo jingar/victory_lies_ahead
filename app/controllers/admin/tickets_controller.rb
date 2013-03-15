@@ -4,23 +4,32 @@ class Admin::TicketsController < Admin::AdminBaseController
 	end
 
         def index
-          @tickets = Ticket.order(sort_column(Ticket) + " " + sort_direction)
+          @tickets = Ticket.search(params[:search])
         end
 
 	def create
-		@ticket = Ticket.new(params[:ticket])
-		if @ticket.save
-                  TicketMailer.ticket_email(@ticket).deliver
-                  flash[:success] = "You have successfully bought a ticket"
-                  redirect_to admin_path
-		else
-			render 'new'
-		end
+          @ticket = Ticket.new(params[:ticket])
+          if @ticket.save
+            TicketMailer.ticket_email(@ticket).deliver
+            flash[:success] = "You have successfully reserved a ticket"
+            redirect_to admin_tickets_path
+          else
+            render 'new'
+          end
 	end
+        
+        def activate
+          @ticket = Ticket.find(params[:id])
+          if @ticket.update_attribute(:used, "true")
+            redirect_to admin_tickets_path
+          else
+            render root_path
+          end 
+        end
 
         def destroy
           @ticekt = Ticket.find(params[:id])
-          @ticket.destroy 
+          @ticket.destroy
           redirect_to admin_tickets_url, :notice => "Successfully deleted a ticket."
         end
 end

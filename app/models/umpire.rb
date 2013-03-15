@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  umpire_id  :integer
+#  match_id   :integer
 #
 
 class Umpire < ActiveRecord::Base

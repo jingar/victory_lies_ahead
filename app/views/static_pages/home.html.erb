@@ -1,14 +1,20 @@
-<%# provide(:title, '') %>
+<% provide(:title, '') %>
 <div class="center hero-unit">
 	<h1>Welcome to the Riccarton Sports Centre Tournament</h1>
 
-	<h2>
-		This is the home page for the Heriot-Watt Sports Tournament.
-	</h2>
+	<h2>This is the home page for the Heriot-Watt Sports Tournament.</h2>
 
-	<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+	<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary pull-left" %>
+	<%= link_to "Reserve Tickets",new_ticket_path,class: "btn btn-large btn-primary pull-right" %>
+	
 </div>
 
-<%= link_to "Schedules", '/schedules' %>
-<%= link_to "Participants", '/participants' %>
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <%= link_to "Schedules", '/schedules' %>
+    <%= link_to "Participants", '/participants' %> 
+  </ul>
+  <div class="tab-content">
+  </div>
+</div>
 <div>Powered by <a href="http://www2.macs.hw.ac.uk/~js249/">Victory Lies Ahead</a></div>
