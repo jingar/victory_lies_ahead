@@ -78,68 +78,30 @@ module TournamentsHelper
     return rounds
   end
 
-  def find_heats_per_day(start,stop)
-    day_dur=((stop - start).to_i%DAY)
-    max_heats_per_day = day_dur / HEAT_INTERVAL #from 8am to 6pm
+#  def find_heats_per_day(start,stop)
+#    day_dur=((stop - start).to_i%DAY)
+#    max_heats_per_day = day_dur / HEAT_INTERVAL #from 8am to 6pm
+#
+#    return max_heats_per_day
+#  end
 
-    return max_heats_per_day
-  end
-
-  def count_days(rounds,max_heats)
-    days = 0
-
-    rounds.each do |round|
-      round_duration = 0
-      if round.size >= max_heats
-        round_duration /= max_heats
-        if round_duration % max_heats > 0 then round_duration += 1 end
-      end
-
-      days+= 1 + round_duration
-    end
-
-    return days
-  end
+#  def count_days(rounds,max_heats)
+#    days = 0
+#
+#    rounds.each do |round|
+#      round_duration = 0
+#      if round.size >= max_heats
+#        round_duration /= max_heats
+#        if round_duration % max_heats > 0 then round_duration += 1 end
+#      end
+#
+#      days+= 1 + round_duration
+#    end
+#
+#    return days
+#  end
 
   #date spreading:
-  #first determine if the time to the end of tournament is enough,
-  #then spread the heats out as much as possible
-  #incomplete
-  def date_calculus(start,stop,rounds)
-    tour_duration = (stop.to_date - start.to_date).to_i
-    day_duration = ((stop - start) - tour_duration.days).to_i
-#print day_duration;print "\n"
-
-    max_heats_per_day = find_heats_per_day(start,stop)
-    days_needed = count_days(rounds,max_heats_per_day)
-
-    schedule = []
-    if days_needed > tour_duration
-      #extend the tournament, notify the staff
-      tour_duration += (days_needed - tour_duration)
-      #NOTIFY STAFF
-    end
-    #spread the heats out
-    i = 0; time=start;day_start=start
-    rounds.each do |round|
-      schedule[i] = []
-      day_start = time
-      round.count.times do |heat|
-        if time>= day_start+day_duration
-          time=day_start + 1.day
-          day_start = time
-        end
-        schedule[i][heat] = time
-        time+=HEAT_INTERVAL
-#print schedule[i]; print "\n"
-      end
-      i+=1
-      time=day_start+1.day
-    end
-
-    return schedule
-  end
-
   def date_calc(start,day_start,day_duration,round)
     time=start;schedule=[]
     round.size.times do |r|
@@ -203,34 +165,8 @@ module TournamentsHelper
     return heats
   end
 
-  def generate_tournament_A(tour)
-    raise TournamentNotEmpty if tour.heats.count > 0
-    genders = ["m","f"]
-
-    genders.each do |gen|
-      unisex_racers = Hurdle.where("gender = ?", gen)
-      no_qual = unisex_racers.where("qualification = ?", Time.new(2000))
-      rounds = find_round_sizes(unisex_racers.count, no_qual.count)
-      schedules = date_calculus(tour.start_date,tour.end_date,rounds)
-
-      i=0
-      rounds.each do |round|
-        j=0
-        round.each do |heat|
-          tour.heats.build(time: schedules[i][j], gender: gen, round: i)
-          j+=1
-        end
-
-        i+=1
-      end
-    end
-
-    return tour
-  end
-
   def generate_tournament(tour)
     raise TournamentNotEmpty if tour.heats.count >0
-    Time.zone = "UTC"
 
     schedule=[]
     start = tour.start_date;stop = tour.end_date;genders =["m","f"]
@@ -258,7 +194,7 @@ module TournamentsHelper
         end
       end
 #print schedule.last.last.last;print "\n"
-      stop=schedule.last.last.last;start = stop + HEAT_INTERVAL
+      stop=schedule.last.last.last;start = (stop + 1.day).beginning_of_day + morn
     end
 
     return tour
