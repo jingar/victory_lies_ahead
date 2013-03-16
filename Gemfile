@@ -5,12 +5,11 @@ gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
 gem "simple-navigation"
-gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
 gem 'inherited_resources'
 gem 'hirb'
-gem "whenever", "~> 0.8.2"
 gem 'rrschedule'
+gem "whenever", "~> 0.8.2"
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
@@ -21,7 +20,7 @@ group :development, :test do
 end
 
 group :development do
-	gem 'annotate', '2.5.0'
+  gem 'annotate', '2.5.0'	
   gem "nifty-generators"
 end
 
