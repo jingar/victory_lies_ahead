@@ -14,6 +14,8 @@
     <th></th>
   </tr>
 
+<br />
+
 <% @matches.each do |match| %>
   <tr>
     <td><%= match.when %></td>
@@ -30,7 +32,6 @@
 <% end %>
 </table>
 
-<br />
 
 <%= link_to 'New Match', new_admin_match_path, class: "btn btn-large btn-primary" %>
-<%= link_to 'Generate Schedule', new_admin_match_path, class: "btn btn-large btn-primary" %>
+<%= link_to 'Generate New Schedule', new_admin_match_path, class: "btn btn-large btn-primary" %>
