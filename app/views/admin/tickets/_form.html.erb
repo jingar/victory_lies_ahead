@@ -24,9 +24,8 @@
 		<%= f.text_field :address %>
 		
 		<%= f.label :ticket_date %>
-		<%= f.select :ticket_date, [['Wattball', 'wattball'], ['Hurdles', 'hurdles']], { include_blank: true } %>
+		<%= f.date_select :ticket_date, :order => [:day, :month, :year] %>
 
-		
 		<%= f.label :adult_tickets %>
 		<%= f.number_field :adult_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,10,5)"%>
 
