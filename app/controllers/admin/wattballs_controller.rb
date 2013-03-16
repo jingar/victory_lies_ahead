@@ -40,11 +40,10 @@ class Admin:: WattballsController < Admin::AdminBaseController
 
   def destroy
     @wattball = Wattball.find(params[:id])
-    if Team.find(@wattball.team_id).number_of_players <= 11
-      redirect_to admin_wattballs_url, :notice => "Cannot delete Player, 11 players minimum per team"
-    else
-      @wattball.destroy
-      redirect_to admin_wattballs_url, :notice => "Successfully deleted a wattball Player"
-    end
+      if @wattball.destroy
+        redirect_to admin_wattballs_url, :notice => "Successfully deleted a wattball Player"
+      else 
+        redirect_to admin_wattballs_url, :alert => "Cannot Delete Player , 11 players minmum per team"
+      end
   end
 end
