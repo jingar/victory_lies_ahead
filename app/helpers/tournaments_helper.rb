@@ -120,7 +120,7 @@ module TournamentsHelper
 
   #need to develop lane allocation for winners
   def allocate_lanes(heat,round)
-    if round < 2
+    if round < 1
      heat=allocate_lanes_randomly(heat)
     else
       heat=allocate_lanes_in_order(heat)
