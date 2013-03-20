@@ -1,0 +1,20 @@
+<% provide(:title, @tournament.name) %>
+<div class = "row">
+<aside class = "span4">
+  <section>
+    <h1>
+      Tournament name: <%= @tournament.name %> <br />
+      Start date: <%= @tournament.start_date.strftime('%e %b %Y %k:%M:%S') %>
+      <br />
+      End date: <%= @tournament.end_date.strftime('%e %b %Y %k:%M:%S') %>
+      <br />
+      Number of heats: <%= @tournament.heats.count %>
+    </h1>
+    <div class= "controlButtons">
+      <%= link_to 'Generate Heats', generate_heats_admin_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
+      <%= link_to 'Populate Heats', populate_heats_admin_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
+      <%= link_to 'Delete Heats', delete_heats_admin_tournament_path, class: "btn btn-large btn-primary", method: "post" %>
+    </div>
+  </section>
+</aside>
+</div>

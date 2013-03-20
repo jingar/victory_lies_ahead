@@ -1,0 +1,33 @@
+<h1>Listing matches</h1>
+
+<table border="3" cellpadding="3">
+    <tr bgcolor="grey">
+        <th>Date</th>
+        <th>Time</th>
+        <th>Pitch</th>
+        <th>Umpire</th>
+        <th>Team1</th>
+        <th>Team1 Goals</th>
+        <th>Team2</th>
+        <th>Team2 Goals</th>
+        <th>View Match Detail</th>
+    </tr>
+    <% @matches.each do |match| %>
+        <tr>
+            <% if (match.when == nil) %>
+                <td>No date</td>
+                <td>No time</td>
+            <% else %>
+                <td><%= match.when %></td>
+                <td><%= match.when %></td>
+            <% end %>
+            <td><%= match.pitch %></td>
+            <td><%= match.umpire %></td>
+            <td><%= match.homeTeam %></td>
+            <td><%= match.homeGoals %></td>
+            <td><%= match.awayTeam %></td>
+            <td><%= match.awayGoals %></td>
+            <td><%= link_to 'Show', match %></td>
+        </tr>
+    <% end %>
+</table>
