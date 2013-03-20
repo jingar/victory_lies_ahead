@@ -1,19 +1,6 @@
 SampleApp::Application.routes.draw do
 
   resources :users, :hurdles, :wattballs, :teams, :matches, :tickets
-  resources :tournaments do
-    member do
-      post 'generate_heats'
-      post 'populate_heats'
-      post 'delete_heats'
-    end
-  end
-  resources :heats do
-    member do
-      get 'add_result'
-      put 'update_result'
-    end
-  end
   resources :sessions, only: [:new, :create, :destroy]
   
 
@@ -45,6 +32,19 @@ SampleApp::Application.routes.draw do
     resources :umpires
     resources :matches
     resources :tickets
+    resources :tournaments do
+      member do
+        post 'generate_heats'
+        post 'populate_heats'
+        post 'delete_heats'
+      end
+    end
+    resources :heats do
+      member do
+        get 'add_result'
+        put 'update_result'
+      end
+    end
     match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
