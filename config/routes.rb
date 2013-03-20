@@ -2,6 +2,12 @@ SampleApp::Application.routes.draw do
 
   resources :users, :hurdles, :wattballs, :teams, :matches, :tickets
   resources :sessions, only: [:new, :create, :destroy]
+  resources :heats do
+    member do
+      get 'add_result'
+      put 'update_result'
+    end
+  end
   
 
   match '/signup',  to: 'users#new'
@@ -37,12 +43,6 @@ SampleApp::Application.routes.draw do
         post 'generate_heats'
         post 'populate_heats'
         post 'delete_heats'
-      end
-    end
-    resources :heats do
-      member do
-        get 'add_result'
-        put 'update_result'
       end
     end
     resources :salesreports, only: [:index]
