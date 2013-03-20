@@ -40,6 +40,7 @@ module StaffSessionsHelper
             redirect_to '/admin/staffsignin', notice: "Please sign in."
           end
         end
+
         def is_staff?
           @staff_level = Staff.find_by_remember_token(cookies[:remember_token])
           @staff_level.position == "Staff"
@@ -48,11 +49,6 @@ module StaffSessionsHelper
         def is_admin?
           @staff_level = Staff.find_by_remember_token(cookies[:remember_token])
           @staff_level.position == "Admin"
-        end
-        def staff_access
-          if !is_staff?
-            redirect_to('/404.html')
-          end
         end
 
         def admin_access

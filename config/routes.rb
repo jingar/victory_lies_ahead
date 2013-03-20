@@ -45,12 +45,14 @@ SampleApp::Application.routes.draw do
         put 'update_result'
       end
     end
+    resources :salesreports, only: [:index]
     match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'
     match 'admin/umpires', to: "admin#umpires"
     match 'admin/matches', to: "admin#matches"
+    match 'admin/salesreport', to: "admin#help"
   end
 
 

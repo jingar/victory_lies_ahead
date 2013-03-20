@@ -4,6 +4,5 @@ class AddDefaultValueToTickets < ActiveRecord::Migration
   end
   
   def down
-    change_column :tickets, :used, :default => nil
   end
 end

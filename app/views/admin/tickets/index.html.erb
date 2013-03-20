@@ -37,7 +37,7 @@
 			  <td><%= ticket.concession_tickets_bought %></td>
 			  <td><%= calculate_total_cost(10,5,ticket.order_id) %></td>
 			  <td><%= ticket.used %></td>
-			  <% if !(ticket.used) %>
+			  <% if !(ticket.used == "Expired") %>
 			  <td><%= link_to 'Change', admin_activate_ticket_path(ticket), confirm: 'Are you Sure? Once activated this ticket cannot be deactivated' %></td>
 			  <% end %>
 			</tr>

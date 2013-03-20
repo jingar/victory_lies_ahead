@@ -20,7 +20,7 @@ class Admin::TicketsController < Admin::AdminBaseController
         
         def activate
           @ticket = Ticket.find(params[:id])
-          if @ticket.update_attribute(:used, "true")
+          if @ticket.update_attribute(:used, "Expired")
             redirect_to admin_tickets_path
           else
             render root_path
