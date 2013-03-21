@@ -11,3 +11,40 @@
   </aside>
 </div>
 <%= render 'shared/wattball_or_hurdles' %>
+<p> Participants Related to <%= @user.first_name %></p>
+  <table class ="table">
+    <% if current_user.sport == "hurdles" %>
+    <thead>
+      <tr>
+	<th>Name</th>
+	<th>Qualification</th>
+      </tr>
+    </thead>
+      <tbody>
+	<% @user.hurdles.each do |hurdle| %>
+	<tr>
+	  <td><%= hurdle.first_name + " " + hurdle.last_name %></td>
+	  <td><%= hurdle.qualification %>
+	</tr>
+	<% end %>
+	<tr>
+      </tbody>
+  </table>
+<% end %>
+ <% if current_user.sport == "wattball" %>
+    <thead>
+      <tr>
+	<th>Name</th>
+      </tr>
+    </thead>
+      <tbody>
+	<% @user.teams.each do |team| %>
+	<tr>
+	  <td><%= team.team_name %></td>
+	</tr>
+	<% end %>
+	<tr>
+      </tbody>
+  </table>
+<p>
+<% end %>

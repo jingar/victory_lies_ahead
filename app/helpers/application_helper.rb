@@ -66,6 +66,13 @@ module ApplicationHelper
   def calculate_total_cost(adult_price,concession_price,order_id)
     (calculate_adult_tickets(order_id) * adult_price) + (calculate_concession_tickets(order_id) * concession_price)
   end
+  
+  def unique_hurdle_dates()
+    all_times = Heat.uniq.pluck(:time)
+    only_valid_times = all_times.reject{|x| x < Time.now }
+    #only_unique_and_valid_times  = (only_valid_times.uniq_by { |x|  x.to_date }).map { | z | z }
+    only_unique_and_valid_times = (only_valid_times.uniq_by { |x|  x.to_date }).map { | z | z.strftime("%d-%B-%Y")}
+  end
 end
 
 
