@@ -11,10 +11,12 @@
 #
 
 class Tournament < ActiveRecord::Base
-  attr_accessible :end_date, :name, :start_date, :heats_attributes
+  attr_accessible :end_date, :name, :start_date, :heats_attributes, :matches_attributes
 
   has_many :heats
   accepts_nested_attributes_for :heats
+  has_many :matches
+  accepts_nested_attributes_for :matches
 
   validates :name, presence: true
   validates :start_date, presence: true

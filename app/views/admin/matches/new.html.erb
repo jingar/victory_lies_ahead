@@ -1,5 +1,11 @@
 <h1>New match</h1>
 
-<%= render 'form' %>
+<br>
+<% @matchArray.each do |match| %>
+	<%= match %>
+	<br>
+<%end %>
+<br>
+<%= @hour %>
 
 <%= link_to 'Back', admin_matches_path %>
