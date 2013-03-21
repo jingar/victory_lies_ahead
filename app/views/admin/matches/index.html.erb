@@ -1,35 +1,39 @@
 <h1>Listing matches</h1>
 
-<table>
-  <tr>
-    <th>Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Home Team &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Away Team &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Pitch &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Umpire &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Home Goals &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Away Goals &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<br />
-
-<% @matches.each do |match| %>
-  <tr>
-    <td><%= match.when %></td>
-    <td><%= match.homeTeam %></td>
-    <td><%= match.awayTeam %></td>
-    <td><%= match.pitch %></td>
-    <td><%= match.umpire %></td>
-    <td><%= match.homeGoals %></td>
-    <td><%= match.awayGoals %></td>
-    <td><%= link_to 'Show', [:admin,match] %></td>
-    <td><%= link_to 'Edit', edit_admin_match_path(match) %></td>
-    <td><%= link_to 'Destroy', [:admin,match], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table class ="table table-striped" border = 3 cellpadding = 3>
+    <tr bgcolor="grey">
+        <th>Date</th>
+        <th>Time</th>
+        <th>Pitch</th>
+        <th>Umpire</th>
+        <th>Team1</th>
+        <th>Team1 Goals</th>
+        <th>Team2</th>
+        <th>Team2 Goals</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <% @matches.each do |match| %>
+        <tr>
+            <% if (match.when == nil) %>
+                <td>No date</td>
+                <td>No time</td>
+            <% else %>
+                <td><%= match.when.strftime('%e %b %Y') %></td>
+                <td><%= match.when.strftime('%H:%M:%S') %></td>
+            <% end %>
+            <td><%= match.pitch %></td>
+            <td><%= match.umpire %></td>
+            <td><%= match.homeTeam %></td>
+            <td><%= match.homeGoals %></td>
+            <td><%= match.awayTeam %></td>
+            <td><%= match.awayGoals %></td>
+            <td><%= link_to 'Show', [:admin,match] %></td>
+            <td><%= link_to 'Edit', edit_admin_match_path(match) %></td>
+            <td><%= link_to 'Destroy', [:admin,match], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
 </table>
 
 
