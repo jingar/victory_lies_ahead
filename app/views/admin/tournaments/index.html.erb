@@ -4,7 +4,7 @@
 <ul class = "tournaments">
   <% @tournaments.each do |tournament| %>
     <li> 
-      <%= link_to tournament.name, tournament %>
+      <%= link_to tournament.name, [:admin,tournament] %>
     </li>
   <% end %>
 </ul>
