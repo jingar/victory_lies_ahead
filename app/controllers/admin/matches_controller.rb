@@ -1,30 +1,41 @@
 class Admin::MatchesController < Admin::AdminBaseController 
   def new
     @tournament = Tournament.find(1)
+    @matches = Match.all
     @teams = Team.all
+    @umpires = Umpire.all
     matchDates = populateDays(@tournament).shuffle
     i = 1
-    @matchArray = Array.new()
+    matchArray = Array.new()
     while i <= Team.count do
       j = i + 1
       while j <= Team.count do
-        @matchArray << [Team.find(i).team_name, Team.find(j).team_name]
+        matchArray << [Team.find(i).team_name, Team.find(j).team_name]
         j+= 1
       end
       i += 1
     end
-
-    @matchArray.each do |match|
-
-      r = rand(matchDates.length)
+    @matchArray = Array.new()
+    matchArray = matchArray.shuffle
+    r = rand(matchDates.length)
+    Match.destroy_all
+    matchArray.each do |match|
+      while not validateAvaliable(match[0], match[1], @matchArray,matchDates[r])
+        r = rand(matchDates.length)
+      end
       matchDates[r][1] += 1
-      match << matchDates[r][0]
-      match << matchDates[r][1]
-
+      @matchArray<<(match << matchDates[r][0]<<matchDates[r][1])
     end
 
+    matchArray.each do |match|
+      enterMatch = Match.create()
+      enterMatch.homeTeam = match[0]
+      enterMatch.awayTeam = match[1]
+      enterMatch.when = match[2]
+      enterMatch.pitch = match[3]
+      enterMatch.save
 
-    @match = Match.new
+    end
   end
 
   def populateDays(tour)
@@ -54,6 +65,22 @@ class Admin::MatchesController < Admin::AdminBaseController
     end
     return dateArray
   end
+
+#########################
+  def validateAvaliable(p1, p2, m, d)
+    free = true
+    playing1 = p1
+    playing2 = p2
+    matches = m
+    date = d
+    matches.each do |match|
+      if match[2]==date[0] and ((playing1 == match[0] or playing1 == match[1]) or (playing2 == match[0] or playing2 == match[1]))
+        free = false
+      end
+    end
+    return free
+  end
+#########################
 
   def show
     @match = Match.find(params[:id])
