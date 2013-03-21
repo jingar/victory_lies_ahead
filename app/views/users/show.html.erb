@@ -11,6 +11,11 @@
   </aside>
 </div>
 <%= render 'shared/wattball_or_hurdles' %>
+
+
+<% a = Hurdle.find_by_user_id(current_user.id).id %> 
+<% a = HeatHurdle.find_by_hurdle_id(a).heat_id %>
+<%= Heat.find(a).time %>
 <p> Participants Related to <%= @user.first_name %></p>
   <table class ="table">
     <% if current_user.sport == "hurdles" %>
@@ -47,4 +52,5 @@
       </tbody>
   </table>
 <p>
+
 <% end %>

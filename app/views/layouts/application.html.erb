@@ -8,7 +8,11 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <%= render 'layouts/header' unless @header %>
+    <% if @header %> 
+    <%= render 'layouts/admin_header' %>
+    <% else %>
+    <%= render 'layouts/header' %>
+    <% end %>
   <br/> <%#a spacing to separate header from the rest of the body%>
     <div class="container">
       <% flash.each do |key, value| %>
