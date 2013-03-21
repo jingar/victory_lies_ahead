@@ -20,11 +20,34 @@ class Admin::MatchesController < Admin::AdminBaseController
     r = rand(matchDates.length)
     Match.destroy_all
     matchArray.each do |match|
-      while not validateAvaliable(match[0], match[1], @matchArray,matchDates[r])
+      while not validateAvaliable(match[0], match[1], @matchArray,matchDates[r]) and not matchDates[r][1] >= 7
         r = rand(matchDates.length)
       end
       matchDates[r][1] += 1
       @matchArray<<(match << matchDates[r][0]<<matchDates[r][1])
+    end
+
+    if @matchArray.length == matchArray.length
+    else
+      redirect_to admin_matches_url, notice: "EVILLLLLL!"
+    end
+
+    @matchUmpArray = Array.new()
+    matchArray.each do |match|
+      @umpires = @umpires.shuffle
+      umped = false
+      @umpires.each do |umpire|
+        if umped == false and validateUmpAvail(umpire, match, @matchUmpArray)
+          @matchUmpArray << (match << umpire.id)
+          umped = true
+        end
+      end
+    end
+
+    if @matchArray.length == @matchUmpArray.length
+      @matchArray = @matchUmpArray
+    else
+      redirect_to admin_matches_url, notice: "EVILLLLLL!"
     end
 
     matchArray.each do |match|
@@ -33,6 +56,7 @@ class Admin::MatchesController < Admin::AdminBaseController
       enterMatch.awayTeam = match[1]
       enterMatch.when = match[2]
       enterMatch.pitch = match[3]
+      enterMatch.umpire = match[4]
       enterMatch.save
 
     end
@@ -75,6 +99,19 @@ class Admin::MatchesController < Admin::AdminBaseController
     date = d
     matches.each do |match|
       if match[2]==date[0] and ((playing1 == match[0] or playing1 == match[1]) or (playing2 == match[0] or playing2 == match[1]))
+        free = false
+      end
+    end
+    return free
+  end
+#########################
+  def validateUmpAvail(u, ma, mu)
+    umpire = u
+    match = ma
+    matches = mu
+    free = true
+    matches.each do |current|
+      if current[2] == match[2] and current[4] == umpire.id
         free = false
       end
     end
