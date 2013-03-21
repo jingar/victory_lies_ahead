@@ -10,7 +10,7 @@ class Admin::MatchesController < Admin::AdminBaseController
     while i <= Team.count do
       j = i + 1
       while j <= Team.count do
-        matchArray << [Team.find(i).team_name, Team.find(j).team_name]
+        matchArray << [Team.find(i).id, Team.find(j).id]
         j+= 1
       end
       i += 1
