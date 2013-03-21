@@ -1,9 +1,15 @@
-<% if @user.sport == "wattball" %>
-	<div class = "image_menu">
-		<a href="/teams/new">Add team</a><br />  
-	</div>
-	<% else %> 
-	<div class = "image_menu">
-		<a href="/hurdles/new">Add athlete</a>
-	</div>
+<% if Team.count(conditions: {user_id: current_user.id }) == 0  %>
+   <% if @user.sport == "wattball" %>
+   <div class = "image_menu">
+     <a href="/teams/new">Add team</a><br />  
+   </div>
+   <% end %>
+<% end %>
+
+<% if Hurdle.count(conditions: {user_id: current_user.id }) == 0  %>
+   <% if @user.sport == "hurdles" %> 
+   <div class = "image_menu">
+     <a href="/hurdles/new">Add athlete</a>
+   </div>
+   <% end %>
 <% end %>

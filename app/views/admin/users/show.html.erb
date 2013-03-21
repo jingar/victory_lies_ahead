@@ -28,16 +28,24 @@
       </tr>
     </thead>
       <tbody>
+	<% if @user.sport == "hurdles" %>
 	<% @user.hurdles.each do |hurdle| %>
 	<tr>
 	  <td><%= hurdle.first_name + " " + hurdle.last_name %></td>
 	  <td><%= hurdle.qualification %>
 	</tr>
+	<% end %>
+	<% elsif @user.sport == "wattball"  %>
+	<tr>
+	  <% @user.teams.each do |team| %>
+	  <td><%= team.team_name %></td>
+	</tr>
+	<% end %>
       </tbody>
       <% end %>
   </table>
 <p>
 <%= link_to "Edit", edit_admin_user_path(@user) %> |
-  <%= link_to "Destroy", admin_hurdle_path(@user), :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", admin_users_path %>
+<%= link_to "Destroy", admin_hurdle_path(@user), :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to "View All", admin_users_path %>
 </p>

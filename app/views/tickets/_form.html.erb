@@ -31,6 +31,8 @@
 		
 		<%= f.hidden_field :order_id, value: generate_ticket_id() %>
 		<%= f.label :total_price %> <%=f.label :amount, "£ 0", id: 1 %>
+
+		<%= f.hidden_field :ticket_type, value: "Reserved"  %>
   
   	</p>
 	<p><%= f.submit %></p>

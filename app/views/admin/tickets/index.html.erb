@@ -18,10 +18,12 @@
 			  <th><%= sortable "email", Ticket, "Email Address" %></th>
 			  <th><%= sortable "address", Ticket, "Address" %></th>
 			  <th><%= sortable "order_id", Ticket, "Order ID" %></th>
-			  <th><%= sortable "adult_tickets_bought", Ticket, "Tickets Bought" %></th>
-			  <th><%= sortable "concession_tickets_bought", Ticket, "Tickets Bought" %></th>
+			  <th><%= sortable "ticket_type", Ticket, "Ticket Type" %></th>
+			  <th><%= sortable "ticket_date", Ticket, "Ticket Expiry Date " %></th>
+			  <th><%= sortable "adult_tickets_bought", Ticket, "Adult Tickets Bought" %></th>
+			  <th><%= sortable "concession_tickets_bought", Ticket, "Concession Tickets Bought" %></th>
 			  <th><%= sortable "total_ticket_cost", Ticket, "Total Ticket Cost" %></th>
-			  <th><%= sortable "used", Ticket, "Used" %></th>
+			  <th><%= sortable "used", Ticket, "Ticket Status" %></th>
 			</tr>
       	</thead>
 		<tbody>
@@ -33,9 +35,11 @@
 			  <td><%= ticket.email %></td>
 			  <td><%= ticket.address %></td>
 			  <td><%= ticket.order_id %></td>
+			  <td><%= ticket.ticket_type %></td>
+			  <td><%= ticket.ticket_date %></td>
 			  <td><%= ticket.adult_tickets_bought %></td>
 			  <td><%= ticket.concession_tickets_bought %></td>
-			  <td><%= calculate_total_cost(10,5,ticket.order_id) %></td>
+			  <td>£<%= calculate_total_cost(10,5,ticket.order_id) %></td>
 			  <td><%= ticket.used %></td>
 			  <% if !(ticket.used == "Expired") %>
 			  <td><%= link_to 'Change', admin_activate_ticket_path(ticket), confirm: 'Are you Sure? Once activated this ticket cannot be deactivated' %></td>
