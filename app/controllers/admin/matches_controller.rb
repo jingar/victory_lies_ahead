@@ -4,61 +4,67 @@ class Admin::MatchesController < Admin::AdminBaseController
     @matches = Match.all
     @teams = Team.all
     @umpires = Umpire.all
-    matchDates = populateDays(@tournament).shuffle
-    i = 1
-    matchArray = Array.new()
-    while i <= Team.count do
-      j = i + 1
-      while j <= Team.count do
-        matchArray << [Team.find(i).id, Team.find(j).id]
-        j+= 1
-      end
-      i += 1
-    end
-    @matchArray = Array.new()
-    matchArray = matchArray.shuffle
-    r = rand(matchDates.length)
-    Match.destroy_all
-    matchArray.each do |match|
-      while not validateAvaliable(match[0], match[1], @matchArray,matchDates[r]) and not matchDates[r][1] >= 7
-        r = rand(matchDates.length)
-      end
-      matchDates[r][1] += 1
-      @matchArray<<(match << matchDates[r][0]<<matchDates[r][1])
-    end
-
-    if @matchArray.length == matchArray.length
+    if not @matches.length == 0
+      redirect_to admin_matches_url, notice: "Schedule already exists!"
     else
-      redirect_to admin_matches_url, notice: "EVILLLLLL!"
-    end
+      matchDates = populateDays(@tournament).shuffle
+      i = 1
+      matchArray = Array.new()
+      while i <= Team.count do
+        j = i + 1
+        while j <= Team.count do
+          matchArray << [Team.find(i).id, Team.find(j).id]
+          j+= 1
+        end
+        i += 1
+      end
+      @matchArray = Array.new()
+      matchArray = matchArray.shuffle
+      r = rand(matchDates.length)
+      Match.destroy_all
+      matchArray.each do |match|
+        while not validateAvaliable(match[0], match[1], @matchArray,matchDates[r]) and not matchDates[r][1] >= 7
+          r = rand(matchDates.length)
+        end
+        matchDates[r][1] += 1
+        @matchArray<<(match << matchDates[r][0]<<matchDates[r][1])
+      end
 
-    @matchUmpArray = Array.new()
-    matchArray.each do |match|
-      @umpires = @umpires.shuffle
-      umped = false
-      @umpires.each do |umpire|
-        if umped == false and validateUmpAvail(umpire, match, @matchUmpArray)
-          @matchUmpArray << (match << umpire.id)
-          umped = true
+      if @matchArray.length == matchArray.length
+      else
+        redirect_to admin_matches_url, notice: "EVILLLLLL!"
+      end
+
+      @matchUmpArray = Array.new()
+      matchArray.each do |match|
+        @umpires = @umpires.shuffle
+        umped = false
+        @umpires.each do |umpire|
+          if umped == false and validateUmpAvail(umpire, match, @matchUmpArray)
+            @matchUmpArray << (match << umpire.id)
+            umped = true
+          end
         end
       end
-    end
 
-    if @matchArray.length == @matchUmpArray.length
-      @matchArray = @matchUmpArray
-    else
-      redirect_to admin_matches_url, notice: "EVILLLLLL!"
-    end
+      if @matchArray.length == @matchUmpArray.length
+        @matchArray = @matchUmpArray
+      else
+        redirect_to admin_matches_url, notice: "EVILLLLLL!"
+      end
 
-    matchArray.each do |match|
-      enterMatch = Match.create()
-      enterMatch.homeTeam = match[0]
-      enterMatch.awayTeam = match[1]
-      enterMatch.when = match[2]
-      enterMatch.pitch = match[3]
-      enterMatch.umpire = match[4]
-      enterMatch.save
+      matchArray.each do |match|
+        enterMatch = Match.create()
+        enterMatch.homeTeam = match[0]
+        enterMatch.awayTeam = match[1]
+        enterMatch.when = match[2]
+        enterMatch.pitch = match[3]
+        enterMatch.umpire = match[4]
+        enterMatch.save
 
+      end
+
+      redirect_to admin_matches_url, notice: "Successfully generated schedule!"
     end
   end
 
@@ -148,12 +154,12 @@ class Admin::MatchesController < Admin::AdminBaseController
  
  def update
     @match = Match.find(params[:id])
-    params[:match][:user_id] = (Match.where(id: params[:id]).pluck(:user_id)).first
     if @match.update_attributes(params[:match])
-      redirect_to [:admin,@match], notice: "Successfully entered match result!"
+      flash[:success] = "Match result updated"
+      redirect_to  [:admin,@match]
     else
-      render action: 'edit'
+      render 'edit'
     end
- end
+  end
 
 end
