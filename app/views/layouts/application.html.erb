@@ -8,7 +8,7 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <% if @header %> 
+    <% if @header and signed_in_staff? %> 
     <%= render 'layouts/admin_header' %>
     <% else %>
     <%= render 'layouts/header' %>
