@@ -1,24 +1,33 @@
 class Admin::MatchesController < Admin::AdminBaseController 
   def new
     @tournament = Tournament.find(1)
-    @halfdays = (((@tournament.end_date - @tournament.start_date)/86400)*2).round
     @teams = Team.all
-    @hour = populateDays(@tournament, @halfdays)
-    @i = 1
+    matchDates = populateDays(@tournament).shuffle
+    i = 1
     @matchArray = Array.new()
-    while @i <= Team.count do
-      @j = @i + 1
-      while @j <= Team.count do
-        @matchArray << [Team.find(@i).team_name, Team.find(@j).team_name]
-        @j+= 1
+    while i <= Team.count do
+      j = i + 1
+      while j <= Team.count do
+        @matchArray << [Team.find(i).team_name, Team.find(j).team_name]
+        j+= 1
       end
-      @i += 1
+      i += 1
     end
+
+    @matchArray.each do |match|
+
+      r = rand(matchDates.length)
+      matchDates[r][1] += 1
+      match << matchDates[r][0]
+      match << matchDates[r][1]
+
+    end
+
+
     @match = Match.new
   end
 
-  def populateDays(tour, hdays)
-    @hdays = hdays
+  def populateDays(tour)
     @tour = tour
     @first = tour.start_date
     if @first.hour >= 11 and @first.minute >= 1
@@ -26,7 +35,24 @@ class Admin::MatchesController < Admin::AdminBaseController
     else
       @start = DateTime.new(@first.year,@first.month,@first.day,11,00,00,'')
     end
-    
+    i = 0
+    dateArray = Array.new()
+    lastDate = @start
+    dateArray << [@start, 0]
+
+    while lastDate < tour.end_date do
+      if lastDate.hour == 11 and (lastDate + 4.hour)< tour.end_date
+        lastDate = lastDate + 4.hour
+        dateArray << [lastDate, 0]
+      elsif lastDate.hour == 15 and (lastDate + 20.hour)< tour.end_date
+        lastDate = lastDate + 20.hour
+        dateArray << [lastDate, 0]
+      else (lastDate.hour == 15 and (lastDate + 20.hour)>= tour.end_date) or (lastDate.hour == 11 and (lastDate + 4.hour)>= tour.end_date)
+        lastDate = tour.end_date
+      end
+      i += 1
+    end
+    return dateArray
   end
 
   def show
