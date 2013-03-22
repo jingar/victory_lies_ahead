@@ -67,11 +67,21 @@ module ApplicationHelper
     (calculate_adult_tickets(order_id) * adult_price) + (calculate_concession_tickets(order_id) * concession_price)
   end
   
-  def unique_hurdle_dates()
-    all_times = Heat.uniq.pluck(:time)
-    only_valid_times = all_times.reject{|x| x < Time.now }
+  def unique_dates()
+    all_times = Match.find(:all)
+    all_times = all_times.map { |x| x.when }
+    only_valid_times = all_times.reject{|x| x < Date.today + 16.day }
     #only_unique_and_valid_times  = (only_valid_times.uniq_by { |x|  x.to_date }).map { | z | z }
     only_unique_and_valid_times = (only_valid_times.uniq_by { |x|  x.to_date }).map { | z | z.strftime("%d-%B-%Y")}
+  end
+  
+  def free_tickets_today(user_id)
+    t_name = Team.find_by_user_id(user_id).id
+    if t_name.any?
+      a = Match.find(:all, conditions:["homeTeam = ? OR awayTeam = ?",t_name,t_name])
+      t_dates = a.map{ |x| x.when.to_date }
+      valid_times = t_dates.reject { |x| x != Date.today + 16.day}.any?
+    end
   end
 end
 

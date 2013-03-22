@@ -24,7 +24,7 @@
 		<%= f.text_field :address %>
 		
 		<%= f.label :ticket_date %>
-		<%= f.select :ticket_date, unique_hurdle_dates() %>
+		<%= f.select :ticket_date, unique_dates() %>
 
 		<%= f.label :ticket_type %>
 		<%= f.select :ticket_type, [['Free'], ['Reserved']], { include_blank: true } %>
