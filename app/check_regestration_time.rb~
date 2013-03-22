@@ -1,4 +1,0 @@
-class CheckRegestrationTime < ActiveRecord::Base
-
-
-end

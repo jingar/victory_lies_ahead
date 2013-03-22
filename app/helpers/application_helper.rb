@@ -30,8 +30,18 @@ module ApplicationHelper
     model.column_names.include?(params[:sort]) ? params[:sort] : "id"
   end
 
+  def sortable_matches(column,model,title = nil)
+    title ||= column.titleize
+    direction = column == sort_column_matches(model) && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, {sort: column, direction: direction}
+  end
+
+  def sort_column_matches(model)
+    model.column_names.include?(params[:sort]) ? params[:sort] : "points"
+  end
+
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   
   def sport_type(model)

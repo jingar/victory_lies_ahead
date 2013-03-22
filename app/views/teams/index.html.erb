@@ -4,14 +4,14 @@
 <table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
 	<tr>
 		<th>Name</th>
-		<th>Points</th>
-		<th>Played</th>
-		<th>Wins</th>
-		<th>Draws</th>
-		<th>Losses</th>
-		<th>Goals For</th>
-		<th>Goals Against</th>
-		<th>Goal Difference</th>
+		<th><%= sortable_matches "points" , Team , "Points" %></th>
+		<th><%= sortable_matches "played", Team, "Played" %></th>
+		<th><%= sortable_matches "wins", Team, "Wins" %></th>
+		<th><%= sortable_matches "draws", Team, "Draws" %></th>
+		<th><%= sortable_matches "losses", Team, "Losses" %></th>
+		<th><%= sortable_matches "goalsfor", Team, "Goals For" %></th>
+		<th><%= sortable_matches "goalsagainst", Team, "Goals Against" %></th>
+		<th><%= sortable_matches "goalsdif", Team, "Goal Difference" %></th>
 	</tr>
 	<% @teams.each do |team| %>
 		<tr>

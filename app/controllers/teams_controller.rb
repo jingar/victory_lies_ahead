@@ -49,6 +49,7 @@ class TeamsController < ApplicationController
         team.save
       end
     end
+    @teams = Team.order(sort_column_matches(Team)+ " " + sort_direction)
   end
 
   def edit
