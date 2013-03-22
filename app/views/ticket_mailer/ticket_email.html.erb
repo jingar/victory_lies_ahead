@@ -5,6 +5,14 @@
   <head/>
   <body>
     <h1> Ticket Conformation for, <%= @ticket.first_name %></h1>
+    
+    <% tickets = Ticket.find(:all, conditions:["email = ? OR ticket_date = ?",@ticket.email,Date.today]) %>
+    <% if @ticket.ticket_type == "free" %>
+    Free Ticket ID's for today
+    <% for ticket in tickets %>
+    <%= ticket.order_id %>
+    <% end %>
+    <% else %>
     <p>
       <% if calculate_adult_tickets(@ticket.order_id) > 0 %>
        You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
@@ -14,6 +22,7 @@
       <% end %>
       The unique order id for the reserved ticket(s) is : <%= @ticket.ticket_date.strftime("%d-%m-%Y") %>-<%= @ticket.order_id %> <br>
       Total cost of the tickets is : £<%= calculate_total_cost(5,3,@ticket.order_id) %> <br>
+      <% end %>
 
       Venue Address -  Heriot-Watt University <br>
       Edinburgh EH14 4AS <br>

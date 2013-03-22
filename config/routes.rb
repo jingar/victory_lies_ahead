@@ -1,6 +1,7 @@
 SampleApp::Application.routes.draw do
 
   resources :users, :hurdles, :wattballs, :teams, :matches, :tickets
+  match '/tickets/send_mail', to: 'tickets#send_mail'
   resources :sessions, only: [:new, :create, :destroy]
   resources :heats do
     member do

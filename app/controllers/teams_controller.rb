@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  
   def new
     @team = Team.new
     11.times { @team.wattballs.build }		

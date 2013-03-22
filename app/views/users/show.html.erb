@@ -1,3 +1,4 @@
+# coding: utf-8  
 <% provide(:title, @user.first_name) %>
 <div class = "row">
   <aside class = "span4">
@@ -12,10 +13,17 @@
 </div>
 <%= render 'shared/wattball_or_hurdles' %>
 
+<% if current_user.sport == "wattball" %>
+<% if free_tickets_today(current_user.id) %>
+<% ticket_t = {ticket: {first_name: current_user.first_name,last_name: current_user.last_name,email:"saadarif006@gmail.com",order_id: generate_ticket_id,adult_tickets_bought: 1, concession_tickets_bought: 0,ticket_date: Date.today,ticket_type: "free"}} %>
 
-#<% a = Hurdle.find_by_user_id(current_user.id).id %> 
-#<% a = HeatHurdle.find_by_hurdle_id(a).heat_id %>
-#<%= Heat.find(a).time %>
+<%= link_to "Send free tickets", tickets_send_mail_path(ticket_t),method: :post%>
+
+<% end %>
+<% end %>
+
+
+
 <p> Participants Related to <%= @user.first_name %></p>
   <table class ="table">
     <% if current_user.sport == "hurdles" %>
