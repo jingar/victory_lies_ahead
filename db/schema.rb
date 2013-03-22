@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(:version => 20130320235433) do
 
   create_table "matches", :force => true do |t|
     t.datetime "when"
-    t.string   "homeTeam"
-    t.string   "awayTeam"
+    t.integer  "homeTeam"
+    t.integer  "awayTeam"
     t.integer  "pitch"
     t.string   "umpire"
     t.integer  "homeGoals"

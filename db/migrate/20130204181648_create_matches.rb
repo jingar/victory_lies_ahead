@@ -2,8 +2,8 @@ class CreateMatches < ActiveRecord::Migration
   def change
     create_table :matches do |t|
       t.datetime :when
-      t.string :homeTeam
-      t.string :awayTeam
+      t.integer :homeTeam
+      t.integer :awayTeam
       t.integer :pitch
       t.string :umpire
       t.integer :homeGoals
