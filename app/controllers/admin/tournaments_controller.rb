@@ -29,7 +29,9 @@ class Admin::TournamentsController < Admin::AdminBaseController
     @tournament = Tournament.find(params[:id])
     if @tournament.update_attributes(params[:tournament])
       flash[:success] = "Tournament details updated"
-      redirect_to  [:admin,@tournament]
+      Match.delete_all
+      Heat.delete_all
+      redirect_to [:admin,@tournament]
     else
       render 'edit'
     end

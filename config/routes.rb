@@ -45,6 +45,7 @@ SampleApp::Application.routes.draw do
         post 'delete_heats'
       end
     end
+    resources :tournaments
     resources :salesreports, only: [:index]
     match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'

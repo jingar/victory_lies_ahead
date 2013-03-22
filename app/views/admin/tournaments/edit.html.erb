@@ -2,7 +2,7 @@
 <h1>Edit Tournament details</h1>
 <div class="row">
   <div class="span6 offset3">
-    <%= form_for(@tournament) do |f| %>
+    <%= form_for([:admin,@tournament]) do |f| %>
       <%= render 'shared/error_messages', entity: @tournament %>
 
       <%= f.label :name %>
@@ -15,7 +15,7 @@
       <%= f.datetime_select:end_date, :prompt => {:day => 'Day', :month => 'Month', :year => 'Year'}, :start_year => Date.today.year - 2, :end_year => Date.today.year + 2, date_separator: "/", order: [:day, :month, :year], :minute_step => 15 %>
 
       <br /><br />
-      <%= f.submit "create new heat", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Save New Tournament Data", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

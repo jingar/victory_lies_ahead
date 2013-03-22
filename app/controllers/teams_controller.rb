@@ -32,6 +32,7 @@ class TeamsController < ApplicationController
     #@team.team_name = params[:team][:team_name]
     if @team.save
       flash[:success] = "Wattball team is now registred!"
+      Match.delete_all
       redirect_to @team
     else
       render 'new'

@@ -10,10 +10,12 @@ class Admin::MatchesController < Admin::AdminBaseController
       matchDates = populateDays(@tournament).shuffle
       i = 1
       matchArray = Array.new()
-      while i <= Team.count do
+      while i <= Team.maximum('id') do
         j = i + 1
-        while j <= Team.count do
-          matchArray << [Team.find(i).id, Team.find(j).id]
+        while j <= Team.maximum('id') do
+          if Team.exists?(i) and Team.exists?(j)
+            matchArray << [Team.find(i).id, Team.find(j).id]
+          end
           j+= 1
         end
         i += 1
@@ -30,41 +32,36 @@ class Admin::MatchesController < Admin::AdminBaseController
         @matchArray<<(match << matchDates[r][0]<<matchDates[r][1])
       end
 
-      if @matchArray.length == matchArray.length
+      if not @matchArray.length == matchArray.length
+        redirect_to admin_matches_url, notice: "Not enough Timeslots/Pitches to schedule all games "  + 9785.chr(Encoding::UTF_8)
       else
-        redirect_to admin_matches_url, notice: "EVILLLLLL!"
-      end
-
-      @matchUmpArray = Array.new()
-      matchArray.each do |match|
-        @umpires = @umpires.shuffle
-        umped = false
-        @umpires.each do |umpire|
-          if umped == false and validateUmpAvail(umpire, match, @matchUmpArray)
-            @matchUmpArray << (match << umpire.id)
-            umped = true
+        @matchUmpArray = Array.new()
+        matchArray.each do |match|
+          @umpires = @umpires.shuffle
+          umped = false
+          @umpires.each do |umpire|
+            if umped == false and validateUmpAvail(umpire, match, @matchUmpArray)
+              @matchUmpArray << (match << umpire.id)
+              umped = true
+            end
           end
         end
-      end
-
-      if @matchArray.length == @matchUmpArray.length
-        @matchArray = @matchUmpArray
-      else
-        redirect_to admin_matches_url, notice: "EVILLLLLL!"
-      end
-
-      matchArray.each do |match|
-        enterMatch = Match.create()
-        enterMatch.homeTeam = match[0]
-        enterMatch.awayTeam = match[1]
-        enterMatch.when = match[2]
-        enterMatch.pitch = match[3]
-        enterMatch.umpire = match[4]
-        enterMatch.save
-
-      end
-
-      redirect_to admin_matches_url, notice: "Successfully generated schedule!"
+        if @matchArray.length == @matchUmpArray.length
+          @matchArray = @matchUmpArray
+          matchArray.each do |match|
+            enterMatch = Match.create()
+            enterMatch.homeTeam = match[0]
+            enterMatch.awayTeam = match[1]
+            enterMatch.when = match[2]
+            enterMatch.pitch = match[3]
+            enterMatch.umpire = match[4]
+            enterMatch.save
+          end
+        redirect_to admin_matches_url, notice: "Successfully generated schedule!"
+        else
+          redirect_to admin_matches_url, notice: "Not enough Umpires to schedule all games "  + 9785.chr(Encoding::UTF_8)
+        end
+      end  
     end
   end
 
