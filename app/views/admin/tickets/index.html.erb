@@ -52,6 +52,28 @@
     </table>
 </body>
 
+<h1> Sales Report </h1>
+
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+    <tr bgcolor="grey">
+        <th>Number of Adult Tickets Sold</th>
+        <th>Number of Concession Tickets Sold</th>
+        <th>Adult Income</th>
+        <th>Concession Income</th>
+    </tr>
+    <% @tickets2.each do |t| %>
+        <tr>
+            <td><%= @adult = t.adult_tickets_bought %></td>
+            <td><%= @concession = t.concession_tickets_bought %></td>
+            <td><%= @adult * 5 %></td>
+            <td><%= @concession *3 %></td>
+        </tr>
+        <% @total += (@adult*5) + (@concession*3) %>
+    <% end %>
+</table>
+
+<h2> Total: £ <%= @total %></h2> 
+
 
 <p><%= link_to "New ticket", new_admin_ticket_path %></p>
 <p><%= link_to "Back to Dashboard", admin_path %></p>
