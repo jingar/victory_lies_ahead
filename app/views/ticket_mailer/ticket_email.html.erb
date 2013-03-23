@@ -4,13 +4,13 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
   <head/>
   <body>
-    <h1> Ticket Conformation for, <%= @ticket.first_name %></h1>
+    <h1> Ticket Conformation for, <%= @ticket.first_name %><%= @ticket.last_name %></h1>
     
     <% tickets = Ticket.find(:all, conditions:["email = ? OR ticket_date = ?",@ticket.email,Date.today]) %>
     <% if @ticket.ticket_type == "free" %>
     Free Ticket ID's for today
     <% for ticket in tickets %>
-    <%= ticket.order_id %>
+    <%= ticket.order_id %><br/>
     <% end %>
     <% else %>
     <p>
