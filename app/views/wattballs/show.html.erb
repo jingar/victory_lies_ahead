@@ -3,9 +3,17 @@
     <aside class = "span4">
 	<section>	
 	    <h1>
-		<%= @wattball.first_name %>
-		<%= @wattball.last_name %>
+		<%= "Name: " + @wattball.first_name + " " + @wattball.last_name %>
+		<br/>
+		<br/>
+		<%= "Team: " + Team.find(@wattball.team_id).team_name %>
+		<br/>
+		<br/>
+		<%= "No. Of Goals: " %>
+		<%= @wattball.goals %>
 	    </h1>
 	</section>
     </aside>
 </div>
+
+<%= link_to 'Back', wattballs_path %>

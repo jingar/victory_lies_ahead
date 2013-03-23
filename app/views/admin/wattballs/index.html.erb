@@ -9,6 +9,7 @@
 			  <th><%= sortable "first_name", Wattball, "First Name" %></th>
 			  <th><%= sortable "last_name", Wattball, "Last Name" %></th>
 			   <th><%= sortable "team_name", Team, "Member of Team" %></th>
+			   <th><%= sortable "goals", Wattball, "No. Of Goals" %></th>
 			</tr>
       	</thead>
 		<tbody>
@@ -17,8 +18,9 @@
 			  <td><%= wattball.first_name %></td>
 			  <td><%= wattball.last_name %></td>
 			  <td><%= Team.find(wattball.team_id).team_name %></td>
+			  <td><%= wattball.goals %></td>
 			  <td><%= link_to "Show", [:admin,wattball]%></td>
-			  <td><%= link_to "Edit", edit_admin_wattball_path(wattball) %></td>
+			  <td><%= link_to "Add Goals", edit_admin_wattball_path(wattball) %></td>
 			  <td><%= link_to "Delete", [:admin,wattball], :confirm => 'Are you sure?', :method => :delete %></td>
 			</tr>
       	</tbody>
@@ -27,4 +29,3 @@
   </section>
 </
 <p><%= link_to "Back to Dashboard", admin_path %></p>
-

@@ -10,6 +10,20 @@ class Admin:: WattballsController < Admin::AdminBaseController
     @wattball = Wattball.find(params[:id])
   end
 
+  def edit
+	@wattball = Wattball.find(params[:id])
+  end
+  
+  def update
+    @wattball = Wattball.find(params[:id])
+    if @wattball.update_attributes(params[:wattball])
+      flash[:success] = "Goals updated"
+      redirect_to  [:admin,@wattball]
+    else
+      render 'edit'
+    end
+  end
+  
   def index
     @wattballs = Wattball.order(sort_column(Wattball) + " " + sort_direction)
   end

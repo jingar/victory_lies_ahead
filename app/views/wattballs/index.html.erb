@@ -19,7 +19,7 @@
 			  <td><%= wattball.last_name %></td>
 			  <td><%= Team.find(wattball.team_id).team_name %></td>
 			  <td><%= wattball.goals %></td>
-			  <td><%= link_to "Info", [:admin,wattball]%></td>
+			  <td><%= link_to "Info", wattball%></td>
 			</tr>
       	</tbody>
       		<% end %>
