@@ -1,6 +1,8 @@
 SampleApp::Application.routes.draw do
 
-  resources :users, :hurdles, :wattballs, :teams, :matches, :tickets
+  get "score/index"
+
+  resources :users, :hurdles, :wattballs, :teams, :matches, :tickets, :scores
   match '/tickets/send_mail', to: 'tickets#send_mail'
   resources :sessions, only: [:new, :create, :destroy]
   resources :heats do
@@ -26,6 +28,7 @@ SampleApp::Application.routes.draw do
   match '/schedules', to: "static_pages#schedules"
   match '/schedules/matches', to: "matches#index"
   match '/schedules/heats', to: "heats#index"
+  match '/topscorers', to: "scores#index"
 
   
   root to: 'static_pages#home'
