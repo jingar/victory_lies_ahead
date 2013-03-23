@@ -146,7 +146,9 @@ class Admin::MatchesController < Admin::AdminBaseController
   end
 
  def edit
-    @match = Match.find(params[:id])
+   @match = Match.find(params[:id])
+   @wattball1 = Match.find(@match.homeTeam)
+   @wattball2 = Match.find(@match.awayTeam)
  end
  
  def update

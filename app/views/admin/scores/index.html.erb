@@ -1,0 +1,32 @@
+<% provide(:title, "Scores") %>
+<head>
+  <h2> Scores </h2>
+</head>
+<body>
+	<table class ="table table-striped">
+  		<thead>
+		  <tr>
+			  <th><%= sortable "matches_id", Score, "Match" %></th>
+			  <th><%= sortable "wattball_id", Score, "Player Name" %></th>
+			  <th><%= sortable "amount", Score, "Number of goals scored" %></th>
+
+			</tr>
+      	</thead>
+		<tbody>
+			<% for score in @scores %>
+			<tr>
+			  <td><%= Match.find(score.matches_id).homeTeam %></td>
+			  <td><%= Wattball.find((score.wattball_id)).first_name %></td>
+			  <td><%= score.amount %></td>
+			  <td><%= link_to "Show", [:admin,score]%></td>
+			  <td><%= link_to "Edit", edit_admin_score_path(score) %></td>
+			  <td><%= link_to "Delete", [:admin,score], :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<%= link_to 'New Score', new_admin_score_path %>
+<p><%= link_to "Back to Dashboard", admin_path %></p>
+

@@ -11,12 +11,12 @@
         <%= f.fields_for :wattballs do |players| %>
           <p>
             <b>Edit Player</b> <br/>
-            # First Name: <%= players.text_field :first_name %>
-        #    Last Name: <%= players.text_field :last_name %>
+            First Name: <%= players.text_field :first_name %>
+            Last Name: <%= players.text_field :last_name %>
           </p>
         <% end %>
 	<%= f.hidden_field :user_id, :value => params[:user_id] %>
-        <p><%= link_to_add_player "Add Player", f, :wattballs %>
+    <p><%= link_to_add_player "Add Player", f, :wattballs %>
 
         <p><%= f.submit "Submit" , class: "btn btn-large btn-primary" %></p>
     <% end %>

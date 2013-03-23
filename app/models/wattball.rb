@@ -13,6 +13,7 @@
 class Wattball < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :team_id, :goals
   belongs_to :team,:counter_cache => :number_of_players
+  has_many :scores
   before_destroy :validate_wattballs?
   
   validates :first_name, presence: true

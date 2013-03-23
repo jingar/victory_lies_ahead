@@ -1,0 +1,31 @@
+<%= form_for([:admin,@score]) do |f| %>
+<%= render 'shared/error_messages', entity: @score %>
+
+<div class="field">
+    <%= f.label :wattball %><br />
+    <% if @score.matches_id
+       players = Wattball.find_by_team_id(Match.find(@score.matches_id).homeTeam)
+      else
+       players = Wattball.all
+       end %>
+    <% player_array = players.map{ |player| [ player.first_name, player.id ] } %>
+    <%= f.select :wattball_id, player_array %>
+  </div>
+  <div class="field">
+    <%= f.label :match %><br />
+    <% if @score.matches_id 
+        matches = Match.where :id =>  @score.matches_id
+      else
+        matches = Match.all
+      end
+    match_array = matches.map { |match| [ match.id ] } %>
+    <%= f.select :matches_id, match_array %>
+  </div>
+  <div class="field">
+    <%= f.label :goals %><br />
+    <%= f.number_field :amount, :value => 1 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
