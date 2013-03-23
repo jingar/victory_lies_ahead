@@ -1,8 +1,9 @@
 <%= form_for([:admin,@match]) do |f| %>
   <%= render 'shared/error_messages', entity: @match %> 
-<% if @match.homeGoals == nil and @match.awayGoals == nil %>
+
 <div id = "container" >
   <div id="v-div" style = "height:100%;width:50%;float:left;" >
+    <h2><%= Team.find(@match.homeTeam).team_name %> <%= @match.homeGoals %> </h2>
        <div class="field">
 	 <%= f.label :homeGoals %><br />
 	 <%= f.number_field :homeGoals, min: 0, max: 10%>
@@ -11,32 +12,13 @@
   </div >
 
   <div id="v-div2" style = "height:100%;width:50%;float:right;" >
+    <h2> <%= Team.find(@match.awayTeam).team_name %> <%= @match.awayGoals %> </h2>
        <div class="field">
 	 <%= f.label :awayGoals %><br />
 	 <%= f.number_field :awayGoals, min: 0, max: 10%>
        </div>
   </div >
 </div>
-
-<% else %>
-<div id = "container" >
-  <div id="v-div" style = "height:100%;width:50%;float:left;" >
-       <div class="field">
-	 <h2><%= Team.find(@match.homeTeam).team_name %> <%= @match.homeGoals %> </h2>
-       </div>
-  </div >
-
-  <div id="v-div2" style = "height:100%;width:50%;float:right;" >
-       <div class="field">
-	 <h2> <%= Team.find(@match.awayTeam).team_name %> <%= @match.awayGoals %> </h2>
-       </div>
-
-  </div >
-</div>
-
-
-
-<% end %>
 
 <div class="actions">
   <%= f.submit %>

@@ -4,8 +4,8 @@
 <div class="field">
     <%= f.label :wattball %><br />
     <% if @score.matches_id
-       players = Wattball.find_by_team_id(Match.find(@score.matches_id).homeTeam)
-      else
+       players = Match.find(@score.matches_id).players
+       else
        players = Wattball.all
        end %>
     <% player_array = players.map{ |player| [ player.first_name, player.id ] } %>

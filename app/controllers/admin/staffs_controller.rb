@@ -35,3 +35,4 @@ class Admin::StaffsController < Admin::AdminBaseController
       redirect_to admin_staffs_path
     end
 end
+ 

@@ -1,5 +1,4 @@
 <% provide(:title, "Show user") %>
-
 <p>
   <strong>First Name:</strong>
   <%= @user.first_name %> <br>
@@ -20,7 +19,8 @@
   <%= @user.sport %> <br>
 
 <p> Participants Related to <%= @user.first_name %></p>
-  <table class ="table">
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+    <% if @user.sport == "hurdles" %>
     <thead>
       <tr>
 	<th>Name</th>
@@ -28,23 +28,66 @@
       </tr>
     </thead>
       <tbody>
-	<% if @user.sport == "hurdles" %>
 	<% @user.hurdles.each do |hurdle| %>
 	<tr>
 	  <td><%= hurdle.first_name + " " + hurdle.last_name %></td>
-	  <td><%= hurdle.qualification %>
+	  <td><%= hurdle.qualification.strftime("%H:%M:%S") %>
 	</tr>
 	<% end %>
-	<% elsif @user.sport == "wattball"  %>
 	<tr>
-	  <% @user.teams.each do |team| %>
+      </tbody>
+  </table>
+  <% end %>
+
+ <% if @user.sport == "wattball" %>
+<% t_id= 0 %>
+    <thead>
+      <tr>
+	<th>Team Name</th>
+      </tr>
+    </thead>
+      <tbody>
+	<% @user.teams.each do |team| %>
+	<tr>
 	  <td><%= team.team_name %></td>
+             <% t_id = team.id %>
 	</tr>
 	<% end %>
+	<tr>
       </tbody>
-      <% end %>
   </table>
+
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+    <thead>
+      <tr>
+	<th>First Name</th>
+	<th>Last Name</th>
+             <th>Amount</th>
+      </tr>
+             </thead>
+      <tbody>
+             <% @players = Wattball.where(["team_id = ?",t_id]) %>
+	<% @players.each do |p| %>
+	<tr>
+      <td><%= p.first_name  %></td>
+             <td><%= p.last_name  %></td>
+             <% if Score.where(["wattball_id = ?",p.id]).any? %>
+                    <td><%= Score.find_by_wattball_id(p.id).amount %></td>
+                    </tr>
+<% else %>
+       <td>0</td>                    
+	<% end %>
+
+
+<% end %>
+	<tr>
+      </tbody>
+  </table>
+
 <p>
+
+<% end %>
+
 <%= link_to "Edit", edit_admin_user_path(@user) %> |
 <%= link_to "Destroy", admin_hurdle_path(@user), :confirm => 'Are you sure?', :method => :delete %> |
 <%= link_to "View All", admin_users_path %>

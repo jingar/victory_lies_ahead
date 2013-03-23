@@ -97,6 +97,10 @@ module ApplicationHelper
       end
     end
   end
+
+  def find_players(match_ids)
+    a = Wattball.find_by_team_id(Match.find(match_ids).homeTeam)
+  end
 end
 
 

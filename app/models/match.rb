@@ -32,4 +32,15 @@ class Match < ActiveRecord::Base
   validates :pitch, presence: true
 
 
+  def teams
+    [homeTeam,awayTeam]
+    end
+
+  def players
+    cur_players = teams.map do |p|
+     Wattball.where(["team_id = ?",p])
+    end
+
+    cur_players.flatten
+  end
 end

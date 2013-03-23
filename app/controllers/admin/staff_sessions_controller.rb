@@ -15,7 +15,7 @@ class Admin::StaffSessionsController < ApplicationController
 	end
 
 	def destroy
-    	sign_out
+          sign_out
     	redirect_to '/admin/staffsignin'
   	end
 end

@@ -2,6 +2,8 @@ class Admin::ScoresController < ApplicationController
 
   def index 
     @scores = Score.order(sort_column(Score) + " " + sort_direction)
+    @score = Score.all
+    @seed = @score.map { |x| Wattball.find((x.wattball_id))}
   end 
 
   def new

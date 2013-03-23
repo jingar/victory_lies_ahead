@@ -3,7 +3,7 @@
   <h2> Users </h2>
 </head>
 <body>
-	<table class ="table table-striped">
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
   		<thead>
 		  <tr>
 			  <th><%= sortable "first_name", User, "First Name" %></th>
@@ -11,6 +11,7 @@
 			  <th><%= sortable "email", User, "Email Address" %></th>
 			  <th><%= sortable "address", User, "Address" %></th>
 			  <th><%= sortable "sport", User %></th>
+			  <th colspan="4">Options</th>
 			</tr>
       	</thead>
 		<tbody>
