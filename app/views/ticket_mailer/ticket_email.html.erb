@@ -4,15 +4,26 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
   <head/>
   <body>
-    <h1> Ticket Conformation for, <%= @ticket.first_name %><%= @ticket.last_name %></h1>
+    <h1> Ticket Conformation for, <%= @ticket.first_name %> <%= @ticket.last_name %></h1>
     
     <% tickets = Ticket.find(:all, conditions:["email = ? OR ticket_date = ?",@ticket.email,Date.today]) %>
     <% if @ticket.ticket_type == "free" %>
-    Free Ticket ID's for today
-    <% for ticket in tickets %>
-    <%= ticket.order_id %><br/>
-    <% end %>
-    <% else %>
+    Free Ticket ID's for today <br/>
+    <table class ="table table-striped" border = "3" cellpadding = "3" align = "left">
+      <thead>
+	<tr>
+	  <th>Order ID</th>
+	</tr>
+      </thead>
+      <tbody>
+	<% for ticket in tickets %>
+	<tr>
+	  <td><%=ticket.ticket_date%>-<%= ticket.order_id %></td>
+	<% end %>
+	</tr>
+      </tbody>
+    </table>
+	<% else %>
     <p>
       <% if calculate_adult_tickets(@ticket.order_id) > 0 %>
        You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
