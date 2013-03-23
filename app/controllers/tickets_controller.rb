@@ -21,7 +21,7 @@ class TicketsController < ApplicationController
     end
   end
   def send_mail
-    for i in 0..3
+    for i in 0..24
       @ticket = Ticket.new(params[:ticket])
       @ticket.order_id = generate_ticket_id()
       if @ticket.save

@@ -80,7 +80,7 @@ module ApplicationHelper
   def unique_dates()
     all_times = Match.find(:all)
     all_times = all_times.map { |x| x.when }
-    only_valid_times = all_times.reject{|x| x < Date.today + 16.day }
+    only_valid_times = all_times.reject{|x| x < Date.today }
     #only_unique_and_valid_times  = (only_valid_times.uniq_by { |x|  x.to_date }).map { | z | z }
     only_unique_and_valid_times = (only_valid_times.uniq_by { |x|  x.to_date }).map { | z | z.strftime("%d-%B-%Y")}
   end
@@ -89,17 +89,22 @@ module ApplicationHelper
     User.find(user_id).sport == "wattball"
     t_name = Team.find_by_user_id(user_id)
     if t_name
-      t_name = Team.find_by_user_id(user_id)
-      if t_name
-        a = Match.find(:all, conditions:["homeTeam = ? OR awayTeam = ?",t_name,t_name])
+      t_id = Team.find_by_user_id(user_id).id
+      if t_id
+        a = Match.find(:all, conditions:["homeTeam = ? OR awayTeam = ?",t_id,t_id])
         t_dates = a.map{ |x| x.when.to_date }
-        valid_times = t_dates.reject { |x| x != Date.today + 16.day}.any?
+        ##add here to simulate later dates
+        valid_times = t_dates.reject { |x| x != Date.today}.any?
       end
     end
   end
 
   def find_players(match_ids)
     a = Wattball.find_by_team_id(Match.find(match_ids).homeTeam)
+  end
+
+  def is_sent?(email)
+    Ticket.where("email = ? and ticket_type = ? and ticket_date = ?",email,"free",Date.today).any?
   end
 end
 

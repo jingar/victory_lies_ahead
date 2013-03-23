@@ -15,16 +15,14 @@
 
 <% if current_user.sport == "wattball" %>
 <% if free_tickets_today(current_user.id) %>
-<% ticket_t = {ticket: {first_name: current_user.first_name,last_name: current_user.last_name,email:"saadarif006@gmail.com",order_id: generate_ticket_id,adult_tickets_bought: 1, concession_tickets_bought: 0,ticket_date: Date.today,ticket_type: "free"}} %>
+<% if !is_sent?(current_user.email) %>
+<% ticket_t = {ticket: {first_name: current_user.first_name,last_name: current_user.last_name,email: current_user.email,order_id: generate_ticket_id,adult_tickets_bought: 1, concession_tickets_bought: 0,ticket_date: Date.today,ticket_type: "free"}} %>
 
-<%= link_to "Send free tickets", tickets_send_mail_path(ticket_t),method: :post%>
-
+<%= link_to "Send free tickets", tickets_send_mail_path(ticket_t),class: "btn btn-large btn-success pull-right",method: :post%>
 <% end %>
 <% end %>
+<% end %>
 
-
-
-<p> Participants Related to <%= @user.first_name %></p>
   <table class ="table">
     <% if current_user.sport == "hurdles" %>
     <thead>
@@ -44,30 +42,17 @@
       </tbody>
   </table>
 <% end %>
- <% if current_user.sport == "wattball" %>
-    <thead>
-      <tr>
-	<th>Name</th>
-      </tr>
-    </thead>
-      <tbody>
-	<% @user.teams.each do |team| %>
-	<tr>
-	  <td><%= team.team_name %></td>
-	</tr>
-	<% end %>
-      </tbody>
-  </table>
-<p>
-
-<% end %>
 
 
 <% if current_user.sport == "wattball" %>
+<h3> <%= Team.find_by_user_id(@user.id).team_name %> Schedule </h3>
   <table class ="table">
     <thead>
       <tr>
+	<th>Date</th>
 	<th>Time</th>
+	<th>Home Team</th>
+	<th>Away Team</th>
       </tr>
     </thead>
     <tbody>
@@ -76,6 +61,8 @@
       <% match = Match.where(m[:homeTeam].eq(t_id).or(m[:awayTeam].eq(t_id))) %>
       <% match.each do |m_info| %>
       <tr>
+            <td><%= m_info.when.strftime('%e %b %Y') %></td>
+            <td><%= m_info.when.strftime('%H:%M:%S') %></td>
 	<td><%= m_info.when %></td>
 	<td><%= Team.find(m_info.homeTeam).team_name %></td>
 	<td><%= Team.find(m_info.awayTeam).team_name %></td>
