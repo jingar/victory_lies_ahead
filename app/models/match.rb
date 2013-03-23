@@ -21,6 +21,7 @@ class Match < ActiveRecord::Base
   attr_accessible :awayGoals, :awayTeam, :homeGoals, :homeTeam, :pitch, :umpire, :when, :umpires_attributes, :teams_attributes , :tournament_id
   
   has_one :teams
+  has_many :scores
   accepts_nested_attributes_for :teams
   
   has_one :umpires
@@ -29,5 +30,6 @@ class Match < ActiveRecord::Base
   belongs_to :tournament
   
   validates :pitch, presence: true
+
 
 end

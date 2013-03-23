@@ -34,11 +34,13 @@ SampleApp::Application.routes.draw do
     resources :staffs
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
-    resources :hurdles, :wattballs
+    resources :hurdles
+    resources :wattballs
     resources :teams
     resources :umpires
     resources :matches
     resources :tickets
+    resources :scores
     resources :tournaments do
       member do
         post 'generate_heats'
@@ -46,7 +48,6 @@ SampleApp::Application.routes.draw do
         post 'delete_heats'
       end
     end
-    resources :tournaments
     resources :salesreports, only: [:index]
     match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'

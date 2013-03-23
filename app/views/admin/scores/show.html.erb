@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Amount:</b>
+  <%= @admin_score.amount %>
+</p>
+
+<p>
+  <b>Matches:</b>
+  <%= @admin_score.matches_id %>
+</p>
+
+<p>
+  <b>Wattball:</b>
+  <%= @admin_score.wattball_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_score_path(@admin_score) %> |
+<%= link_to 'Back', admin_scores_path %>
