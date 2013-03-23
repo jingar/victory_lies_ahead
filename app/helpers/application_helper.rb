@@ -90,7 +90,7 @@ module ApplicationHelper
     t_name = Team.find_by_user_id(user_id)
     if t_name
       t_name = Team.find_by_user_id(user_id)
-      if t_name.any?
+      if t_name
         a = Match.find(:all, conditions:["homeTeam = ? OR awayTeam = ?",t_name,t_name])
         t_dates = a.map{ |x| x.when.to_date }
         valid_times = t_dates.reject { |x| x != Date.today + 16.day}.any?

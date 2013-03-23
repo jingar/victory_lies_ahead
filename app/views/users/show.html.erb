@@ -56,9 +56,32 @@
 	  <td><%= team.team_name %></td>
 	</tr>
 	<% end %>
-	<tr>
       </tbody>
   </table>
 <p>
 
 <% end %>
+
+
+<% if current_user.sport == "wattball" %>
+  <table class ="table">
+    <thead>
+      <tr>
+	<th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% t_id = Team.find_by_user_id(@user.id).id %>
+      <% m = Match.arel_table %>
+      <% match = Match.where(m[:homeTeam].eq(t_id).or(m[:awayTeam].eq(t_id))) %>
+      <% match.each do |m_info| %>
+      <tr>
+	<td><%= m_info.when %></td>
+	<td><%= Team.find(m_info.homeTeam).team_name %></td>
+	<td><%= Team.find(m_info.awayTeam).team_name %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>
+<p>
