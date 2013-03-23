@@ -1,0 +1,32 @@
+<% provide(:title, "Top Wattball Scorers") %>
+<head>
+  <h2> Wattball Scorers </h2>
+</head>
+<body>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  		<thead>
+			<tr bgcolor="grey">
+			<th>No.</th>
+			  <th>First Name</th>
+			  <th>Last Name</th>
+			   <th>Member of Team</th>
+			   <th>Goals</th>
+			</tr>
+      	</thead>
+		<tbody>
+		<% @number = 0 %>
+			 <% @top.each do |wattball| %>
+			<tr>
+			  <td><%= @number += 1 %></td>
+			  <td><%= wattball.first_name %></td>
+			  <td><%= wattball.last_name %></td>
+			  <td><%= Team.find(wattball.team_id).team_name %></td>
+			  <td><%= wattball.goals %></td>
+			  <td><%= link_to "Info", wattball%></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<p><%= link_to "Back to Homepage", root_path %></p>
