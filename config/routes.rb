@@ -20,6 +20,7 @@ SampleApp::Application.routes.draw do
   match '/help',    to: "static_pages#help"
   match '/about',   to:"static_pages#about"
   match '/contact', to: "static_pages#contact"
+  match '/direction', to: "static_pages#direction"
   
   match '/participants', to: "static_pages#participants"
   match '/participants/athletes', to: "hurdles#index"
@@ -51,7 +52,7 @@ SampleApp::Application.routes.draw do
         post 'delete_heats'
       end
     end
-    resources :salesreports, only: [:index]
+    resources :sales, only: [:index]
     match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
