@@ -7,7 +7,12 @@ class UsersController < ApplicationController
   	end
   	
   	def new
-  		@user = User.new
+  		if DateTime.now >= Tournament.find(1).start_date
+      		flash[:failure] = "Tournament has started - cannot delete"
+      		redirect_to root_path
+    	else
+  			@user = User.new
+		end
 	end
 
 	def create

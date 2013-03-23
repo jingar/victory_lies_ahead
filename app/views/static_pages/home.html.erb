@@ -3,9 +3,13 @@
 	<h1>Welcome to the Riccarton Sports Centre Tournament</h1>
 
 	<h2>This is the home page for the Heriot-Watt Sports Tournament.</h2>
-
-	<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary pull-left" %>
-	<%= link_to "Reserve Tickets",new_ticket_path,class: "btn btn-large btn-primary pull-right" %>
+  <% if Tournament.exists?(1) %>
+    <% if DateTime.now >= Tournament.find(1).start_date %>
+    <%else%>
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary pull-left" %>
+    <%end%>
+  	<%= link_to "Reserve Tickets",new_ticket_path,class: "btn btn-large btn-primary pull-right" %>
+  <%end%>
 	
 </div>
 
