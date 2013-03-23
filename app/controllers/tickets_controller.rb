@@ -31,12 +31,12 @@ class TicketsController < ApplicationController
       end
     end
     if test == "success"
-      flash[:success] = test
-      redirect_to root_path
+      flash[:success] = "Free Tickets have been sent"
+      redirect_to current_user
       TicketMailer.ticket_email(@ticket).deliver
     else
       flash[:success] = test
-      redirect_to root_path
+      redirect_to current_user
     end
   end
 end
