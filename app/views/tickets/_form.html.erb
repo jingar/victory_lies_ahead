@@ -27,10 +27,10 @@
 		<%= f.select :ticket_date, unique_dates() %>
 		
 		<%= f.label :adult_tickets %>
-		<%= f.number_field :adult_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,5,5)"%>
+		<%= f.number_field :adult_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,5,3)"%>
 
 		<%= f.label :concession_tickets %>
-		<%= f.number_field :concession_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,3,5)"%>
+		<%= f.number_field :concession_tickets_bought , in: 0..10, step: 1, value: 0,onchange: "calculate_price('ticket_adult_tickets_bought','ticket_concession_tickets_bought',1,5,3)"%>
 		
 		<%= f.hidden_field :order_id, value: generate_ticket_id() %>
 		<%= f.label :total_price %> <%=f.label :amount, "£ 0", id: 1 %>

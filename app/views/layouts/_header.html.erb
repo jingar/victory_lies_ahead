@@ -4,6 +4,7 @@
       <%= link_to "Riccarton Sports Centre", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
+        <li><%= link_to "Top Scorers", scores_path %></li>
           <li><%= link_to "Help", help_path %></li>
           <% if signed_in? %>
             <li id="fat-menu" class="dropdown">
