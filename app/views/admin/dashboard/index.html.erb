@@ -1,18 +1,7 @@
-<h1>Staff Dashboard</h1>
-<ul>
-  <li><%= link_to 'Manage Users', admin_users_path %></li>
-  <li><%= link_to 'Manage Teams', admin_teams_path %></li>
-  <li><%= link_to 'Manage Schedules', admin_matches_path %> </li>
-  <li><%= link_to 'Manage Hurdles', admin_hurdles_path %> </li>
-  <li><%= link_to 'Manage Umpires', admin_umpires_path %> </li>
-  <li><%= link_to 'Manage Tickets', admin_tickets_path %> </li>
-  <% if is_admin? %>
-  <li><%= link_to 'Manage Staff', admin_staffs_path %> </li>
-  <li><%= link_to 'Sales Report', admin_staffs_path %> </li>
-  <li><%= link_to 'Manage Tournaments', admin_tournaments_path %> </li>
-  <% end %>
-</ul>
 
-<br /> <br />
-<%= link_to "Sign out", admin_staffsignout_path, method: "delete" %>
+<div class="page-header">
+  <h1>Staff Dashboard</h1>
+</div>
+
+
 
