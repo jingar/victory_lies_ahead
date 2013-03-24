@@ -5,12 +5,6 @@ SampleApp::Application.routes.draw do
   resources :users, :hurdles, :wattballs, :teams, :matches, :tickets, :scores
   match '/tickets/send_mail', to: 'tickets#send_mail'
   resources :sessions, only: [:new, :create, :destroy]
-  resources :heats do
-    member do
-      get 'add_result'
-      put 'update_result'
-    end
-  end
   
 
   match '/signup',  to: 'users#new'
@@ -45,6 +39,12 @@ SampleApp::Application.routes.draw do
     resources :matches
     resources :tickets
     resources :scores
+    resources :heats do
+      member do
+        get 'add_result'
+        put 'update_result'
+      end
+    end
     resources :tournaments do
       member do
         post 'generate_heats'

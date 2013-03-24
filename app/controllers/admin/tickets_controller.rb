@@ -7,7 +7,6 @@ class Admin::TicketsController < Admin::AdminBaseController
           @tickets2 = Ticket.all
           if !@tickets2
             @tickets2.each do |t|
-              if t.ticket_type != "Free"
                 @adult = t.adult_tickets_bought
                 @concession = t.concession_tickets_bought
                 @total = (@adult * 5) + (@concession * 3)
