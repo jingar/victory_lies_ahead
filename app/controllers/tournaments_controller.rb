@@ -98,4 +98,17 @@ class TournamentsController < ApplicationController
       redirect_to @tournament
     end
   end
+
+  def set_results
+    @tournament = Tournament.find(params[:id])
+    @tournament = set_heat_results(@tournament)
+
+    if @tournament.save
+      flash[:success] = "Results are added!"
+      redirect_to @tournament
+    else
+      flash[:failure] = "Results addition went wrong"
+      redirect_to @tournament
+    end
+  end
 end

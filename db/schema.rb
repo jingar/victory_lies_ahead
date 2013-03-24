@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324134249) do
+ActiveRecord::Schema.define(:version => 20130322221715) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -120,8 +120,8 @@ ActiveRecord::Schema.define(:version => 20130324134249) do
     t.string   "email"
     t.string   "address"
     t.string   "order_id"
-    t.integer  "adult_tickets_bought",      :default => 0
-    t.integer  "concession_tickets_bought", :default => 0
+    t.integer  "adult_tickets_bought"
+    t.integer  "concession_tickets_bought"
     t.string   "used",                      :default => "Not Expired"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false

@@ -50,6 +50,7 @@ SampleApp::Application.routes.draw do
         post 'generate_heats'
         post 'populate_heats'
         post 'delete_heats'
+        post 'set_results' #testing
       end
     end
     resources :sales, only: [:index]

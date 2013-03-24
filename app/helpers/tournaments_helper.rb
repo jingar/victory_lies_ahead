@@ -188,16 +188,16 @@ module TournamentsHelper
 
     genders.each do |gen|
       #find the last played heat -> round, if none - assume round 0
-      last_heat=Heat.rounded_heats.where("played=? and gender=?",true,gen).last
+      last_heat=Heat.where("played=? and gender=?",true,gen).order(:updated_at).last
       round = if last_heat == nil then 0 else last_heat.round + 1 end
+
+      heats = tour.heats.where("round=? AND gender = ?",round,gen)
+      raise NoHeats if heats==[]
 
       #find all racers for this round, raise exception, if none
       hurdles = Hurdle.where("round = ? AND gender = ?",round,gen)
       raise NoHurdles if hurdles==[]
-      hurdles = hurdles.sort { |h| HeatHurdle.find_by_heat_id_and_hurdle_id(Heat.where("hurdle_id=? and round=?",h,if h.round==0 then 0 else h.round-1 end),h).finish_time}
-
-      heats = tour.heats.where("round=? AND gender = ?",round,gen)
-      raise NoHeats if heats==[]
+      hurdles = hurdles.sort_by { |h| if h.heat_hurdles == [] then h.qualification else h.heat_hurdles.last.finish_time end }
 
       #COMMENT TO DEBUG
       raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
@@ -213,7 +213,7 @@ module TournamentsHelper
         return
       end
 
-      heats=populate_round(hurdles, rounds[round], @heats)
+      heats=populate_round(hurdles, rounds[round], heats)
     end
 
     return tour
@@ -255,4 +255,16 @@ module TournamentsHelper
     
   end
 
+  def set_heat_results(tour)
+    last_heat=Heat.rounded_heats.where("played=?",true).last
+    round = if last_heat == nil then 0 else last_heat.round + 1 end
+    heats= tour.heats.where("round=?",round);i=1.seconds
+    heats.each do |heat|
+      if heat == heats.last then break end
+      heat.hurdles.each do |hurdle|
+        HeatHurdle.find_by_heat_id_and_hurdle_id(heat,hurdle).finish_time = i;i+=1
+      end
+    end
+    return tour
+  end
 end
