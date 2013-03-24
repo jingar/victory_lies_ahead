@@ -159,26 +159,64 @@ module TournamentsHelper
   #populate a round with hurdles
   def populate_round(hurdles, round_size_array, heats)
     #init counting variables
-    hurdles_for_heat=[];heat_full=0;heat_counter=0
+    hurdles_for_heat=[];heat_full=0;heat_counter=0;i=0
 #puts("round_size_array = "+round_size_array.to_s+"; N_hurdles="+hurdles.count.to_s)
 
-    hurdles.each do |racer|
-      #add racer to heat array and increment heat_full
-      hurdles_for_heat << racer; heat_full+=1
-      #build a heat when enough racers are gathered
-      if heat_full==round_size_array[heat_counter]
-        heats[heat_counter].hurdles << hurdles_for_heat
+    round_size_array.size.times do
+      round_size_array[heat_counter].times do
+        #add racer to heat array and increment heat_full
+        hurdles_for_heat << hurdles[i]; heat_full+=1; i+=1
+        #build a heat when enough racers are gathered
+        if heat_full==round_size_array[heat_counter]
+          heats[heat_counter].hurdles << hurdles_for_heat
 
-        #allocate lanes for the new heat
-        heats[heat_counter] = allocate_lanes(heats[heat_counter],hurdles.first.round)
-#logger.debug "LANES return: "+heats[heat_counter].heat_hurdles[0].lane.to_s
-        #reset counting vars for the next heat
-        hurdles_for_heat=[];heat_full=0;heat_counter+=1
+          #allocate lanes for the new heat
+          heats[heat_counter] = allocate_lanes(heats[heat_counter],hurdles.first.round)
+#lo  gger.debug "LANES return: "+heats[heat_counter].heat_hurdles[0].lane.to_s
+          #reset counting vars for the next heat
+          hurdles_for_heat=[];heat_full=0;heat_counter+=1
+        end
       end
     end
 
 #logger.debug "round lane:"+heats[0].heat_hurdles[0].lane.to_s
     return heats
+  end
+
+  def populate_tournament(tour)
+    genders = ["m","f"];heats=[];
+
+    genders.each do |gen|
+      #find the last played heat -> round, if none - assume round 0
+      last_heat=Heat.where("played=? and gender=?",true,gen).order(:updated_at).last
+      round = if last_heat == nil then 0 else last_heat.round + 1 end
+
+      heats = tour.heats.where("round=? AND gender = ?",round,gen)
+      raise NoHeats if heats==[]
+
+      #find all racers for this round, raise exception, if none
+      hurdles = Hurdle.where("round = ? AND gender = ?",round,gen)
+      raise NoHurdles if hurdles==[]
+      hurdles = hurdles.sort_by { |h| if h.heat_hurdles == [] then h.qualification else h.heat_hurdles.last.finish_time end }
+
+      #COMMENT TO DEBUG
+      raise RoundNotEmpty if Heat.where("round=? and gender=?",round,gen)[0].hurdles !=[]
+
+      #calculate round size
+      unisex_racers = Hurdle.where("gender = ?", gen)
+      no_qual = unisex_racers.where("round = ?", 0)
+      rounds = find_round_sizes(unisex_racers.count, no_qual.count)
+
+      #do nothing, if at the end of the tournament
+      if rounds[round]==nil
+        flash[:failure] = "Tournament is finished."
+        return
+      end
+
+      heats=populate_round(hurdles, rounds[round], heats)
+    end
+
+    return tour
   end
 
   def generate_tournament(tour)
@@ -217,4 +255,16 @@ module TournamentsHelper
     
   end
 
+  def set_heat_results(tour)
+    last_heat=Heat.rounded_heats.where("played=?",true).last
+    round = if last_heat == nil then 0 else last_heat.round + 1 end
+    heats= tour.heats.where("round=?",round);i=1.seconds
+    heats.each do |heat|
+      if heat == heats.last then break end
+      heat.hurdles.each do |hurdle|
+        HeatHurdle.find_by_heat_id_and_hurdle_id(heat,hurdle).finish_time = i;i+=1
+      end
+    end
+    return tour
+  end
 end
