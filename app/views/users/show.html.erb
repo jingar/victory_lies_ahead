@@ -23,6 +23,7 @@
 <% end %>
 <% end %>
 
+
   <table class ="table">
     <% if current_user.sport == "hurdles" %>
     <thead>
@@ -71,4 +72,10 @@
     </tbody>
   </table>
   <% end %>
+
+
+<%@user.hurdles.each do |hurdle| %>
+
+<%= hurdle.heats %>
+<% end %>
 <p>

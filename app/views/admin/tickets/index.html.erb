@@ -62,10 +62,12 @@
         <th>Concession Income (£) </th>
     </tr>
     <% @tickets2.each do |t| %>
+    <% if t.ticket_type != "Free" %>
         <% @adult += t.adult_tickets_bought %>
         <% @concession += t.concession_tickets_bought %>
         <% @adult * 5 %>
         <% @concession * 3 %>
+	<% end %>
     <% end %>
         <tr>
             <td><%= @adult %></td>
@@ -77,7 +79,25 @@
     
 </table>
 
-<h2> Total: £ <%= @total %></h2> 
+<h2> Total: £ <%= @total %></h2>
+
+
+<h2>Number Of tickets Sold By Date </h2>
+
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  <% unique_ticket_dates = Ticket.count(group: :ticket_date).keys %>
+  <tr>
+    <% unique_ticket_dates.each do |t_dates| %>
+    <th><%= t_dates.strftime("%A, %b %d") %></th>
+    <% end %>
+  </tr>
+    <% b = Ticket.count(group: :ticket_date).values %>
+  <tr>
+    <% b.each do |t| %>
+    <td><%=t %></td>
+    <% end %>
+  </tr>
+</table>
 
 
 <p><%= link_to "New ticket", new_admin_ticket_path %></p>

@@ -99,6 +99,9 @@ module ApplicationHelper
     end
   end
 
+  def free_tickets_today_hurldes(user_id)
+  end
+
   def find_players(match_ids)
     a = Wattball.find_by_team_id(Match.find(match_ids).homeTeam)
   end

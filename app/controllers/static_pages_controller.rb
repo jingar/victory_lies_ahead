@@ -19,4 +19,6 @@ class StaticPagesController < ApplicationController
 
 	def staff
 	end
+	def direction
+	end
 end

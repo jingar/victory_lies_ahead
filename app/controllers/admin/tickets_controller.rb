@@ -4,12 +4,20 @@ class Admin::TicketsController < Admin::AdminBaseController
 	end
 
         def index
-		@tickets2 = Ticket.all
-		@tickets2.each do |t|
-		  @adult = t.adult_tickets_bought
-		  @concession = t.concession_tickets_bought
-		  @total = (@adult * 5) + (@concession * 3)
-		end
+          @tickets2 = Ticket.all
+          if !@tickets2
+            @tickets2.each do |t|
+              if t.ticket_type != "Free"
+                @adult = t.adult_tickets_bought
+                @concession = t.concession_tickets_bought
+                @total = (@adult * 5) + (@concession * 3)
+              end
+            end
+          else
+            @adult = 0
+            @concession = 0
+            @total = 0
+          end
           @tickets = Ticket.search(params[:search])
         end
 

@@ -6,7 +6,7 @@
     <h2><%= Team.find(@match.homeTeam).team_name %> <%= @match.homeGoals %> </h2>
        <div class="field">
 	 <%= f.label :homeGoals %><br />
-	 <%= f.number_field :homeGoals, min: 0, max: 10%>
+	 <%= f.number_field :homeGoals,value: 0, min: 0, max: 10%>
        </div>
 
   </div >
@@ -15,7 +15,7 @@
     <h2> <%= Team.find(@match.awayTeam).team_name %> <%= @match.awayGoals %> </h2>
        <div class="field">
 	 <%= f.label :awayGoals %><br />
-	 <%= f.number_field :awayGoals, min: 0, max: 10%>
+	 <%= f.number_field :awayGoals,value: 0,= min: 0, max: 10%>
        </div>
   </div >
 </div>

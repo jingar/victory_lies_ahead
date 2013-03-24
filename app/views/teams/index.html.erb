@@ -13,6 +13,9 @@
 		<th><%= sortable_matches "goalsagainst", Team, "Goals Against" %></th>
 		<th><%= sortable_matches "goalsdif", Team, "Goal Difference" %></th>
 	</tr>
+	<% first_id =Team.order("points DESC").first.id %>
+	<% second_id = Team.order("points DESC").second.id %>
+	<% third_id = Team.order("points DESC").third.id %>
 	<% @teams.each do |team| %>
 		<tr>
 			<td><%= link_to team.team_name, team %></td>
@@ -24,6 +27,15 @@
 			<td><%= team.goalsfor %></td>
 			<td><%= team.goalsagainst %></td>
 			<td><%= team.goalsdif %></td>
+			<% if Date.today > Tournament.find(1).end_date.to_date %>
+			<% if first_id == team.id %>
+			<td><%= image_tag("gold.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			<% elsif second_id == team.id %>
+			<td><%= image_tag("silver.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			<% elsif third_id == team.id %>
+			<td><%= image_tag("all-medals.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			<% end %>
+			<% end %>
 		</tr>
 	<% end %>
 </table>
