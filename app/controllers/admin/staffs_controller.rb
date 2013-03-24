@@ -6,7 +6,7 @@ class Admin::StaffsController < Admin::AdminBaseController
     def create
       @staff = Staff.new(params[:staff])
       if @staff.save
-        flash[:success] = "Welcome to Staff Control Panel!"
+        flash[:success] = "Successfully added member of staff"
         redirect_to admin_staffs_path
       else
         render :action => 'new'
