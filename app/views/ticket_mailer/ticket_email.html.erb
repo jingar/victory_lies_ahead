@@ -26,6 +26,7 @@
 	<% else %>
     <p>
       <% if calculate_adult_tickets(@ticket.order_id) > 0 %>
+    <p>You have reserved Tickets for <%=@ticket.ticket_date.strftime("%A, %b %d")%> </p>
        You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
       <% end %>
       <% if calculate_concession_tickets(@ticket.order_id) > 0 %>

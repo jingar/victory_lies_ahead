@@ -6,13 +6,24 @@
 		Team Name: <%= @team.team_name %>
 		<br />
 	    </h1>
-  
-  <% @team.wattballs.each do |player| %>
-      <li> 
-        <%= link_to player.first_name + " "+ player.last_name, player %>
-      </li>
-  <% end %>
+	    <table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  		<thead>
+		  <tr>
+		    <th><%= sortable "first_name", Wattball, "First Name" %></th>
+		    <th><%= sortable "goals", Wattball, "Goals Scored" %></th>
+		  </tr>
+      		</thead>
+		<tbody>
+		  <% @team.wattballs.each do |player| %>
+			<tr>
+			  <td><%= player.first_name + " "+ player.last_name%></td>
+			  <td><%= player.goals %></td>
+			</tr>
+      		</tbody>
+      		<% end %>
+	    </table>
 	</section>
-  <%= link_to 'Edit', edit_team_path(@team) %>
     </aside>
 </div>
+
+  
