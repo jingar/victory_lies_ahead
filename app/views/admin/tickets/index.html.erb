@@ -62,10 +62,12 @@
         <th>Concession Income (£) </th>
     </tr>
     <% @tickets2.each do |t| %>
+    <% if t.ticket_type != "Free" %>
         <% @adult += t.adult_tickets_bought %>
         <% @concession += t.concession_tickets_bought %>
         <% @adult * 5 %>
         <% @concession * 3 %>
+	<% end %>
     <% end %>
         <tr>
             <td><%= @adult %></td>
