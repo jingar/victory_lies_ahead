@@ -26,7 +26,9 @@
             <td><%= Team.find(match.awayTeam).team_name %></td>
             <td><%= link_to 'Show', [:admin,match] %></td>
             <td><%= link_to 'Edit', edit_admin_match_path(match) %></td>
+	    <% if is_admin? %>
             <td><%= link_to 'Destroy', [:admin,match], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	    <% end %>
         </tr>
     <% end %>
 </table>

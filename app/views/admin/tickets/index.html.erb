@@ -11,6 +11,10 @@
 	  </p>
 	  <% end %>
 	</form>
+	<div align = "right">
+	  <p><%= link_to "New ticket", new_admin_ticket_path %></p>
+	  <p><%= link_to "Back to Dashboard", admin_path %></p>
+	</div>
 	<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
   		<thead>
 			<tr>
@@ -93,15 +97,14 @@
   </tr>
   <tr>
     <% unique_ticket_dates.each do |t| %>
-    <%=  adult_tickets = Ticket.where(["ticket_date = ?",t]).sum(:adult_tickets_bought) %>
-    <%= concession_tickets = Ticket.where(["ticket_date = ?",t]).sum(:concession_tickets_bought) %>
-    <%=  total_tickets = adult_tickets + concession_tickets %>
+    <% adult_tickets = Ticket.where(["ticket_date = ?",t]).sum(:adult_tickets_bought) %>
+    <% concession_tickets = Ticket.where(["ticket_date = ?",t]).sum(:concession_tickets_bought) %>
+    <% total_tickets = adult_tickets + concession_tickets %>
     <td><%= total_tickets %></td>
     <% end %>
   </tr>
 </table>
 
 
-<p><%= link_to "New ticket", new_admin_ticket_path %></p>
-<p><%= link_to "Back to Dashboard", admin_path %></p>
+
 

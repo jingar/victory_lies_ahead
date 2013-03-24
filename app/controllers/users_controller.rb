@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   	
   	def new
   		if DateTime.now >= Tournament.find(1).start_date
-      		flash[:failure] = "Tournament has started - cannot delete"
+      		flash[:failure] = "Tournament has started already started - registration is closed"
       		redirect_to root_path
     	else
   			@user = User.new
