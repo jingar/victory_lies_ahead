@@ -23,14 +23,16 @@ class Admin::MatchesController < Admin::AdminBaseController
       end
       @matchArray = Array.new()
       matchArray = matchArray.shuffle
-      r = rand(matchDates.length)
-      Match.destroy_all
       matchArray.each do |match|
-        while not validateAvaliable(match[0], match[1], @matchArray,matchDates[r]) and not matchDates[r][1] >= 7
-          r = rand(matchDates.length)
+        matchDates = matchDates.shuffle
+        dated = false
+        matchDates.each do |date|
+          if dated == false and validateAvaliable(match[0], match[1], @matchArray,date)
+            date[1] += 1
+            @matchArray<<(match << date[0]<< date[1])
+            dated = true
+          end
         end
-        matchDates[r][1] += 1
-        @matchArray<<(match << matchDates[r][0]<<matchDates[r][1])
       end
 
       if not @matchArray.length == matchArray.length
