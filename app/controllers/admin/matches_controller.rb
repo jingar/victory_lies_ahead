@@ -5,7 +5,8 @@ class Admin::MatchesController < Admin::AdminBaseController
     @teams = Team.all
     @umpires = Umpire.all
     if not @matches.length == 0
-      redirect_to admin_matches_url, notice: "Schedule already exists!"
+      Match.delete_all
+      redirect_to admin_matches_url, notice: "Schedule deleted"
     else
       matchDates = populateDays(@tournament).shuffle
       i = 1
