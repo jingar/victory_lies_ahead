@@ -23,59 +23,40 @@
 <% end %>
 <% end %>
 
+<% if current_user.sport == "hurdles" %>
+<%= h = Hurdle.find_by_user_id(3).id %>
 
-  <table class ="table">
-    <% if current_user.sport == "hurdles" %>
-    <thead>
-      <tr>
-	<th>Name</th>
-	<th>Qualification</th>
-      </tr>
-    </thead>
-      <tbody>
-	<% @user.hurdles.each do |hurdle| %>
-	<tr>
-	  <td><%= hurdle.first_name + " " + hurdle.last_name %></td>
-	  <td><%= hurdle.qualification %>
-	</tr>
-	<% end %>
-	<tr>
-      </tbody>
-  </table>
+<%= ht = HeatHurdle.find_by_hurdle_id(h).heat_id %>
+<%= Heat.find(ht).time %>
 <% end %>
 
 
 <% if current_user.sport == "wattball" %>
 <h3> <%= Team.find_by_user_id(@user.id).team_name %> Schedule </h3>
-  <table class ="table">
-    <thead>
-      <tr>
-	<th>Date</th>
-	<th>Time</th>
-	<th>Home Team</th>
-	<th>Away Team</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% t_id = Team.find_by_user_id(@user.id).id %>
-      <% m = Match.arel_table %>
-      <% match = Match.where(m[:homeTeam].eq(t_id).or(m[:awayTeam].eq(t_id))) %>
-      <% match.each do |m_info| %>
-      <tr>
-            <td><%= m_info.when.strftime('%e %b %Y') %></td>
-            <td><%= m_info.when.strftime('%H:%M:%S') %></td>
-	<td><%= m_info.when %></td>
-	<td><%= Team.find(m_info.homeTeam).team_name %></td>
-	<td><%= Team.find(m_info.awayTeam).team_name %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <% end %>
-
-
-<%@user.hurdles.each do |hurdle| %>
-
-<%= hurdle.heats %>
+<table class ="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Home Team</th>
+      <th>Away Team</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% t_id = Team.find_by_user_id(@user.id).id %>
+    <% m = Match.arel_table %>
+    <% match = Match.where(m[:homeTeam].eq(t_id).or(m[:awayTeam].eq(t_id))) %>
+    <% match.each do |m_info| %>
+    <tr>
+      <td><%= m_info.when.strftime('%e %b %Y') %></td>
+      <td><%= m_info.when.strftime('%H:%M:%S') %></td>
+      <td><%= m_info.when %></td>
+      <td><%= Team.find(m_info.homeTeam).team_name %></td>
+      <td><%= Team.find(m_info.awayTeam).team_name %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 <% end %>
+
 <p>
