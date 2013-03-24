@@ -81,7 +81,7 @@ s    @heat.time = build_date_from_params(:time, params[:heat])
 
   def destroy
     @heat = Heat.find(params[:id])
-    @heat.destroy
+    Heat.delete_all
     redirect_to heats_url, :notice => "Successfully deleted a heat."
   end
 

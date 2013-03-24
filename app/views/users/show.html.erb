@@ -23,14 +23,6 @@
 <% end %>
 <% end %>
 
-<% if current_user.sport == "hurdles" %>
-<%= h = Hurdle.find_by_user_id(3).id %>
-
-<%= ht = HeatHurdle.find_by_hurdle_id(h).heat_id %>
-<%= Heat.find(ht).time %>
-<% end %>
-
-
 <% if current_user.sport == "wattball" %>
 <h3> <%= Team.find_by_user_id(@user.id).team_name %> Schedule </h3>
 <table class ="table">
