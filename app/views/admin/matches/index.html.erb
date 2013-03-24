@@ -38,6 +38,8 @@
     <h2> Tournament has not been created </h2>
 <% elsif not Team.count > 1 %>
     <h2> 2 or more teams must be registered to generate a schedule </h2>
-<% else %>
+<% elsif Match.count == 0 %>
     <%= link_to 'Generate New Schedule', new_admin_match_path, class: "btn btn-large btn-primary" %>
+<% elsif not Match.count == 0 %>
+    <%= link_to 'Delete Schedule', new_admin_match_path, class: "btn btn-large btn-primary" %>
 <% end %>
