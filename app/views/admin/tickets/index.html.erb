@@ -58,18 +58,23 @@
     <tr bgcolor="grey">
         <th>Number of Adult Tickets Sold</th>
         <th>Number of Concession Tickets Sold</th>
-        <th>Adult Income</th>
-        <th>Concession Income</th>
+        <th>Adult Income (£) </th>
+        <th>Concession Income (£) </th>
     </tr>
     <% @tickets2.each do |t| %>
+        <% @adult += t.adult_tickets_bought %>
+        <% @concession += t.concession_tickets_bought %>
+        <% @adult * 5 %>
+        <% @concession * 3 %>
+    <% end %>
         <tr>
-            <td><%= @adult = t.adult_tickets_bought %></td>
-            <td><%= @concession = t.concession_tickets_bought %></td>
+            <td><%= @adult %></td>
+            <td><%= @concession %></td>
             <td><%= @adult * 5 %></td>
             <td><%= @concession *3 %></td>
         </tr>
         <% @total += (@adult*5) + (@concession*3) %>
-    <% end %>
+    
 </table>
 
 <h2> Total: £ <%= @total %></h2>
