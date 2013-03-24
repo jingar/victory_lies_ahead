@@ -80,6 +80,7 @@ class TeamsController < ApplicationController
 
   def destroy
     Team.find(params[:id]).destroy
+    Match.delete_all
     redirect_to action: 'index'
   end
 end
