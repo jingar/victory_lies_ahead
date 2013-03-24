@@ -91,19 +91,22 @@ s    @heat.time = build_date_from_params(:time, params[:heat])
   def update_result
     @heat = Heat.find(params[:id])
     @heat.played = true
+    @heat = update_racers(@heat)
     if @heat.update_attributes(params[:heat])
       flash[:success] = "Heat details updated"
 
-      if Heat.where("round=? and played=? and gender=?",@heat.round, false, @heat.gender)==[]
+      if Heat.where("round=? and played=? and gender=?",@heat.round, false, @heat.gender).count == 0
         begin
           @tournament = Tournament.find(@heat.tournament_id)
           @tournament = populate_tournament(@tournament)
         rescue RoundNotEmpty
           flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
           redirect_to @heat
+          return
         rescue NoHurdles
           flash[:falure] = "No hurdles are yet registred for this round."
           redirect_to @heat
+          return
         end
 
         if @tournament.save!
