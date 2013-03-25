@@ -24,7 +24,11 @@
 <% end %>
 
 <% if current_user.sport == "wattball" %>
+<% t = Team.find_by_user_id(@user.id) %>
+<% if !t.nil? %>
 <h3> <%= Team.find_by_user_id(@user.id).team_name %> Schedule </h3>
+<% end %>
+<% if !t.nil? %>
 <table class ="table">
   <thead>
     <tr>
@@ -38,6 +42,7 @@
     <% t_id = Team.find_by_user_id(@user.id).id %>
     <% m = Match.arel_table %>
     <% match = Match.where(m[:homeTeam].eq(t_id).or(m[:awayTeam].eq(t_id))) %>
+    <% if !match.nil? %>
     <% match.each do |m_info| %>
     <tr>
       <td><%= m_info.when.strftime('%e %b %Y') %></td>
@@ -50,5 +55,6 @@
   </tbody>
 </table>
 <% end %>
-
+<% end %>
+<% end %>
 <p>
