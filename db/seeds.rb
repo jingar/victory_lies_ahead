@@ -155,6 +155,10 @@ umpire = Umpire.create!([
   { first_name: "Stevie", last_name: "O'Reilly", email: "so007@gmail.com"},
   { first_name: "William", last_name: "Collum", email: "wc951@gmail.com"}
 ])
+
+for i in 0..20 do 
+ticket = Ticket.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email,address: Faker::Address.city,adult_tickets_bought: rand(10), concession_tickets_bought: rand(10), used: "Not expired",ticket_date: DateTime.now,ticket_type: "Reserved",order_id: "ad213fg")
+end 
 #heat = Heat.create!(gender: "m", time: "01/04/2013 16:00:00")
 #hurdles.each { |h| heat.hurdles << h }
 
