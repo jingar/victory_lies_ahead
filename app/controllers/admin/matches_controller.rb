@@ -71,7 +71,8 @@ class Admin::MatchesController < Admin::AdminBaseController
   def populateDays(tour)
     @tour = tour
     @first = tour.start_date
-    if @first.hour >= 11 and @first.minute >= 1
+    #changed minute to min
+    if @first.hour >= 11 and @first.min >= 1
       @start = DateTime.new(@first.year,@first.month,@first.day,15,00,00,'')
     else
       @start = DateTime.new(@first.year,@first.month,@first.day,11,00,00,'')
@@ -130,7 +131,7 @@ class Admin::MatchesController < Admin::AdminBaseController
   end
   
   def index
-    @matches = Match.all
+    @matches = Match.order("`when` ASC")
   end
     
   def create

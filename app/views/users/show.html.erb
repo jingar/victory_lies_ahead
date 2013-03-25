@@ -18,13 +18,17 @@
 <% if !is_sent?(current_user.email) %>
 <% ticket_t = {ticket: {first_name: current_user.first_name,last_name: current_user.last_name,email: current_user.email,order_id: generate_ticket_id,adult_tickets_bought: 1, concession_tickets_bought: 0,ticket_date: Date.today,ticket_type: "free"}} %>
 
-<%= link_to "Send free tickets", tickets_send_mail_path(ticket_t),class: "btn btn-large btn-success pull-right",method: :post%>
+<%= link_to "Send free tickets for todays match", tickets_send_mail_path(ticket_t),class: "btn btn-large btn-success pull-right",method: :post%>
 <% end %>
 <% end %>
 <% end %>
 
 <% if current_user.sport == "wattball" %>
+<% t = Team.find_by_user_id(@user.id) %>
+<% if !t.nil? %>
 <h3> <%= Team.find_by_user_id(@user.id).team_name %> Schedule </h3>
+<% end %>
+<% if !t.nil? %>
 <table class ="table">
   <thead>
     <tr>
@@ -38,6 +42,7 @@
     <% t_id = Team.find_by_user_id(@user.id).id %>
     <% m = Match.arel_table %>
     <% match = Match.where(m[:homeTeam].eq(t_id).or(m[:awayTeam].eq(t_id))) %>
+    <% if !match.nil? %>
     <% match.each do |m_info| %>
     <tr>
       <td><%= m_info.when.strftime('%e %b %Y') %></td>
@@ -50,5 +55,6 @@
   </tbody>
 </table>
 <% end %>
-
+<% end %>
+<% end %>
 <p>
