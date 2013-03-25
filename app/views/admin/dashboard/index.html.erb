@@ -1,6 +1,7 @@
 
 <h1> Sales Report </h1>
 
+<h2>Ticket Sales</h2>
 <table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
     <tr bgcolor="grey">
         <th>Number of Adult Tickets Sold</th>
@@ -32,6 +33,9 @@
 
 <table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
   <% unique_ticket_dates = Ticket.count(group: :ticket_date).keys %>
+  <% if Ticket.count(:all) == 0 %>
+  <h5 align ="center">No tickets have been sold </h5>
+  <% end %>
   <tr>
     <% unique_ticket_dates.each do |t_dates| %>
     <th><%= t_dates.strftime("%A, %b %d") %></th>
