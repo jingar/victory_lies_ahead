@@ -2,7 +2,7 @@ SampleApp::Application.routes.draw do
 
   get "score/index"
 
-  resources :users, :hurdles, :wattballs, :teams, :matches, :tickets, :scores
+  resources :users, :hurdles, :wattballs, :teams, :matches, :tickets, :scores, :heats
   match '/tickets/send_mail', to: 'tickets#send_mail'
   resources :sessions, only: [:new, :create, :destroy]
   
