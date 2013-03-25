@@ -16,7 +16,7 @@ reps = User.create!([
   { first_name: "Graham", last_name: "MacDonald", email: "gmacdonald95656@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "hurdles"},
   { first_name: "John", last_name: "Stainsby", email: "johnstainsby@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"},
   { first_name: "Nikola", last_name: "Damaskov", email: "mamatakolio@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"},
-  { first_name: "Robbie", last_name: "Henderson", email: "robbie.gavin.henderson@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "hurdles"}
+  { first_name: "Robbie", last_name: "Henderson", email: "robbie.gavin.henderson@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"}
 ])
 # 4 dev team participants
 User.find(2).hurdles.create!(first_name: "Saad", last_name: "Arif", gender: "m", qualification: "00:00:50", round: 1)
@@ -41,19 +41,89 @@ for i in 1..25 do
 end
 hurdles = Hurdle.all
 # 3 Teams
-teamKos = User.find(1).teams.create!(team_name: "Heriot-Watt brigade").wattballs.create!([
-  {first_name: "Emily", last_name: "Harvard"},
-  {first_name: "David", last_name: "Borland"},
-  {first_name: "Harry", last_name: "Watt"},
-  {first_name: "Maureen", last_name: "Young"},
-  {first_name: "Jacklyn", last_name: "Prindergasd"},
-  {first_name: "Joanne", last_name: "Glidewell"},
-  {first_name: "Paul", last_name: "Page"},
-  {first_name: "Milady", last_name: "Scarborough"},
-  {first_name: "Ronald", last_name: "Arwood"},
-  {first_name: "Bill", last_name: "Canty"},
-  {first_name: "Jonathan", last_name: "Aule"}
-], without_protection: true)
+teamKos = User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "wattball").teams.create(team_name: "WattBall Warriors").wattballs.create!([
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name}
+])
+
+teama = User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "wattball").teams.create(team_name: "Athletico Wattballio").wattballs.create!([
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name}
+])
+
+teamb = User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "wattball").teams.create(team_name: "AC Wattball").wattballs.create!([
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name}
+])
+
+teamc = User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "wattball").teams.create(team_name: "WattBall Rovers").wattballs.create!([
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name}
+])
+
+teamd = User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "wattball").teams.create(team_name: "Aligators of Doom").wattballs.create!([
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name}
+])
+
+teama = User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "wattball").teams.create(team_name: "Oooooh Chavo WattBall Club").wattballs.create!([
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name},
+  {first_name: Faker::Name::first_name, last_name: Faker::Name::last_name}
+])
 
 teamJohn = User.find(5).teams.create!(team_name: "Glasgolians").wattballs.create!([
   {first_name: "Earl", last_name: "Bash"},
