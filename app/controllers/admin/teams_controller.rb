@@ -14,6 +14,10 @@ class Admin::TeamsController < Admin::AdminBaseController
 
   def edit
     @team = Team.find(params[:id])
+    if DateTime.now >= Tournament.find(1).start_date
+      flash[:failure] = "Tournament has started - cannot edit"
+      redirect_to [:admin, @team]
+    end
   end
 
   def update
@@ -36,7 +40,14 @@ class Admin::TeamsController < Admin::AdminBaseController
   end
 
   def destroy
-    Team.find(params[:id]).destroy
-    redirect_to action: 'index'
+    @team = Team.find(params[:id])
+    if DateTime.now >= Tournament.find(1).start_date
+      flash[:failure] = "Tournament has started - cannot delete"
+      redirect_to [:admin, @team]
+    else
+      Team.find(params[:id]).destroy
+      Match.delete_all
+      redirect_to action: 'index'
+    end
   end
 end

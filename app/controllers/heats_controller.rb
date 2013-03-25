@@ -1,4 +1,5 @@
 class HeatsController < ApplicationController
+include HeatsHelper; include TournamentsHelper
 HEAT_SIZE=8
   def index
     @heats = Heat.rounded_heats
@@ -18,7 +19,7 @@ HEAT_SIZE=8
   def create
     @heat = Heat.new
     @heat.gender = params[:heat][:gender]
-    @heat.time = build_date_from_params(:time, params[:heat])
+s    @heat.time = build_date_from_params(:time, params[:heat])
     if params[:heat][:hurdles][:hurdle_id].length == (HEAT_SIZE+1)
       params[:heat][:hurdles][:hurdle_id].each do |h|
       if h != ""
@@ -50,7 +51,7 @@ HEAT_SIZE=8
       redirect_to @heat
     else
       render 'edit'
-    end
+   end
     if false
     #@heat.gender = params[:heat][:gender]
     #@heat.time = build_date_from_params(:time, params[:heat])
@@ -91,22 +92,29 @@ HEAT_SIZE=8
   def update_result
     @heat = Heat.find(params[:id])
     @heat.played = true
+    update_racers(@heat)
     if @heat.update_attributes(params[:heat])
       flash[:success] = "Heat details updated"
 
-      if Heat.where("round=? and played=? and gender=?",@heat.round, false, @heat.gender)==[]
+      if Heat.where("round=? and played=?",@heat.round, false).count == 0
         begin
           @tournament = Tournament.find(@heat.tournament_id)
           @tournament = populate_tournament(@tournament)
         rescue RoundNotEmpty
           flash[:falure] = "Round 0 has already been populated, wait for competition to commence."
           redirect_to @heat
+          return
         rescue NoHurdles
           flash[:falure] = "No hurdles are yet registred for this round."
           redirect_to @heat
+          return
+        rescue NoHeats
+          flash[:falure] = "No heats are yet generated."
+          redirect_to [@heat]
+          return
         end
 
-        if @tournament.save!
+        if @tournament.save
           flash[:success] = "Tournament round is populated!"
           redirect_to @tournament
         else

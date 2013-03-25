@@ -4,16 +4,37 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
   <head/>
   <body>
-    <h1> Ticket Conformation for, <%= @ticket.first_name %></h1>
+    <h1> Ticket Conformation for, <%= @ticket.first_name %> <%= @ticket.last_name %></h1>
+    
+    <% tickets = Ticket.find(:all, conditions:["email = ? OR ticket_date = ?",@ticket.email,Date.today]) %>
+    <% if @ticket.ticket_type == "free" %>
+    Free Ticket ID's for today <br/>
+    <table class ="table table-striped" border = "3" cellpadding = "3" align = "left">
+      <thead>
+	<tr>
+	  <th>Order ID</th>
+	</tr>
+      </thead>
+      <tbody>
+	<% for ticket in tickets %>
+	<tr>
+	  <td><%=ticket.ticket_date%>-<%= ticket.order_id %></td>
+	<% end %>
+	</tr>
+      </tbody>
+    </table>
+	<% else %>
     <p>
       <% if calculate_adult_tickets(@ticket.order_id) > 0 %>
+    <p>You have reserved Tickets for <%=@ticket.ticket_date.strftime("%A, %b %d")%> </p>
        You have reserved <%= calculate_adult_tickets(@ticket.order_id) %> Adult ticket(s) <br>
       <% end %>
       <% if calculate_concession_tickets(@ticket.order_id) > 0 %>
        You have reserved <%= calculate_concession_tickets(@ticket.order_id) %> Concession ticket(s) <br>
       <% end %>
-      The unique order id for the reserved ticket(s) is : <%= @ticket.order_id %> <br>
-      Total cost of the tickets is : £<%= calculate_total_cost(10,5,@ticket.order_id) %> <br>
+      The unique order id for the reserved ticket(s) is : <%= @ticket.ticket_date.strftime("%d-%m-%Y") %>-<%= @ticket.order_id %> <br>
+      Total cost of the tickets is : £<%= calculate_total_cost(5,3,@ticket.order_id) %> <br>
+      <% end %>
 
       Venue Address -  Heriot-Watt University <br>
       Edinburgh EH14 4AS <br>

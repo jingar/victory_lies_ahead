@@ -3,10 +3,12 @@
   <h2>Teams</h2>
 </head>
 <body>
-  <table class="table table-stripped">
+  <table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
     <thead>
       <tr>
         <th><%= sortable "team_name", Team, "Team Name" %></th>
+	<th colspan ="3"><%= sortable "id", Team, "Options" %></th></th>
+
       </tr>
     </thead>
     <tbody>

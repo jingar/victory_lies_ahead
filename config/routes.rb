@@ -1,19 +1,9 @@
 SampleApp::Application.routes.draw do
 
-  resources :users, :hurdles, :wattballs, :teams, :matches, :tickets
-  resources :tournaments do
-    member do
-      post 'generate_heats'
-      post 'populate_heats'
-      post 'delete_heats'
-    end
-  end
-  resources :heats do
-    member do
-      get 'add_result'
-      put 'update_result'
-    end
-  end
+  get "score/index"
+
+  resources :users, :hurdles, :wattballs, :teams, :matches, :tickets, :scores
+  match '/tickets/send_mail', to: 'tickets#send_mail'
   resources :sessions, only: [:new, :create, :destroy]
   
 
@@ -24,6 +14,7 @@ SampleApp::Application.routes.draw do
   match '/help',    to: "static_pages#help"
   match '/about',   to:"static_pages#about"
   match '/contact', to: "static_pages#contact"
+  match '/direction', to: "static_pages#direction"
   
   match '/participants', to: "static_pages#participants"
   match '/participants/athletes', to: "hurdles#index"
@@ -32,6 +23,7 @@ SampleApp::Application.routes.draw do
   match '/schedules', to: "static_pages#schedules"
   match '/schedules/matches', to: "matches#index"
   match '/schedules/heats', to: "heats#index"
+  match '/topscorers', to: "scores#index"
 
   
   root to: 'static_pages#home'
@@ -40,17 +32,35 @@ SampleApp::Application.routes.draw do
     resources :staffs
     resources :staff_sessions, only: [:new, :create, :destroy]
     resources :users
-    resources :hurdles, :wattballs
+    resources :hurdles
+    resources :wattballs
     resources :teams
     resources :umpires
     resources :matches
     resources :tickets
+    resources :scores
+    resources :heats do
+      member do
+        get 'add_result'
+        put 'update_result'
+      end
+    end
+    resources :tournaments do
+      member do
+        post 'generate_heats'
+        post 'populate_heats'
+        post 'delete_heats'
+        post 'set_results' #testing
+      end
+    end
+    resources :sales, only: [:index]
     match "/tickets/:id/activate" => "tickets#activate", :as => "activate_ticket"
     match '/staffsignin', to: 'staff_sessions#new'
     match '/staffsignout', to: 'staff_sessions#destroy', via: :delete
     match '', to: 'dashboard#index'
     match 'admin/umpires', to: "admin#umpires"
     match 'admin/matches', to: "admin#matches"
+    match 'admin/salesreport', to: "admin#help"
   end
 
 

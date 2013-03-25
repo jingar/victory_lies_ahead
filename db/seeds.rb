@@ -16,7 +16,7 @@ reps = User.create!([
   { first_name: "Graham", last_name: "MacDonald", email: "gmacdonald95656@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "hurdles"},
   { first_name: "John", last_name: "Stainsby", email: "johnstainsby@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"},
   { first_name: "Nikola", last_name: "Damaskov", email: "mamatakolio@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "wattball"},
-  { first_name: "Robbie", last_name: "Henderson", email: "robbie.gavin.henderson@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "hurdle"}
+  { first_name: "Robbie", last_name: "Henderson", email: "robbie.gavin.henderson@gmail.com", address: "Edinburgh", telephone: "+44", password: "123456", password_confirmation: "123456", sport: "hurdles"}
 ])
 # 4 dev team participants
 User.find(2).hurdles.create!(first_name: "Saad", last_name: "Arif", gender: "m", qualification: "00:00:50", round: 1)
@@ -25,19 +25,19 @@ User.find(4).hurdles.create(first_name: "Graham", last_name: "MacDonald", gender
 User.find(7).hurdles.create(first_name: "Robbie", last_name: "Henderson", gender: "m", qualification: "00:01:10", round: 1)
 # 25 males with no qualification
 for i in 1..25 do
-  User.find(2).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "m", qualification: "00:00:00", round: 0)
+  User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "hurdles").hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "m", qualification: "00:00:00", round: 0)
 end
 # 25 males with valid qualification
 for i in 1..25 do
-  User.find(3).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "m", qualification: "00:#{rand(0..5)}:#{rand(0..59)}", round: 1)
+  User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "hurdles").hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "m", qualification: "00:#{rand(0..5)}:#{rand(0..59)}", round: 1)
 end
 # 25 female with no qualification
 for i in 1..25 do
-  User.find(2).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f", qualification: "00:00:00", round: 0)
+  User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "hurdles").hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f", qualification: "00:00:00", round: 0)
 end
 # 25 female with valid qualification
 for i in 1..25 do
-  User.find(3).hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f", qualification: "00:#{rand(0..5)}:#{rand(0..59)}", round: 1)
+  User.create(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, email: Faker::Internet.email, address: Faker::Address.city, telephone: Faker::PhoneNumber.phone_number, password: "123456", password_confirmation: "123456", sport: "hurdles").hurdles.create!(first_name: Faker::Name::first_name, last_name: Faker::Name::last_name, gender: "f", qualification: "00:#{rand(0..5)}:#{rand(0..59)}", round: 1)
 end
 hurdles = Hurdle.all
 # 3 Teams

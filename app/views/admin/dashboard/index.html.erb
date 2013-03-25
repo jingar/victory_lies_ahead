@@ -1,16 +1,66 @@
-<h1>Staff Dashboard</h1>
-<ul>
-  <li><%= link_to 'Manage Users', admin_users_path %></li>
-  <li><%= link_to 'Manage Teams', admin_teams_path %></li>
-  <li><%= link_to 'Manage Schedules', admin_matches_path %> </li>
-  <li><%= link_to 'Manage Hurdles', admin_hurdles_path %> </li>
-  <li><%= link_to 'Manage Umpires', admin_umpires_path %> </li>
-  <li><%= link_to 'Manage Tickets', admin_tickets_path %> </li>
-  <% if is_admin? %>
-  <li><%= link_to 'Manage Staff', admin_staffs_path %> </li>
+
+<h1> Sales Report </h1>
+
+<h2>Ticket Sales</h2>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+    <tr bgcolor="grey">
+        <th>Number of Adult Tickets Sold</th>
+        <th>Number of Concession Tickets Sold</th>
+        <th>Adult Income (£) </th>
+        <th>Concession Income (£) </th>
+    </tr>
+    <% @tickets2.each do |t| %>
+    <% if t.ticket_type != "Free" %>
+        <% @adult += t.adult_tickets_bought %>
+        <% @concession += t.concession_tickets_bought %>
+        <% @adult * 5 %>
+        <% @concession * 3 %>
+	<% end %>
+    <% end %>
+        <tr>
+            <td><%= @adult %></td>
+            <td><%= @concession %></td>
+            <td><%= @adult * 5 %></td>
+            <td><%= @concession *3 %></td>
+        </tr>
+        <% @total += (@adult*5) + (@concession*3) %>
+    
+</table>
+
+<h2> Total: £ <%= @total %></h2>
+
+<h2>Number Of tickets Sold By Date </h2>
+
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  <% unique_ticket_dates = Ticket.count(group: :ticket_date).keys %>
+  <% if Ticket.count(:all) == 0 %>
+  <h5 align ="center">No tickets have been sold </h5>
   <% end %>
-</ul>
+  <tr>
+    <% unique_ticket_dates.each do |t_dates| %>
+    <th><%= t_dates.strftime("%A, %b %d") %></th>
+    <% end %>
+  </tr>
+  <tr>
+    <% unique_ticket_dates.each do |t| %>
+    <% adult_tickets = Ticket.where(["ticket_date = ?",t]).sum(:adult_tickets_bought) %>
+    <% concession_tickets = Ticket.where(["ticket_date = ?",t]).sum(:concession_tickets_bought) %>
+    <% total_tickets = adult_tickets + concession_tickets %>
+    <td><%= total_tickets %></td>
+    <% end %>
+  </tr>
+</table>
 
-<br /> <br />
-<%= link_to "Sign out", admin_staffsignout_path, method: "delete" %>
+<h2>Number Of Registered Users </h2>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  <tr>
+    <th>Users Registed For Wattball</th>
+    <th>Users Registed For Hurdles</th>
+  </tr>
+  <tr>
+    <td><%= User.where(["sport = ?","wattball"]).count %></td>
+    <td><%= User.where(["sport = ?","hurdles"]).count %></td>
+  </tr>
+</table>
 
+<h2> Total Number Of Users:<%= User.count(:all) %></h2>

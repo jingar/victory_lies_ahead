@@ -18,6 +18,4 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 1.minutes do
-  runner "check_regestration_time"
-end
+

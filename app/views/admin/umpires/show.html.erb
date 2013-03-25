@@ -9,12 +9,26 @@
   <b>Last name:</b>
   <%= @umpire.last_name %>
 </p>
-
-<p>
-  <b>Email:</b>
-  <%= @umpire.email %>
-</p>
-
+<h3> <%= @umpire.first_name %>  <%= @umpire.last_name %> Schedule </h3>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  <thead>
+    <tr>
+      <th><%= sortable "when", Umpire, "Date of match" %></th>
+      <th><%= sortable "id", Umpire, "Home Team" %></th>
+      <th><%= sortable "id", Umpire, "Away Team" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% match = Match.where(["umpire = ?",@umpire.id]) %>
+    <% for m_info in match %>
+    <tr>
+      <td><%= m_info.when %></td>
+      <td><%= Team.find(m_info.homeTeam).team_name %></td>
+      <td><%= Team.find(m_info.awayTeam).team_name %></td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
 
 <%= link_to 'Edit', edit_admin_umpire_path(@umpire) %> |
 <%= link_to 'Back', admin_umpires_path %>

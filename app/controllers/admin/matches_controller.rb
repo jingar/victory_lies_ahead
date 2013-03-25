@@ -1,155 +1,165 @@
-class Admin::MatchesController < Admin::AdminBaseController
-
-require 'rrschedule'
-
-  # GET /matches
-  # GET /matches.json
-  def index
+class Admin::MatchesController < Admin::AdminBaseController 
+  def new
+    @tournament = Tournament.find(1)
     @matches = Match.all
     @teams = Team.all
+    @umpires = Umpire.all
+    if not @matches.length == 0
+      Match.delete_all
+      redirect_to admin_matches_url, notice: "Schedule deleted"
+    else
+      matchDates = populateDays(@tournament).shuffle
+      i = 1
+      matchArray = Array.new()
+      while i <= Team.maximum('id') do
+        j = i + 1
+        while j <= Team.maximum('id') do
+          if Team.exists?(i) and Team.exists?(j)
+            matchArray << [Team.find(i).id, Team.find(j).id]
+          end
+          j+= 1
+        end
+        i += 1
+      end
+      @matchArray = Array.new()
+      matchArray = matchArray.shuffle
+      matchArray.each do |match|
+        matchDates = matchDates.shuffle
+        dated = false
+        matchDates.each do |date|
+          if dated == false and validateAvaliable(match[0], match[1], @matchArray,date)
+            date[1] += 1
+            @matchArray<<(match << date[0]<< date[1])
+            dated = true
+          end
+        end
+      end
 
-  @schedule=RRSchedule::Schedule.new(
-  #array of teams that will compete against each other. If you group teams into multiple flights (divisions),
-  #a separate round-robin is generated in each of them but the "physical constraints" are shared
-  :teams => [@teams],
-
-  #Setup some scheduling rules
-  :rules => [
-    RRSchedule::Rule.new(:wday => 0, :gt => ["12:00PM", "7:45PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 1, :gt => ["12:00PM", "7:45PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 2, :gt => ["12:00PM", "7:45PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 3, :gt => ["12:00PM", "7:45PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 4, :gt => ["12:00PM", "7:45PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 5, :gt => ["15:00PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 6, :gt => ["1:00PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-  ],
-
-  #First games are played on...
-  :start_date => Date.parse("2013/3/13"),
-
-  #array of dates to exclude
-  :exclude_dates => [Date.parse("2013/3/14"),Date.parse("2013/3/15")],
-
-  #Number of times each team must play against each other (default is 1)
-  :cycles => 1,
-
-  #Shuffle team order before each cycle. Default is true
-  :shuffle => true
-  )
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @matches }
+      if not @matchArray.length == matchArray.length
+        redirect_to admin_matches_url, notice: "Not enough Timeslots/Pitches to schedule all games "  + 9785.chr(Encoding::UTF_8)
+      else
+        @matchUmpArray = Array.new()
+        matchArray.each do |match|
+          @umpires = @umpires.shuffle
+          umped = false
+          @umpires.each do |umpire|
+            if umped == false and validateUmpAvail(umpire, match, @matchUmpArray)
+              @matchUmpArray << (match << umpire.id)
+              umped = true
+            end
+          end
+        end
+        if @matchArray.length == @matchUmpArray.length
+          @matchArray = @matchUmpArray
+          matchArray.each do |match|
+            enterMatch = Match.create()
+            enterMatch.homeTeam = match[0]
+            enterMatch.awayTeam = match[1]
+            enterMatch.when = match[2]
+            enterMatch.pitch = match[3]
+            enterMatch.umpire = match[4]
+            enterMatch.save
+          end
+        redirect_to admin_matches_url, notice: "Successfully generated schedule!"
+        else
+          redirect_to admin_matches_url, notice: "Not enough Umpires to schedule all games "  + 9785.chr(Encoding::UTF_8)
+        end
+      end  
     end
   end
 
-  # GET /matches/1
-  # GET /matches/1.json
+  def populateDays(tour)
+    @tour = tour
+    @first = tour.start_date
+    if @first.hour >= 11 and @first.minute >= 1
+      @start = DateTime.new(@first.year,@first.month,@first.day,15,00,00,'')
+    else
+      @start = DateTime.new(@first.year,@first.month,@first.day,11,00,00,'')
+    end
+    i = 0
+    dateArray = Array.new()
+    lastDate = @start
+    dateArray << [@start, 0]
+
+    while lastDate < tour.end_date do
+      if lastDate.hour == 11 and (lastDate + 4.hour)< tour.end_date
+        lastDate = lastDate + 4.hour
+        dateArray << [lastDate, 0]
+      elsif lastDate.hour == 15 and (lastDate + 20.hour)< tour.end_date
+        lastDate = lastDate + 20.hour
+        dateArray << [lastDate, 0]
+      else (lastDate.hour == 15 and (lastDate + 20.hour)>= tour.end_date) or (lastDate.hour == 11 and (lastDate + 4.hour)>= tour.end_date)
+        lastDate = tour.end_date
+      end
+      i += 1
+    end
+    return dateArray
+  end
+
+#########################
+  def validateAvaliable(p1, p2, m, d)
+    free = true
+    playing1 = p1
+    playing2 = p2
+    matches = m
+    date = d
+    matches.each do |match|
+      if match[2]==date[0] and ((playing1 == match[0] or playing1 == match[1]) or (playing2 == match[0] or playing2 == match[1]))
+        free = false
+      end
+    end
+    return free
+  end
+#########################
+  def validateUmpAvail(u, ma, mu)
+    umpire = u
+    match = ma
+    matches = mu
+    free = true
+    matches.each do |current|
+      if current[2] == match[2] and current[4] == umpire.id
+        free = false
+      end
+    end
+    return free
+  end
+#########################
+
   def show
     @match = Match.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @match }
-    end
   end
-
-  # GET /matches/new
-  # GET /matches/new.json
-  def new
-    @match = Match.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @match }
-    end
+  
+  def index
+    @matches = Match.all
   end
-
-  # GET /matches/1/edit
-  def edit
-    @match = Match.find(params[:id])
-  end
-
-  # POST /matches
-  # POST /matches.json
+    
   def create
     @match = Match.new(params[:match])
-
-    respond_to do |format|
-      if @match.save
-        format.html { redirect_to [:admin,@match], notice: 'Match was successfully created.' }
-        format.json { render json: [:admin,@match], status: :created, location: [:admin,@match] }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /matches/1
-  # PUT /matches/1.json
-  def update
-    @match = Match.find(params[:id])
-
-    respond_to do |format|
-      if @match.update_attributes(params[:match])
-        format.html { redirect_to [:admin,@match], notice: 'Match was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @match.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /matches/1
-  # DELETE /matches/1.json
-  def destroy
-    @match = Match.find(params[:id])
-    @match.destroy
-
-    respond_to do |format|
-      format.html { redirect_to admin_matches_url }
-      format.json { head :no_content }
+    if @match.save
+      redirect_to admin_matches_url, notice: "Match is now created!"
+    else
+      render 'new'
     end
   end
   
-  def generate
-  @schedule=RRSchedule::Schedule.new(
-  #array of teams that will compete against each other. If you group teams into multiple flights (divisions),
-  #a separate round-robin is generated in each of them but the "physical constraints" are shared
-  :teams => [
-    %w(A1 A2 A3 A4 A5 A6 A7 A8),
-    %w(B1 B2 B3 B4 B5 B6 B7 B8)
-  ],
-
-  #Setup some scheduling rules
-  :rules => [
-    RRSchedule::Rule.new(:wday => 3, :gt => ["10:00AM","3:00PM"], :ps => ["1", "2", "3", "4", "5", "6", "7", "8"]),
-    RRSchedule::Rule.new(:wday => 5, :gt => ["10:00AM"], :ps => ["1"])
-  ],
-
-  #First games are played on...
-  :start_date => Date.parse("2013/10/13"),
-
-  #array of dates to exclude
-  :exclude_dates => [Date.parse("2013/10/14"),Date.parse("2013/10/15")],
-
-  #Number of times each team must play against each other (default is 1)
-  :cycles => 1,
-
-  #Shuffle team order before each cycle. Default is true
-  :shuffle => true
-  )
-  @schedule.generate
-  puts @schedule.to_s
-  @schedule.gamedays.each do |gd|
-  puts "Date: "
-  puts gd.date.strftime("%Y/%m/%d")
-  puts "\n"
-  gd.games.each do |g|
-    puts g.team_a.to_s + " Vs " + g.team_b.to_s + " Pitch: #{g.playing_surface} KickOff: #{g.game_time.strftime("%I:%M %p")}"     
+  def destroy
+    @match = Match.find(params[:id])
+    @match.destroy
+    redirect_to admin_matches_url, :notice => "Successfully deleted match!"
   end
-  puts "\n"
-end
-end
+
+ def edit
+   @match = Match.find(params[:id])
+ end
+ 
+ def update
+    @match = Match.find(params[:id])
+    if @match.update_attributes(params[:match])
+      flash[:success] = "Match result updated"
+      redirect_to  [:admin,@match]
+    else
+      render 'edit'
+    end
+  end
+
 end

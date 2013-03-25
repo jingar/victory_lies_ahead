@@ -1,0 +1,33 @@
+<% provide(:title, "Hurdle Heats") %>
+<head>
+  <h1>Hurdle Heats </h1>
+</head>
+<body>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  <thead>
+    <tr>
+      <th><%= sortable "round", Heat, "Round" %></th>
+      <th><%= sortable "gender", Heat, "Gender" %></th>
+      <th><%= sortable "time", Heat, "Date" %></th>
+      <th><%= sortable "id", Heat, "Result Inserted" %></th>
+      
+      <th colspan ="2"><%= sortable "id", Heat, "Options" %></th></th>
+</tr>
+</thead>
+<tbody>
+  <% @heats.each do |heat| %>
+  <tr>
+    <td><%= heat.round %></td>
+    <td><%= heat.gender.capitalize %></td>
+    <td><%= heat.time %></td>
+    <td><%= heat.played %></td>
+    <td><%= link_to "Show", [:admin,heat]%></td>
+    <td><%= link_to "Add Result", add_result_admin_heat_path(heat) %></td>
+  </tr>
+</tbody>
+<% end %>
+</table>
+</section>
+</body>
+<p><%= link_to "Back to Dashboard", admin_path %></p>
+

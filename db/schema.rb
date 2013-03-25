@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308184528) do
+ActiveRecord::Schema.define(:version => 20130324134249) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"
@@ -60,17 +60,26 @@ ActiveRecord::Schema.define(:version => 20130308184528) do
 
   create_table "matches", :force => true do |t|
     t.datetime "when"
-    t.string   "homeTeam"
-    t.string   "awayTeam"
+    t.integer  "homeTeam"
+    t.integer  "awayTeam"
     t.integer  "pitch"
     t.string   "umpire"
     t.integer  "homeGoals"
     t.integer  "awayGoals"
     t.integer  "team_id_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "umpire_id"
     t.integer  "team_id"
+    t.integer  "tournament_id"
+  end
+
+  create_table "scores", :force => true do |t|
+    t.integer  "amount"
+    t.integer  "matches_id"
+    t.integer  "wattball_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "staffs", :force => true do |t|
@@ -99,6 +108,8 @@ ActiveRecord::Schema.define(:version => 20130308184528) do
     t.integer  "goalsfor",          :default => 0
     t.integer  "goalsagainst",      :default => 0
     t.integer  "number_of_players"
+    t.integer  "points",            :default => 0
+    t.integer  "goalsdif",          :default => 0
   end
 
   add_index "teams", ["user_id"], :name => "index_teams_on_user_id"
@@ -109,11 +120,13 @@ ActiveRecord::Schema.define(:version => 20130308184528) do
     t.string   "email"
     t.string   "address"
     t.string   "order_id"
-    t.integer  "adult_tickets_bought"
-    t.integer  "concession_tickets_bought"
-    t.boolean  "used",                      :default => false
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.integer  "adult_tickets_bought",      :default => 0
+    t.integer  "concession_tickets_bought", :default => 0
+    t.string   "used",                      :default => "Not Expired"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.date     "ticket_date"
+    t.string   "ticket_type"
   end
 
   create_table "tournaments", :force => true do |t|
@@ -155,9 +168,10 @@ ActiveRecord::Schema.define(:version => 20130308184528) do
   create_table "wattballs", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.integer  "team_id"
+    t.integer  "goals",      :default => 0
   end
 
 end

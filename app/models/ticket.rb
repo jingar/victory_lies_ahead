@@ -16,16 +16,17 @@
 #  updated_at                :datetime         not null
 #
 class Ticket < ActiveRecord::Base  
+  attr_accessible :address, :email, :first_name, :last_name, :order_id, :adult_tickets_bought, :concession_tickets_bought, :used, :ticket_date,:ticket_type
 
-  attr_accessible :address, :email, :first_name, :last_name, :order_id, :adult_tickets_bought, :concession_tickets_bought, :used
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence:   true,
-                    format:     { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+                    format:     { with: VALID_EMAIL_REGEX }
 
   validates :order_id, presence:   true,
                     uniqueness: { case_sensitive: false }
+  validates :ticket_date, presence:   true
+  validates :ticket_type, presence:   true
 
   validate :check_tickets?
 

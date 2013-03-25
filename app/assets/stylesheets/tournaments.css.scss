@@ -6,6 +6,9 @@
 select {
 	min-height:2.8em;
 }
+select[id^='heat_heat_hurdles_attributes'] {
+	max-width:5em;
+}
 .span4 {
 	margin-top: 1em;
 	min-width: 100%;

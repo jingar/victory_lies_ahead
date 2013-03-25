@@ -16,4 +16,5 @@ class Umpire < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name
   
   belongs_to :matches
+  validates_uniqueness_of :first_name, :scope => :last_name
 end

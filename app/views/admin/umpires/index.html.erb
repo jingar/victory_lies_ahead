@@ -1,27 +1,32 @@
-<h1>Listing umpires</h1>
+<% provide(:title, "Umpires") %>
+<head>
+  <h2> Umpires </h2>
+</head>
+<body>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  		<thead>
+		  <tr>
+			  <th><%= sortable "first_name", Umpire, "First Name" %></th>
+			  <th><%= sortable "last_name", Umpire, "Last Name" %></th>
+			  <th><%= sortable "email", Umpire, "Email Address" %></th>
+			  <th colspan ="3"><%= sortable "id", Umpire, "Options" %></th></th>
+			</tr>
+      	</thead>
+		<tbody>
+			<% for umpire in @umpires %>
+			<tr>
+			  <td><%= umpire.first_name %></td>
+			  <td><%= umpire.last_name %></td>
+			  <td><%= umpire.email %></td>
+			  <td><%= link_to "Show", [:admin,umpire]%></td>
+			  <td><%= link_to "Edit", edit_admin_umpire_path(umpire) %></td>
+			  <td><%= link_to "Delete", [:admin,umpire], :confirm => 'Are you sure?', :method => :delete %></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<p><%= link_to "New umpire", new_admin_umpire_path %></p>
+<p><%= link_to "Back to Dashboard", admin_path %></p>
 
-<table>
-  <tr>
-    <th>First name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Last name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @umpires.each do |umpire| %>
-  <tr>
-    <td><%= umpire.first_name %></td>
-    <td><%= umpire.last_name %></td>
-    <td><%= umpire.email %></td>
-    <td><%= link_to 'Show', [:admin,umpire] %></td>
-    <td><%= link_to 'Edit', edit_admin_umpire_path(umpire) %></td>
-    <td><%= link_to 'Delete', [:admin,umpire], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Umpire', new_admin_umpire_path %>

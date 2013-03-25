@@ -3,14 +3,19 @@
   <h2> Tickets </h2>
 </head>
 <body>
-  	<b>Seach for reserved tickets by Order Id</b>
-	<%= form_tag admin_tickets_path, :method => 'get' do %>
-	<p>
-          <%= text_field_tag :search, params[:search] %><br/>
-          <%= submit_tag "Search", :order_id => nil %><br/>
-	</p>
-	<% end %>
-	<table class ="table table-striped">
+	<form class="navbar-search pull-left">
+	  <%= form_tag admin_tickets_path, :method => 'get' do %>
+	  <p>
+            <%= text_field_tag :search, params[:search],{placeholder: 'Seach for tickets by Order ID', class: 'search-query'} %>
+            <%= submit_tag "Search", :order_id => nil, class:'btn btn-small btn-primary' %><br/>
+	  </p>
+	  <% end %>
+	</form>
+	<div align = "right">
+	  <p><%= link_to "New ticket", new_admin_ticket_path %></p>
+	  <p><%= link_to "Back to Dashboard", admin_path %></p>
+	</div>
+	<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
   		<thead>
 			<tr>
 			  <th><%= sortable  "first_name", Ticket, "First Name" %></th>
@@ -18,10 +23,13 @@
 			  <th><%= sortable "email", Ticket, "Email Address" %></th>
 			  <th><%= sortable "address", Ticket, "Address" %></th>
 			  <th><%= sortable "order_id", Ticket, "Order ID" %></th>
-			  <th><%= sortable "adult_tickets_bought", Ticket, "Tickets Bought" %></th>
-			  <th><%= sortable "concession_tickets_bought", Ticket, "Tickets Bought" %></th>
+			  <th><%= sortable "ticket_type", Ticket, "Ticket Type" %></th>
+			  <th><%= sortable "ticket_date", Ticket, "Ticket Expiry Date " %></th>
+			  <th><%= sortable "adult_tickets_bought", Ticket, "Adult Tickets Bought" %></th>
+			  <th><%= sortable "concession_tickets_bought", Ticket, "Concession Tickets Bought" %></th>
 			  <th><%= sortable "total_ticket_cost", Ticket, "Total Ticket Cost" %></th>
-			  <th><%= sortable "used", Ticket, "Used" %></th>
+			  <th><%= sortable "used", Ticket, "Ticket Status" %></th>
+			  <th><%= sortable "id", Ticket, "Options" %></th>
 			</tr>
       	</thead>
 		<tbody>
@@ -33,11 +41,13 @@
 			  <td><%= ticket.email %></td>
 			  <td><%= ticket.address %></td>
 			  <td><%= ticket.order_id %></td>
+			  <td><%= ticket.ticket_type %></td>
+			  <td><%= ticket.ticket_date %></td>
 			  <td><%= ticket.adult_tickets_bought %></td>
 			  <td><%= ticket.concession_tickets_bought %></td>
-			  <td><%= calculate_total_cost(10,5,ticket.order_id) %></td>
+			  <td>£<%= calculate_total_cost(10,5,ticket.order_id) %></td>
 			  <td><%= ticket.used %></td>
-			  <% if !(ticket.used) %>
+			  <% if !(ticket.used == "Expired") %>
 			  <td><%= link_to 'Change', admin_activate_ticket_path(ticket), confirm: 'Are you Sure? Once activated this ticket cannot be deactivated' %></td>
 			  <% end %>
 			</tr>
@@ -45,8 +55,3 @@
       		<% end %>
     </table>
 </body>
-
-
-<p><%= link_to "New ticket", new_admin_ticket_path %></p>
-<p><%= link_to "Back to Dashboard", admin_path %></p>
-

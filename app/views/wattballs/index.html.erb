@@ -1,10 +1,29 @@
-<% provide(:title, 'All wattball team members') %>
-<h1> All wattball member</h1>
-
-<ul class = "wattballs">
-    <% @wattballs.each do |wattball| %>
-        <li> 
-	    <%= link_to wattball.first_name + " "+ wattball.last_name, wattball %>
-	</li>
-    <% end %>
-</ul>
+<% provide(:title, "Wattball Members") %>
+<head>
+  <h2> Wattball Players </h2>
+</head>
+<body>
+	<table class ="tablesorter">
+  		<thead>
+			<tr>
+			  <th><%= sortable "first_name", Wattball, "First Name" %></th>
+			  <th><%= sortable "last_name", Wattball, "Last Name" %></th>
+			   <th><%= sortable "team_name", Team, "Member of Team" %></th>
+			   <th><%= sortable "goals", Wattball, "Goals" %></th>
+			</tr>
+      	</thead>
+		<tbody>
+			 <% @wattballs.each do |wattball| %>
+			<tr>
+			  <td><%= wattball.first_name %></td>
+			  <td><%= wattball.last_name %></td>
+			  <td><%= Team.find(wattball.team_id).team_name %></td>
+			  <td><%= wattball.goals %></td>
+			  <td><%= link_to "Info", wattball%></td>
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<p><%= link_to "Back to Homepage", root_path %></p>

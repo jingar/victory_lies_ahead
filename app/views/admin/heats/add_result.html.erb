@@ -1,0 +1,19 @@
+<% provide(:title, "Add Heat Result") %>
+<h1> Add Heat Result </h1>
+
+<div class = "row">
+  <div class = "span6 offset3">
+    <%= form_for([:admin,@heat], url: {controller: "heats", action: "update_result"}) do |f| %>
+      <%= render 'shared/error_messages', entity: @heat %>
+
+      <%= f.fields_for :heat_hurdles do |h| %>
+        <p><%= h.object.hurdle.name %></p>
+        <%= h.label :finish_time, "Insert result time" %>
+        <%= h.time_select :finish_time, include_seconds: true, default: {hour: '00', minute: '00', second: '00'} %>
+      <% end %>
+
+      <br /><br />
+      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,13 +1,25 @@
 class UsersController < ApplicationController
-	before_filter :signed_in_user, only:[:edit,:update]
-	before_filter :correct_user, only: [:edit, :update, :show]
+  before_filter :signed_in_user, only:[:edit,:update,:show]
+  before_filter :correct_user, only: [:edit, :update, :show]
+  before_filter :set_cache_buster
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 
 	def show
 	    @user = User.find(params[:id])
   	end
   	
   	def new
-  		@user = User.new
+  		if DateTime.now >= Tournament.find(1).start_date
+      		flash[:failure] = "Tournament has started already started - registration is closed"
+      		redirect_to root_path
+    	else
+  			@user = User.new
+		end
 	end
 
 	def create
@@ -40,8 +52,11 @@ class UsersController < ApplicationController
 	end
 	
 	private
-		def correct_user
-			@user = User.find(params[:id])
-			redirect_to(root_path) unless current_user?(@user)
-		end
+        def correct_user
+          @user = User.find(params[:id])
+          if !current_user?(@user)
+            flash[:notice] = "Incorrect user."
+          redirect_to(root_path)
+          end
+        end
 end

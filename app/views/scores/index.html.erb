@@ -1,0 +1,44 @@
+<% provide(:title, "Top Wattball Scorers") %>
+<head>
+  <h2> Wattball Scorers </h2>
+</head>
+<body>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  		<thead>
+			<tr>
+			<th>No.</th>
+			  <th>First Name</th>
+			  <th>Last Name</th>
+			   <th>Member of Team</th>
+			   <th>Goals</th>
+			</tr>
+      	</thead>
+		<tbody>
+		  <% first_id =Wattball.order("goals DESC").first.id %>
+		  <% second_id =Wattball.order("goals DESC").second.id %>
+		  <% third_id =Wattball.order("goals DESC").third.id %>
+		<% @number = 0 %>
+			 <% @top.each do |wattball| %>
+			<tr>
+			  <td><%= @number += 1 %></td>
+			  <td><%= wattball.first_name %></td>
+			  <td><%= wattball.last_name %></td>
+			  <td><%= Team.find(wattball.team_id).team_name %></td>
+			  <td><%= wattball.goals %></td>
+			  <% if Date.today > Tournament.find(1).end_date.to_date %>
+			  <% if first_id == wattball.id %>
+			  <td><%= image_tag("gold.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			  <% elsif second_id == wattball.id %>
+			  <td><%= image_tag("silver.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			  <% elsif third_id == wattball.id %>
+			  <td><%= image_tag("all-medals.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			  <% end %>
+			  <% end %>
+			  
+			</tr>
+      	</tbody>
+      		<% end %>
+    </table>
+  </section>
+</body>
+<p><%= link_to "Back to Homepage", root_path %></p>

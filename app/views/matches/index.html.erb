@@ -1,0 +1,30 @@
+<h1>Listing matches</h1>
+
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+    <tr bgcolor="grey">
+        <th>Date</th>
+        <th>Time</th>
+        <th>Pitch</th>
+        <th>Umpire</th>
+        <th>Team1</th>
+        <th>Score</th>
+        <th>Team2</th>
+        <th></th>
+    </tr>
+    <% @matches.each do |match| %>
+        <tr>
+            <td><%= match.when.strftime('%e %b %Y') %></td>
+            <td><%= match.when.strftime('%H:%M:%S') %></td>
+            <td><%= match.pitch %></td>
+            <td><%= Umpire.find(match.umpire).first_name + " " + Umpire.find(match.umpire).last_name %></td>
+            <td><%= Team.find(match.homeTeam).team_name %></td>
+            <% if match.homeGoals == nil or match.awayGoals == nil %>
+                <td><%=  %></td>
+            <% else %>
+                <td><%= match.homeGoals.to_s + " - " + match.awayGoals.to_s %></td>
+            <% end %>
+            <td><%= Team.find(match.awayTeam).team_name %></td>
+            <td><%= link_to 'Show', match %></td>
+        </tr>
+    <% end %>
+</table>

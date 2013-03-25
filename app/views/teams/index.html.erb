@@ -1,29 +1,41 @@
 <% provide(:title, 'All wattball teams') %>
 <h1> All Wattball Teams</h1>
 
-<table border="3" cellpadding="3">
-	<tr bgcolor="yellow">
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+	<tr>
 		<th>Name</th>
-		<th>Points</th>
-		<th>Played</th>
-		<th>Wins</th>
-		<th>Draws</th>
-		<th>Losses</th>
-		<th>Goals For</th>
-		<th>Goals Against</th>
-		<th>Goal Difference</th>
+		<th><%= sortable_matches "points" , Team , "Points" %></th>
+		<th><%= sortable_matches "played", Team, "Played" %></th>
+		<th><%= sortable_matches "wins", Team, "Wins" %></th>
+		<th><%= sortable_matches "draws", Team, "Draws" %></th>
+		<th><%= sortable_matches "losses", Team, "Losses" %></th>
+		<th><%= sortable_matches "goalsfor", Team, "Goals For" %></th>
+		<th><%= sortable_matches "goalsagainst", Team, "Goals Against" %></th>
+		<th><%= sortable_matches "goalsdif", Team, "Goal Difference" %></th>
 	</tr>
+	<% first_id =Team.order("points DESC").first.id %>
+	<% second_id = Team.order("points DESC").second.id %>
+	<% third_id = Team.order("points DESC").third.id %>
 	<% @teams.each do |team| %>
 		<tr>
 			<td><%= link_to team.team_name, team %></td>
-			<td><%= (team.wins * 3)+(team.draws * 1)+(team.losses * 0) %></td>
-			<td><%= team.wins + team.losses + team.draws%></td>
+			<td><%= team.points %></td>
+			<td><%= team.wins + team.draws + team.losses %></td>
 			<td><%= team.wins %></td>
-			<td><%= team.draws%></td>
-			<td><%= team.losses%></td>
+			<td><%= team.draws %></td>
+			<td><%= team.losses %></td>
 			<td><%= team.goalsfor %></td>
 			<td><%= team.goalsagainst %></td>
-			<td><%= team.goalsfor - team.goalsagainst %></td>
+			<td><%= team.goalsdif %></td>
+			<% if Date.today > Tournament.find(1).end_date.to_date %>
+			<% if first_id == team.id %>
+			<td><%= image_tag("gold.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			<% elsif second_id == team.id %>
+			<td><%= image_tag("silver.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			<% elsif third_id == team.id %>
+			<td><%= image_tag("all-medals.jpg", :alt => "rss feed",:size => "15x25") %></td>
+			<% end %>
+			<% end %>
 		</tr>
 	<% end %>
 </table>
