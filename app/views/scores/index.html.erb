@@ -25,14 +25,12 @@
 			  <td><%= wattball.last_name %></td>
 			  <td><%= Team.find(wattball.team_id).team_name %></td>
 			  <td><%= wattball.goals %></td>
-			  <% if Date.today > Tournament.find(1).end_date.to_date %>
 			  <% if first_id == wattball.id %>
 			  <td><%= image_tag("gold.jpg", :alt => "rss feed",:size => "15x25") %></td>
 			  <% elsif second_id == wattball.id %>
 			  <td><%= image_tag("silver.jpg", :alt => "rss feed",:size => "15x25") %></td>
 			  <% elsif third_id == wattball.id %>
 			  <td><%= image_tag("all-medals.jpg", :alt => "rss feed",:size => "15x25") %></td>
-			  <% end %>
 			  <% end %>
 			  
 			</tr>
