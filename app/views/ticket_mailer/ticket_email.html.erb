@@ -22,6 +22,12 @@
 	<% end %>
 	</tr>
       </tbody>
+      Venue Address -  Heriot-Watt University <br>
+      Edinburgh EH14 4AS <br>
+      0131 451 8400 <br>
+
+      <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A" style="color:#0000FF;text-align:left">View Venue on Google Maps</a></small>
+      
     </table>
 	<% else %>
     <p>
@@ -34,14 +40,12 @@
       <% end %>
       The unique order id for the reserved ticket(s) is : <%= @ticket.ticket_date.strftime("%d-%m-%Y") %>-<%= @ticket.order_id %> <br>
       Total cost of the tickets is : £<%= calculate_total_cost(5,3,@ticket.order_id) %> <br>
-      <% end %>
-
       Venue Address -  Heriot-Watt University <br>
       Edinburgh EH14 4AS <br>
       0131 451 8400 <br>
 
       <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A&amp;output=embed"></iframe><br /><small><a href="https://maps.google.co.uk/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Heriot+Watt+University+sports+center&amp;aq=t&amp;sll=55.941208,-3.205339&amp;sspn=0.099984,0.275345&amp;t=m&amp;ie=UTF8&amp;hq=Heriot+Watt+University+sports+center&amp;hnear=&amp;cid=8757079498320237953&amp;ll=55.912465,-3.316669&amp;spn=0.02309,0.054932&amp;iwloc=A" style="color:#0000FF;text-align:left">View Venue on Google Maps</a></small>
-      
+      <% end %>
     </p>
   </body>
 </html>
