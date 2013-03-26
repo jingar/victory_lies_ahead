@@ -8,7 +8,7 @@ class HurdlesController < ApplicationController
     end
 
     def index
-	@hurdles = Hurdle.all
+	@hurdles = Hurdle.order("round DESC, gender, qualification ASC")
     end
     
     def create
