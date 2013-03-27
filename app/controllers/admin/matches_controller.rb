@@ -131,7 +131,11 @@ class Admin::MatchesController < Admin::AdminBaseController
   end
   
   def index
-    @matches = Match.order("`when` ASC")
+    if Match.count > 0
+      @matches = Match.order("`when` ASC")
+    else
+      @matches = Match.all
+    end
   end
     
   def create
