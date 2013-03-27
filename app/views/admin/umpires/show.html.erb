@@ -22,7 +22,7 @@
     <% match = Match.where(["umpire = ?",@umpire.id]) %>
     <% for m_info in match %>
     <tr>
-      <td><%= m_info.when %></td>
+      <td><%= m_info.when.strftime('%e %b %Y - %H:%M:%S')%></td>
       <td><%= Team.find(m_info.homeTeam).team_name %></td>
       <td><%= Team.find(m_info.awayTeam).team_name %></td>
     </tr>
