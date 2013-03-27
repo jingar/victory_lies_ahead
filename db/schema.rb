@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324134249) do
+ActiveRecord::Schema.define(:version => 20130327182014) do
 
   create_table "heat_hurdles", :force => true do |t|
     t.integer  "heat_id"

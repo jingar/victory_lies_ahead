@@ -47,7 +47,7 @@ class Admin::TournamentsController < Admin::AdminBaseController
       redirect_to @tournament
       return
     rescue NoHurdles
-      flash[:falure] = "No hurdles are yet registred for this round."
+      flash[:falure] = "Not enough hurdlers have registered to populate heats!"
       redirect_to [:admin,@tournament]
       return
     rescue NoHeats

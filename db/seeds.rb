@@ -6,8 +6,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-staff = Staff.create({ first_name: "head", last_name: "organiser", position: "Admin", user_name: "head_organiser", password: "organise", password_confirmation: "organise" })
-
 # representative data for demonstrations
 reps = User.create!([
   { first_name: "Konstantin", last_name: "Devyatov", email: "kdnalus@gmail.com", address: "2F2 65 York place, Edinburgh, EH1 3JD", telephone: "07500626389", password: "123456", password_confirmation: "123456", sport: "wattball"},
@@ -138,8 +136,6 @@ teamNik = User.find(6).teams.create!(team_name: "Run or fight").wattballs.create
   {first_name: "Bobbie", last_name: "Fletcher"},
   {first_name: "John", last_name: "Hollinger"}
 ])
-
-tournament = Tournament.create!(name: "Riccarton Sports Tournament", start_date: "01/04/2013 08:15:00", end_date: "08/04/2013 22:30:00")
 
 #11 Umpires
 umpire = Umpire.create!([

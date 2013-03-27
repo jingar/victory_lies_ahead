@@ -27,7 +27,7 @@ class Admin::UmpiresController < Admin::AdminBaseController
   def create	
   @umpire = Umpire.new(params[:umpire])
     if @umpire.save
-      redirect_to admin_umpire_url, notice: "Umpire is now registred!"
+      redirect_to [:admin,@umpire], notice: "Umpire is now registred!"
     else
       render 'new'
     end
