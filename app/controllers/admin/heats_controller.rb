@@ -116,10 +116,12 @@ s    @heat.time = build_date_from_params(:time, params[:heat])
 
         if @tournament.save
           flash[:success] = "Tournament round is populated!"
-          return redirect_to [:admin,@tournament]
+          redirect_to [:admin,@tournament]
+          return 
         else
           flash[:failure] = "Tournament population went wrong"
-          return redirect_to [:admin,@tournament]
+          redirect_to [:admin,@tournament]
+          return
         end
       end
       # THIS LINE IS CAUSING THE ERROR-AFTER YOUR ENTER THE LAST RESULT FOR THE ROUND

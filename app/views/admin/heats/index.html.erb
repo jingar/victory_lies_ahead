@@ -16,6 +16,7 @@
 </thead>
 <tbody>
   <% @heats.each do |heat| %>
+  <% if not heat.played %>
   <tr>
     <td><%= heat.round %></td>
     <td><%= heat.gender.capitalize %></td>
@@ -24,8 +25,9 @@
     <td><%= link_to "Show", [:admin,heat]%></td>
     <td><%= link_to "Add Result", add_result_admin_heat_path(heat) %></td>
   </tr>
-</tbody>
+   <% end %>
 <% end %>
+</tbody>
 </table>
 </section>
 </body>

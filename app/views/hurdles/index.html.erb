@@ -10,7 +10,7 @@
 	</tr>
 	<% @hurdles.each do |hurdle| %>
 		<tr>
-			<td><%= link_to hurdle.first_name + " "+ hurdle.last_name, hurdle %></td>
+			<td><%= link_to hurdle.name, hurdle %></td>
 			<td><%= hurdle.gender %></td>
 			<td><%= hurdle.qualification.strftime('%H:%M:%S') %></td>
 			<td><%= hurdle.round %></td>
