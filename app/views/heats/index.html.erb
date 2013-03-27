@@ -2,7 +2,8 @@
 <h1>Hurdle heats</h1>
 
 <ul class = "heats">
-        <div id="container" style="align:center;">
+	<div id="container" style="align:center;">
+	    <% if not @heats.count == 0 %>
                 <% (0..(@heats.maximum("round"))).each do |i| %>
                   <div>
                     <table id="round" cellpadding=3 border="3">
@@ -19,7 +20,8 @@
                     </tr>
                     </table><br />
                   </div>
-                <% end %>
+	  	<% end %>
+	    <% end %>
         </div>
 </ul>
 

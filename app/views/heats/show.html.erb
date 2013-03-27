@@ -1,26 +1,31 @@
-<% provide(:title, @heat.time.strftime('%e %b %Y %k:%M:%S')) %>
-<div class = "row">
-  <aside class = "span4">
-    <section>
-      <h1>
+<% provide(:title, 'Hurdle Heats') %>
+<head>
+  <h1>Hurdle Heats </h1>
+</head>
+<body>
+  <h2>
         When: <%= @heat.time.strftime('%e %b %Y %k:%M:%S') %> <br />
         Round: <%= @heat.round %> <br />
-        Hurdle Racers:
-        <ul>
-          <% @heat.hurdles.each do |hurdle| 
-             heat_hurdle = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle)
-logger.debug "view h_h:"+heat_hurdle.id.to_s
-                finish_time = heat_hurdle.finish_time
-                lane = heat_hurdle.lane
-logger.debug "view LANE :"+lane.to_s
-            %>
-            <li><%= hurdle.name %>, lane: <%= lane %>
-                <%= if finish_time!=nil
-                    ", finishing time: " + finish_time.strftime('%H:%M:%S')
-                   end %></li>
-          <% end %>
-        </ul>
-      </h1>
-    </section>
-  </aside>
-</div>
+</h2>
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+  <thead>
+    <tr>
+      <th><%= sortable "id", Heat, "Lane" %></th>
+      <th><%= sortable "id", Heat, "Name" %></th>
+      <th><%= sortable "time", Heat, "Finishing Time" %></th>
+</tr>
+</thead>
+<tbody>
+  <% @heat.hurdles.each do |hurdle| %>
+  <tr>
+    <% heat_hurdle = HeatHurdle.find_by_heat_id_and_hurdle_id(@heat,hurdle) %>
+    <td><%= heat_hurdle.lane %></td>
+    <td><%= hurdle.name %></td>
+    <td><%= heat_hurdle.finish_time.strftime('%H:%M:%S') if !heat_hurdle.finish_time.nil? %></td>
+  </tr>
+</tbody>
+<% end %>
+</table>
+</section>
+</body>
+<p><%= link_to "Back To Heats", heats_path %></p>

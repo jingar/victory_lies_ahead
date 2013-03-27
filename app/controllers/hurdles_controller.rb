@@ -9,7 +9,6 @@ class HurdlesController < ApplicationController
 
     def index	
 	@hurdles = Hurdle.order("round DESC, gender, qualification ASC")
-	@heats = Heats.all
     end
     
     def create
