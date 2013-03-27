@@ -1,11 +1,11 @@
 <% provide(:title, 'All hurdle athletes') %>
 <h1> All hurdle athletes</h1>
 
-<table border="3" cellpadding="3">
-	<tr bgcolor="yellow">
+<table class ="table table-striped" border = "3" cellpadding = "3" align = "center">
+	<tr>
 		<th>Name</th>
 		<th>Gender</th>
-		<th>Qualification Time</th>
+		<th>Current Round Time</th>
 		<th>Round</th>
 	</tr>
 	<% @hurdles.each do |hurdle| %>
