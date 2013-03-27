@@ -2,9 +2,38 @@
 <h1>Hurdle heats</h1>
 
 <ul class = "heats">
+        <div id="container" style="align:center;">
+                <% (0..(@heats.maximum("round"))).each do |i| %>
+                  <div>
+                    <table id="round" cellpadding=3 border="3">
+                    <tr><th colspan=<%= @heats.where("round=?",i).count %>>
+                      <% if i == @heats.maximum("round")%>Final
+                      <% else %>Round <%= i %>
+                      <% end %>
+                    </th></tr>
+
+                    <tr>
+                      <% @heats.where("round=?",i).each do |heat| %>
+                        <td><%= link_to heat.time.strftime('%e %b %Y %k:%M:%S'), heat%></td>
+                      <% end %>
+                    </tr>
+                    </table><br />
+                  </div>
+                <% end %>
+        </div>
+</ul>
+
+
+
+
+
+
+<% if false %>
+<ul class = "heats">
   <% @heats.each do |heat| %>
     <li>
       <%= link_to heat.time.strftime('%e %b %Y %H:%M:%S')+" "+heat.gender+"; round: "+heat.round.to_s+"; n_hurdles: "+heat.hurdles.count.to_s, heat %>
     </li>
   <% end %>
 </ul>
+<% end %>
